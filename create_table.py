@@ -32,7 +32,19 @@ if __name__ == '__main__':
         usado DATE);
     ''').format(table)
 
+    try:
+        cursor.execute(aux)
+    except:
+        pass
+
+    aux = ('''INSERT INTO {} (chatid, remetente, destinatario, criacao, usado)
+        VALUES ('9083328', 'remetente@gabrf.com', 'destinatario@gabrf.com',
+        '{}', '{}')''').format(table,
+        str(datetime.datetime.now()), str(datetime.datetime.now()))
+
     cursor.execute(aux)
+
+    conn.commit()
 
     conn.close()
 
