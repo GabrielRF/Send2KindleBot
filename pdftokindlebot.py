@@ -5,13 +5,19 @@ import logging.handlers
 import sqlite3
 import sys
 
-def add_user(db, table, chatid):
+def check_user(db, table, chatid):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
 
-    a = cursor.execute('SELECT * FROM ' + table 
-        + ' WHERE chatid="' + str(chatid) + '"')
-    print(str(a.text))
+    cursor.execute('SELECT * FROM ' + table + 
+       ' WHERE chatid="' + str(chatid) + '"')
+    usuarios = cursor.fetchall()
+    if usuarios:
+        print('Existe')
+    else:
+        print('Nao existe')
+    #for usuarios in cursor.fetchall():
+    #    print(str(usuarios))
 
 if __name__ == '__main__':
     config = configparser.ConfigParser()
@@ -25,8 +31,9 @@ if __name__ == '__main__':
     LOG_INFO_FILE = log_file
     logger_info = logging.getLogger('InfoLogger')
     logger_info.setLevel(logging.DEBUG)
-    handler_info = logging.handlers.RotatingFileHandler(LOG_INFO_FILE,maxBytes=10240,backupCount=5,encoding='utf-8')
+    handler_info = logging.handlers.RotatingFileHandler(LOG_INFO_FILE, 
+        maxBytes=10240, backupCount=5, encoding='utf-8')
     logger_info.addHandler(handler_info)
 
-    add_user(db, table, sys.argv[1])
+    check_user(db, table, sys.argv[1])
 
