@@ -1,17 +1,39 @@
+import configparser
+import datetime
+import logging
+import logging.handlers
 import sqlite3
 
-conn = sqlite3.connect('kindle.db')
+if __name__ == '__main__':
+    config = configparser.ConfigParser()
+    config.sections()
+    BOT_CONFIG_FILE = 'kindle.conf'
+    config.read(BOT_CONFIG_FILE)
+    log_file = config['DEFAULT']['logfile']
+    db = config['SQLITE3']['data_base']
+    table = config['SQLITE3']['table']
 
-cursor = conn.cursor()
+    LOG_INFO_FILE = log_file
+    logger_info = logging.getLogger('InfoLogger')
+    logger_info.setLevel(logging.DEBUG)
+    handler_info = logging.handlers.RotatingFileHandler(LOG_INFO_FILE,maxBytes=10240,backupCount=5,encoding='utf-8')
+    logger_info.addHandler(handler_info)
 
-cursor.execute('''
-CREATE TABLE usuarios (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    chatid TEXT NOT NULL,
-    remetente TEXT,
-    destinatario TEXT,
-    criacao DATE NOT NULL,
-    usado DATE);
-''')
+    conn = sqlite3.connect(db)
 
-conn.close()
+    cursor = conn.cursor()
+
+    aux = ('''CREATE TABLE {} (
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        chatid TEXT NOT NULL,
+        remetente TEXT,
+        destinatario TEXT,
+        criacao DATE NOT NULL,
+        usado DATE);
+    ''').format(table)
+
+    cursor.execute(aux)
+
+    conn.close()
+
+    logger_info.info(str(datetime.datetime.now()) + ' Tabela usuarios criada')
