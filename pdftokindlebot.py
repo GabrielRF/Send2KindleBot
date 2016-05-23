@@ -5,6 +5,12 @@ import logging.handlers
 import sqlite3
 import sys
 
+def add_user(db, table, chatid, destinatario):
+        aux = ('''INSERT INTO {} (chatid, remetente, destinatario, criacao, usado)
+        VALUES ('9083328', 'remetente@gabrf.com', '{}',
+        '{}', '{}')''').format(table, destinatario,
+        str(datetime.datetime.now()), str(datetime.datetime.now()))
+
 def check_user(db, table, chatid):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
@@ -18,6 +24,7 @@ def check_user(db, table, chatid):
         print('Nao existe')
     #for usuarios in cursor.fetchall():
     #    print(str(usuarios))
+    conn.close()
 
 if __name__ == '__main__':
     config = configparser.ConfigParser()
