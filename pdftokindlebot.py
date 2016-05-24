@@ -6,10 +6,18 @@ import sqlite3
 import sys
 
 def add_user(db, table, chatid, destinatario):
-        aux = ('''INSERT INTO {} (chatid, remetente, destinatario, criacao, usado)
+    aux = ('''INSERT INTO {} (chatid, remetente, destinatario, criacao, usado)
         VALUES ('9083328', 'remetente@gabrf.com', '{}',
         '{}', '{}')''').format(table, destinatario,
         str(datetime.datetime.now()), str(datetime.datetime.now()))
+
+def upd_user_last(db, table, chatid):
+    
+
+def get_user_email(db, table, chatid, destinatario):
+    aux = ('''UPDATE {} SET destinatario = {} 
+        WHERE chatid = {}''').format(table, destinatario, chatid)
+    
 
 def check_user(db, table, chatid):
     conn = sqlite3.connect(db)
@@ -21,6 +29,7 @@ def check_user(db, table, chatid):
     if usuarios:
         print('Existe')
     else:
+        add_user(db, table, chatid, None)
         print('Nao existe')
     #for usuarios in cursor.fetchall():
     #    print(str(usuarios))
