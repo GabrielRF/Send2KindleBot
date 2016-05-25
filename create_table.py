@@ -37,6 +37,7 @@ if __name__ == '__main__':
 
     try:
         cursor.execute(aux)
+        logger_info.info(str(datetime.datetime.now()) + ' Tabela usuarios criada')
     except:
         cursor.execute(aux2)
         usuarios = cursor.fetchall()
@@ -55,4 +56,3 @@ if __name__ == '__main__':
 
     conn.close()
 
-    logger_info.info(str(datetime.datetime.now()) + ' Tabela usuarios criada')
