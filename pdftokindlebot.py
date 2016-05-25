@@ -50,13 +50,14 @@ def select_user(db, table, chatid, field):
     # print(aux)
     cursor.execute(aux)
     usuarios = cursor.fetchone()
+    # print(usuarios)
     if usuarios:
         # print('Existe')
         data = usuarios
     else:
-        add_user(db, table, chatid, 'None')
+        add_user(db, table, chatid, ' ')
         # print('Nao existe')
-        data = 'None'
+        data = ''
     #for usuarios in cursor.fetchall():
     #    print(str(usuarios))
     conn.close()
@@ -75,7 +76,7 @@ if __name__ == '__main__':
 
     bot = telebot.TeleBot(TOKEN)
     button = types.InlineKeyboardMarkup()
-    btn1 = types.InlineKeyboardButton('Send', callback_data='/send')
+    btn1 = types.InlineKeyboardButton('Send file', callback_data='/send')
     btn2 = types.InlineKeyboardButton('Set e-mail', callback_data='/email')
     button.row(btn1, btn2)
     LOG_INFO_FILE = log_file
@@ -90,16 +91,23 @@ if __name__ == '__main__':
     def start(message): 
         data = select_user(db, table, message.from_user.id, '*')
         # bot.send_message(message.from_user.id, str(data))
-        print(data[3])
-        if data[3] == 'None':
+        # print(data)
+        # print('Data[3] ' + str(data[3]))
+        # print(data[4])
+        try:
+            aux = data[3]
+        except:
+            aux = ' '
+        if len(aux) < 3:
             msg = bot.send_message(message.from_user.id, 'Hi!\n' +
-                'This sends files to your Kindle.\n' +
+                'This bot sends files to your Kindle.\n' +
                 'First, type your Kindle e-mail.', parse_mode = 'HTML')
-            bot.register_next_step_handler(msg, ask_email)
+            bot.register_next_step_handler(msg, add_email)
         else:
             bot.send_message(message.from_user.id, 
             ('Welcome back! Your registered e-mail is {}.\n' +
-            'To send a file to your Kindle, click <i>Send</i>.').format(data[3]),
+            'To send a file to your Kindle, click <b>Send file</b>.\n' +
+            'To change your e-mail, click <b>Set e-mail</b>.').format(data[3]),
             parse_mode = 'HTML', reply_markup=button)
             
             
@@ -109,9 +117,18 @@ if __name__ == '__main__':
         bot.register_next_step_handler(msg, add_email)
 
     def add_email(message):
-        upd_user_email(db, table, message.from_user.id, '"' + str(message.text) + '"') 
-        select_user(db, table, message.from_user.id, 'destinatario')
-        bot.reply_to(message, 'Email registered.')
+        if '@kindle.com' in message.text:
+            upd_user_email(db, table, message.from_user.id, '"' + str(message.text) + '"') 
+            select_user(db, table, message.from_user.id, 'destinatario')
+            bot.reply_to(message, 'Email registered.\n' +
+                'To send a file to your Kindle, click <b>Send file</b>.\n' +
+                'To change your e-mail, click <b>Set e-mail</b>.',
+            parse_mode = 'HTML', reply_markup=button)
+        else:
+            msg = bot.send_message(message.from_user.id, '<b>Error</b>. \n' + 
+            message.text + ' is not valid.\n' +
+            'Type your Kindle e-mail.', parse_mode = 'HTML')
+            bot.register_next_step_handler(msg, add_email) 
 
     @bot.message_handler(commands=['send'])
     def ask_file(message):
