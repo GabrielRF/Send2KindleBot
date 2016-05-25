@@ -9,8 +9,8 @@ def add_user(db, table, chatid, destinatario):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
     aux = ('''INSERT INTO {} (chatid, remetente, destinatario, criacao, usado)
-        VALUES ('9083328', 'remetente@gabrf.com', '{}',
-        '{}', '{}')''').format(table, destinatario,
+        VALUES ('{}', 'remetente@gabrf.com', '{}',
+        '{}', '{}')''').format(table, chatid, destinatario,
         str(datetime.datetime.now()), str(datetime.datetime.now()))
     cursor.execute(aux)
     conn.commit()
@@ -42,8 +42,10 @@ def check_user(db, table, chatid):
     cursor = conn.cursor()
     print(db)
     print(table)
-    cursor.execute('SELECT * FROM ' + table +
-       ' WHERE chatid="' + str(chatid) + '"')
+    aux = ('''SELECT * FROM "{}" WHERE
+        chatid="{}"''').format(table, str(chatid))
+    print(aux)
+    cursor.execute(aux)
     usuarios = cursor.fetchall()
     print(usuarios)
     if usuarios:
