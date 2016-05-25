@@ -3,6 +3,7 @@ import datetime
 import logging
 import logging.handlers
 import telebot
+from telebot import types
 import sqlite3
 import sys
 
@@ -73,6 +74,10 @@ if __name__ == '__main__':
     table = config['SQLITE3']['table']
 
     bot = telebot.TeleBot(TOKEN)
+    button = types.InlineKeyboardMarkup()
+    btn1 = types.InlineKeyboardButton('Send', callback_data='/send')
+    btn2 = types.InlineKeyboardButton('Set e-mail', callback_data='/email')
+    button.row(btn1, btn2)
     LOG_INFO_FILE = log_file
     logger_info = logging.getLogger('InfoLogger')
     logger_info.setLevel(logging.DEBUG)
@@ -84,13 +89,20 @@ if __name__ == '__main__':
     @bot.message_handler(commands=['start'])
     def start(message): 
         data = select_user(db, table, message.from_user.id, '*')
-        bot.send_message(message.from_user.id, str(data))
+        # bot.send_message(message.from_user.id, str(data))
         print(data[3])
         if data[3] == 'None':
-            msg = bot.send_message(message.from_user.id, 'Type your Kindle e-mail.')
+            msg = bot.send_message(message.from_user.id, 'Hi!\n' +
+                'This sends files to your Kindle.\n' +
+                'First, type your Kindle e-mail.', parse_mode = 'HTML')
             bot.register_next_step_handler(msg, ask_email)
+        else:
+            bot.send_message(message.from_user.id, 
+            ('Welcome back! Your registered e-mail is {}.\n' +
+            'To send a file to your Kindle, click <i>Send</i>.').format(data[3]),
+            parse_mode = 'HTML', reply_markup=button)
             
-
+            
     @bot.message_handler(commands=['email'])
     def ask_email(message): 
         msg = bot.send_message(message.from_user.id, 'Type your Kindle e-mail.')
@@ -100,5 +112,24 @@ if __name__ == '__main__':
         upd_user_email(db, table, message.from_user.id, '"' + str(message.text) + '"') 
         select_user(db, table, message.from_user.id, 'destinatario')
         bot.reply_to(message, 'Email registered.')
+
+    @bot.message_handler(commands=['send'])
+    def ask_file(message):
+        msg = bot.send_message(message.from_user.id, 'Send me the file or the link to the file.')
+        bot.register_next_step_handler(msg, get_file)
+
+    def get_file(message):
+        bot.reply_to(message, 'Downloading...')
+
+    @bot.callback_query_handler(lambda q: q.data == '/email')
+    def email(call):
+        msg = bot.send_message(call.from_user.id, 'Type your Kindle e-mail')
+        bot.register_next_step_handler(msg, add_email)
+
+    @bot.callback_query_handler(lambda q: q.data == '/send')
+    def email(call):
+        msg = bot.send_message(call.from_user.id, 'Send me the file or the link to the file.')
+        bot.register_next_step_handler(msg, get_file)
+
 
     bot.polling()
