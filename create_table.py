@@ -32,17 +32,24 @@ if __name__ == '__main__':
         usado DATE);
     ''').format(table)
 
+    aux2 = ('''SELECT * FROM "{}"''').format(table)
+    # print(aux)
+
     try:
         cursor.execute(aux)
     except:
+        cursor.execute(aux2)
+        usuarios = cursor.fetchall()
+        for user in usuarios:
+            print(user)
         pass
 
-    aux = ('''INSERT INTO {} (chatid, remetente, destinatario, criacao, usado)
-        VALUES ('9083328', 'remetente@gabrf.com', 'destinatario@gabrf.com',
-        '{}', '{}')''').format(table,
-        str(datetime.datetime.now()), str(datetime.datetime.now()))
+#    aux = ('''INSERT INTO {} (chatid, remetente, destinatario, criacao, usado)
+#        VALUES ('9083328', 'remetente@gabrf.com', 'destinatario@gabrf.com',
+#        '{}', '{}')''').format(table,
+#        str(datetime.datetime.now()), str(datetime.datetime.now()))
 
-    cursor.execute(aux)
+#    cursor.execute(aux)
 
     conn.commit()
 
