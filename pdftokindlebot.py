@@ -17,27 +17,10 @@ from telebot import types
 import urllib.request
 
 
-def send_mail( send_from, send_to, subject, text, file, server="localhost",
+def send_mail( send_from, send_to, subject, text, file_url, server="localhost",
     port=587, username='', password='', isTls=True):
-    msg = MIMEMultipart()
-    msg['From'] = send_from
-    msg['To'] = COMMASPACE.join(send_to)
-    msg['Date'] = formatdate(localtime = True)
-    msg['Subject'] = subject
 
-    msg.attach( MIMEText(text) )
-
-    part = MIMEBase('application', "octet-stream")
-    part.set_payload(open(file,"rb").read() )
-    encoders.encode_base64(part)
-    part.add_header('Content-Disposition', 'attachment; filename="{0}"'.format(os.path.basename(f)))
-    msg.attach(part)
-
-    smtp = smtplib.SMTP(server, port)
-    if isTls: smtp.starttls()
-    # smtp.login(username,password)
-    smtp.sendmail(send_from, send_to, msg.as_string())
-    smtp.quit()
+    return 0
 
 
 def add_user(db, table, chatid, destinatario):
@@ -171,19 +154,17 @@ if __name__ == '__main__':
             'Send me the file or the link to the file.')
         bot.register_next_step_handler(msg, get_file)
 
-#send_mail( send_from, send_to, subject, text, file, server="localhost", port=587, username='', password='', isTls=True):
     def get_file(message):
-        if '/start' not in message.text:
-            try:
-                file_size = message.document.file_size
-                bot.reply_to(message, 'Downloaded ' + str(file_size) + ' bytes.')
-                file_info = bot.get_file(message.document.file_id)
-                print('https://api.telegram.org/file/bot' + TOKEN + '/' 
-                    + file_info.file_path)
-            # print(file_info.file_path)
-            except:
-                print('Text')
-        # send_mail('grfgabriel@gmail.com', 'gabrielrf_kindle@kindle.com', '', '', message.document)
+        try:
+            file_size = message.document.file_size
+            bot.reply_to(message, 'Downloaded ' + str(file_size) + ' bytes.')
+            file_info = bot.get_file(message.document.file_id)
+            file_url = ('https://api.telegram.org/file/bot' + TOKEN + '/' 
+                + file_info.file_path)
+                # print(file_url)
+        except:
+            file_url = message.text
+        send_mail('grfgabriel@gmail.com', 'gabrielrf_kindle@kindle.com', '', '', file_url)
 
     @bot.callback_query_handler(lambda q: q.data == '/email')
     def email(call):
