@@ -8,12 +8,13 @@ from email import encoders
 import logging
 import logging.handlers
 import os
-import requests
+#import requests
 import smtplib
 import sqlite3
 import sys
 import telebot
 from telebot import types
+import urllib.request
 
 
 def send_mail( send_from, send_to, subject, text, file, server="localhost",
@@ -27,7 +28,7 @@ def send_mail( send_from, send_to, subject, text, file, server="localhost",
     msg.attach( MIMEText(text) )
 
     part = MIMEBase('application', "octet-stream")
-    part.set_payload( open(file,"rb").read() )
+    part.set_payload(open(file,"rb").read() )
     encoders.encode_base64(part)
     part.add_header('Content-Disposition', 'attachment; filename="{0}"'.format(os.path.basename(f)))
     msg.attach(part)
@@ -170,22 +171,19 @@ if __name__ == '__main__':
             'Send me the file or the link to the file.')
         bot.register_next_step_handler(msg, get_file)
 
+#send_mail( send_from, send_to, subject, text, file, server="localhost", port=587, username='', password='', isTls=True):
     def get_file(message):
         if '/start' not in message.text:
-            bot.reply_to(message, 'Downloading...\nPlease, wait.')
-            file_url = message.text
-            r = requests.get(file_url)
-            bot.send_message(message.from_user.id, 'Downloaded '
-                + str(len(r.content)) + ' bytes.\nSending to Kindle...')
-            send_from = 'grfgabriel@gmail.com'
-            send_to = 'gabrielrf_kindle@kindle.com'
-            subject = 'Convert'
-            text = ''
-            pdf_file = r
-            send_mail( send_from, send_to, subject, text, pdf_file,
-                server="localhost", port=587, username='', password='',
-                isTls=True)
-
+            try:
+                file_size = message.document.file_size
+                bot.reply_to(message, 'Downloaded ' + str(file_size) + ' bytes.')
+                file_info = bot.get_file(message.document.file_id)
+                print('https://api.telegram.org/file/bot' + TOKEN + '/' 
+                    + file_info.file_path)
+            # print(file_info.file_path)
+            except:
+                print('Text')
+        # send_mail('grfgabriel@gmail.com', 'gabrielrf_kindle@kindle.com', '', '', message.document)
 
     @bot.callback_query_handler(lambda q: q.data == '/email')
     def email(call):
