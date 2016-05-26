@@ -2,10 +2,12 @@ import configparser
 import datetime
 import logging
 import logging.handlers
-import telebot
-from telebot import types
+import requests
 import sqlite3
 import sys
+import telebot
+from telebot import types
+
 
 def add_user(db, table, chatid, destinatario):
     conn = sqlite3.connect(db)
@@ -88,7 +90,7 @@ if __name__ == '__main__':
 
     # select_user(db, table, sys.argv[1])
     @bot.message_handler(commands=['start'])
-    def start(message): 
+    def start(message):
         data = select_user(db, table, message.from_user.id, '*')
         # bot.send_message(message.from_user.id, str(data))
         # print(data)
@@ -104,39 +106,48 @@ if __name__ == '__main__':
                 'First, type your Kindle e-mail.', parse_mode = 'HTML')
             bot.register_next_step_handler(msg, add_email)
         else:
-            bot.send_message(message.from_user.id, 
+            bot.send_message(message.from_user.id,
             ('Welcome back! Your registered e-mail is {}.\n' +
             'To send a file to your Kindle, click <b>Send file</b>.\n' +
             'To change your e-mail, click <b>Set e-mail</b>.').format(data[3]),
             parse_mode = 'HTML', reply_markup=button)
-            
-            
+
+
     @bot.message_handler(commands=['email'])
-    def ask_email(message): 
+    def ask_email(message):
         msg = bot.send_message(message.from_user.id, 'Type your Kindle e-mail.')
         bot.register_next_step_handler(msg, add_email)
 
     def add_email(message):
-        if '@kindle.com' in message.text:
-            upd_user_email(db, table, message.from_user.id, '"' + str(message.text) + '"') 
-            select_user(db, table, message.from_user.id, 'destinatario')
-            bot.reply_to(message, 'Email registered.\n' +
-                'To send a file to your Kindle, click <b>Send file</b>.\n' +
-                'To change your e-mail, click <b>Set e-mail</b>.',
-            parse_mode = 'HTML', reply_markup=button)
-        else:
-            msg = bot.send_message(message.from_user.id, '<b>Error</b>. \n' + 
-            message.text + ' is not valid.\n' +
-            'Type your Kindle e-mail.', parse_mode = 'HTML')
-            bot.register_next_step_handler(msg, add_email) 
+        if '/' not in message.text:
+            if '@kindle.com' in message.text:
+                upd_user_email(db, table, message.from_user.id, '"' +
+                    str(message.text) + '"')
+                select_user(db, table, message.from_user.id, 'destinatario')
+                bot.reply_to(message, 'Email registered.\n' +
+                    'To send a file to your Kindle, click <b>Send file</b>.\n'
+                    +  'To change your e-mail, click <b>Set e-mail</b>.',
+                parse_mode = 'HTML', reply_markup=button)
+            else:
+                msg = bot.send_message(message.from_user.id, '<b>Error</b>. \n'
+                + message.text + ' is not valid.\n' +
+                'Type your Kindle e-mail.', parse_mode = 'HTML')
+                bot.register_next_step_handler(msg, add_email)
 
     @bot.message_handler(commands=['send'])
     def ask_file(message):
-        msg = bot.send_message(message.from_user.id, 'Send me the file or the link to the file.')
+        msg = bot.send_message(message.from_user.id,
+            'Send me the file or the link to the file.')
         bot.register_next_step_handler(msg, get_file)
 
     def get_file(message):
-        bot.reply_to(message, 'Downloading...')
+        if '/start' not in message.text:
+            bot.reply_to(message, 'Downloading...\nPlease, wait.')
+            file_url = message.text
+            r = requests.get(file_url)
+            bot.send_message(message.from_user.id, 'Downloaded '
+                + str(len(r.content)) + ' bytes.\nSending to Kindle...')
+            
 
     @bot.callback_query_handler(lambda q: q.data == '/email')
     def email(call):
@@ -144,8 +155,9 @@ if __name__ == '__main__':
         bot.register_next_step_handler(msg, add_email)
 
     @bot.callback_query_handler(lambda q: q.data == '/send')
-    def email(call):
-        msg = bot.send_message(call.from_user.id, 'Send me the file or the link to the file.')
+    def ask_file(call):
+        msg = bot.send_message(call.from_user.id,
+            'Send me the file or the link to the file.')
         bot.register_next_step_handler(msg, get_file)
 
 
