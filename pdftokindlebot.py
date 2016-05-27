@@ -18,36 +18,41 @@ from telebot import types
 import urllib.request
 from validate_email import validate_email
 
+def open_file(file_url):
+    file_name, headers = urllib.request.urlretrieve(file_url, 'send2kindlebot.pdf')
+#    file_name = requests.get(file_url, stream = True)
+#    print(file_url.split('/')[-1])
+#    return file_url.split('/')[-1] 
+    return file_name
 
+def send_mail( send_from, send_to, subject, text, file_url):
+    print('From: ' + send_from)
+    print('To: ' + send_to)
+    print('Subject: ' + subject)
+    print('Text: ' + text)
+    print('Files: ' + file_url)
 
-def send_mail( send_from, send_to, subject, text, files):
     msg = MIMEMultipart()
     msg['From'] = send_from
-    msg['To'] = COMMASPACE.join(send_to)
-    msg['Date'] = formatdate(localtime = True)
+    msg['To'] = send_to
+    msg['Date'] = formatdate(localtime=True)
     msg['Subject'] = subject
 
-    msg.attach( MIMEText(text) )
+    msg.attach(MIMEText('Send2KindleBot'))
 
-    with open('/tmp/' + send_to.split('@')[0] + '.pdf', 'wb') as file:
-        files = requests.get(files)
-        file.write(files.content)
-        # print(files)
+    files = open_file(file_url)
 
-#    import ipdb
-#    ipdb.set_trace()
+    #msg = MIMEMultipart()
+    part = MIMEBase('application', 'octet-stream')
+    part.set_payload(open(files, 'rb').read())
+    encoders.encode_base64(part)
+    part.add_header('Content-Disposition', 'attachment; filename="{0}"'.format(os.path.basename(files)))
+#    msg.attach(MIMEApplication(open(files).read()))
+    msg.attach(part)
 
-    for f in files:
-        part = MIMEBase('application', "octet-stream")
-        part.set_payload( open('/tmp/' + send_to.split('@')[0] + '.pdf',"rb").read() )
-        encoders.encode_base64(part)
-        part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(f))
-        msg.attach(part)
-
-    smtp = smtplib.SMTP('127.0.0.1', 25)
+    smtp = smtplib.SMTP('127.0.0.1')
     smtp.sendmail(send_from, send_to, msg.as_string())
-    smtp.quit()
-
+    smtp.close()
 
 def add_user(db, table, chatid, destinatario):
     conn = sqlite3.connect(db)
@@ -192,7 +197,7 @@ if __name__ == '__main__':
             file_url = message.text
 
         # f = requests.get(file_url)
-        send_mail('grfgabriel@gmail.com', 'grfgabriel@gmail.com', '', '', '')
+        send_mail('grfgabriel@gmail.com', 'gabrielrf_kindle@kindle.com', 'Convert', str(message.from_user.id), file_url)
         #send_mail(send_from            , send_to                      , subject, text, files=None)
 
     @bot.callback_query_handler(lambda q: q.data == '/email')
