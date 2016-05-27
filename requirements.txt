@@ -1,0 +1,3 @@
+config_parser
+telegrambotapi
+validate_email
