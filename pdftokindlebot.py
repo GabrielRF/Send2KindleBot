@@ -18,19 +18,22 @@ from telebot import types
 import urllib.request
 from validate_email import validate_email
 
-def open_file(file_url):
-    file_name, headers = urllib.request.urlretrieve(file_url, 'send2kindlebot.pdf')
+def open_file(file_url, chatid):
+    file_name, headers = urllib.request.urlretrieve(file_url, 'send2kindle_' + chatid + '.pdf')
+    print(len(file_name))
 #    file_name = requests.get(file_url, stream = True)
 #    print(file_url.split('/')[-1])
 #    return file_url.split('/')[-1] 
     return file_name
 
-def send_mail( send_from, send_to, subject, text, file_url):
-    print('From: ' + send_from)
-    print('To: ' + send_to)
-    print('Subject: ' + subject)
-    print('Text: ' + text)
-    print('Files: ' + file_url)
+def send_mail(chatid, send_from, send_to, subject, text, file_url):
+#     print('From: ' + send_from)
+#     print('To: ' + send_to)
+#     print('Subject: ' + subject)
+#     print('Text: ' + text)
+#     print('Files: ' + file_url)
+
+    bot.send_message(chatid, 'Please, wait...\nSending file.')
 
     msg = MIMEMultipart()
     msg['From'] = send_from
@@ -40,7 +43,7 @@ def send_mail( send_from, send_to, subject, text, file_url):
 
     msg.attach(MIMEText('Send2KindleBot'))
 
-    files = open_file(file_url)
+    files = open_file(file_url, chatid)
 
     #msg = MIMEMultipart()
     part = MIMEBase('application', 'octet-stream')
@@ -54,12 +57,14 @@ def send_mail( send_from, send_to, subject, text, file_url):
     smtp.sendmail(send_from, send_to, msg.as_string())
     smtp.close()
 
-def add_user(db, table, chatid, destinatario):
+    bot.send_message(chatid, 'File sent. Wait a few minutes and check on your device.')
+
+def add_user(db, table, chatid):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
     aux = ('''INSERT INTO {} (chatid, remetente, destinatario, criacao, usado)
-        VALUES ('{}', 'grfgabriel@gmail.com', '{}',
-        '{}', '{}')''').format(table, chatid, destinatario,
+        VALUES ('{}', '', '',
+        '{}', '{}')''').format(table, chatid,
         str(datetime.datetime.now()), str(datetime.datetime.now()))
     cursor.execute(aux)
     conn.commit()
@@ -76,11 +81,15 @@ def upd_user_last(db, table, chatid):
     conn.close()
 
 
-def upd_user_email(db, table, chatid, destinatario):
+def upd_user_email(db, table, chatid, email):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
-    aux = ('''UPDATE {} SET destinatario = {}
-        WHERE chatid = {}''').format(table, destinatario, chatid)
+    if '@kindle.com' in email:
+        aux = ('''UPDATE {} SET destinatario = {}
+            WHERE chatid = {}''').format(table, email, chatid)
+    else:
+        aux = ('''UPDATE {} SET remetente = {}
+            WHERE chatid = {}''').format(table, email, chatid)
     # print(aux)
     cursor.execute(aux)
     conn.commit()
@@ -102,7 +111,7 @@ def select_user(db, table, chatid, field):
         # print('Existe')
         data = usuarios
     else:
-        add_user(db, table, chatid, ' ')
+        add_user(db, table, chatid)
         # print('Nao existe')
         data = ''
     #for usuarios in cursor.fetchall():
@@ -152,9 +161,9 @@ if __name__ == '__main__':
             bot.register_next_step_handler(msg, add_email)
         else:
             bot.send_message(message.from_user.id,
-            ('Welcome back! Your registered e-mail is {}.\n' +
+            ('Welcome back! Your registered e-mails are:\n{}\n{}\n' +
             'To send a file to your Kindle, click <b>Send file</b>.\n' +
-            'To change your e-mail, click <b>Set e-mail</b>.').format(data[3]),
+            'To change an e-mail, click <b>Set e-mail</b>.').format(data[3],data[2]),
             parse_mode = 'HTML', reply_markup=button)
 
 
@@ -168,8 +177,13 @@ if __name__ == '__main__':
             if '@kindle.com' in message.text.lower() and validate_email(message.text.lower()):
                 upd_user_email(db, table, message.from_user.id, '"' +
                     str(message.text) + '"')
-                select_user(db, table, message.from_user.id, 'destinatario')
-                bot.reply_to(message, 'Email registered.\n' +
+                check = select_user(db, table, message.from_user.id, 'remetente')
+                msg = bot.reply_to(message, 'Type your email used on your Amazon account.')
+                bot.register_next_step_handler(msg, add_email)
+            elif validate_email(message.text.lower()):
+                upd_user_email(db, table, message.from_user.id, '"' +
+                    str(message.text) + '"')
+                bot.reply_to(message, '<b>Success</b>.\n' +
                     'To send a file to your Kindle, click <b>Send file</b>.\n'
                     +  'To change your e-mail, click <b>Set e-mail</b>.',
                 parse_mode = 'HTML', reply_markup=button)
@@ -182,7 +196,7 @@ if __name__ == '__main__':
     @bot.message_handler(commands=['send'])
     def ask_file(message):
         msg = bot.send_message(message.from_user.id,
-            'Send me the file or the link to the file.')
+            'Send me the file (up to 20MB) or the link to the file.')
         bot.register_next_step_handler(msg, get_file)
 
     def get_file(message):
@@ -197,12 +211,13 @@ if __name__ == '__main__':
             file_url = message.text
 
         # f = requests.get(file_url)
-        send_mail('grfgabriel@gmail.com', 'gabrielrf_kindle@kindle.com', 'Convert', str(message.from_user.id), file_url)
+        send_mail(str(message.from_user.id), 'grfgabriel@gmail.com', 
+            'gabrielrf_kindle@kindle.com', 'Convert', str(message.from_user.id), file_url)
         #send_mail(send_from            , send_to                      , subject, text, files=None)
 
     @bot.callback_query_handler(lambda q: q.data == '/email')
     def email(call):
-        msg = bot.send_message(call.from_user.id, 'Type your Kindle e-mail')
+        msg = bot.send_message(call.from_user.id, 'Type the e-mail you want to set.')
         bot.register_next_step_handler(msg, add_email)
 
     @bot.callback_query_handler(lambda q: q.data == '/send')
