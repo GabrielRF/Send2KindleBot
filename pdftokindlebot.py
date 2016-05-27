@@ -134,7 +134,7 @@ if __name__ == '__main__':
 
     def add_email(message):
         if '/' not in message.text:
-            if '@kindle.com' in message.text:
+            if '@kindle.com' in message.text.lower():
                 upd_user_email(db, table, message.from_user.id, '"' +
                     str(message.text) + '"')
                 select_user(db, table, message.from_user.id, 'destinatario')
