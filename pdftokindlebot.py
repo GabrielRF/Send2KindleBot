@@ -15,6 +15,7 @@ import sys
 import telebot
 from telebot import types
 import urllib.request
+from validate_email import validate_email
 
 
 def send_mail( send_from, send_to, subject, text, file_url, server="localhost",
@@ -134,7 +135,7 @@ if __name__ == '__main__':
 
     def add_email(message):
         if '/' not in message.text:
-            if '@kindle.com' in message.text.lower():
+            if '@kindle.com' in message.text.lower() and validate_email(message.text.lower()):
                 upd_user_email(db, table, message.from_user.id, '"' +
                     str(message.text) + '"')
                 select_user(db, table, message.from_user.id, 'destinatario')
