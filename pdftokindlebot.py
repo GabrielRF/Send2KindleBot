@@ -19,8 +19,7 @@ import urllib.request
 from validate_email import validate_email
 
 def open_file(file_url, chatid):
-    file_name, headers = urllib.request.urlretrieve(file_url, 'send2kindle_' + chatid + '.pdf')
-    print(len(file_name))
+    file_name, headers = urllib.request.urlretrieve(file_url, 'send2kindle_' + str(chatid) + '.pdf')
 #    file_name = requests.get(file_url, stream = True)
 #    print(file_url.split('/')[-1])
 #    return file_url.split('/')[-1] 
@@ -57,6 +56,11 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
     smtp.sendmail(send_from, send_to, msg.as_string())
     smtp.close()
 
+    upd_user_last(db, table, chatid)
+
+    logger_info.info(str(datetime.datetime.now()) + '\tSENT:\t' + str(chatid) + '\t' + send_from + '\t' + send_to)
+
+    os.remove(files)
     bot.send_message(chatid, 'File sent. Wait a few minutes and check on your device.')
 
 def add_user(db, table, chatid):
@@ -66,6 +70,7 @@ def add_user(db, table, chatid):
         VALUES ('{}', '', '',
         '{}', '{}')''').format(table, chatid,
         str(datetime.datetime.now()), str(datetime.datetime.now()))
+    logger_info.info(str(datetime.datetime.now()) + '\tUSER:\t' + str(chatid))
     cursor.execute(aux)
     conn.commit()
     conn.close()
@@ -75,10 +80,12 @@ def upd_user_last(db, table, chatid):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
     aux = ('''UPDATE {} SET usado = {}
-        WHERE chatid = {}''').format(table, str(datetime.datetime.now()))
+        WHERE chatid = {}''').format(table, '"' + str(datetime.datetime.now())
+        + '"', chatid)
     cursor.execute(aux)
     conn.commit()
     conn.close()
+    logger_info.info(str(datetime.datetime.now()) + '\tLAST:\t' + str(chatid))
 
 
 def upd_user_email(db, table, chatid, email):
@@ -91,6 +98,7 @@ def upd_user_email(db, table, chatid, email):
         aux = ('''UPDATE {} SET remetente = {}
             WHERE chatid = {}''').format(table, email, chatid)
     # print(aux)
+    logger_info.info(str(datetime.datetime.now()) + '\tUPD:\t' + str(chatid) + '\t' + email)
     cursor.execute(aux)
     conn.commit()
     conn.close()
@@ -145,6 +153,7 @@ if __name__ == '__main__':
     # select_user(db, table, sys.argv[1])
     @bot.message_handler(commands=['start'])
     def start(message):
+        upd_user_last(db, table, message.from_user.id)
         data = select_user(db, table, message.from_user.id, '*')
         # bot.send_message(message.from_user.id, str(data))
         # print(data)
