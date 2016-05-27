@@ -1,5 +1,6 @@
 import configparser
 import datetime
+from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
@@ -8,7 +9,7 @@ from email import encoders
 import logging
 import logging.handlers
 import os
-#import requests
+import requests
 import smtplib
 import sqlite3
 import sys
@@ -18,17 +19,41 @@ import urllib.request
 from validate_email import validate_email
 
 
-def send_mail( send_from, send_to, subject, text, file_url, server="localhost",
-    port=587, username='', password='', isTls=True):
 
-    return 0
+def send_mail( send_from, send_to, subject, text, files):
+    msg = MIMEMultipart()
+    msg['From'] = send_from
+    msg['To'] = COMMASPACE.join(send_to)
+    msg['Date'] = formatdate(localtime = True)
+    msg['Subject'] = subject
+
+    msg.attach( MIMEText(text) )
+
+    with open('/tmp/' + send_to.split('@')[0] + '.pdf', 'wb') as file:
+        files = requests.get(files)
+        file.write(files.content)
+        # print(files)
+
+#    import ipdb
+#    ipdb.set_trace()
+
+    for f in files:
+        part = MIMEBase('application', "octet-stream")
+        part.set_payload( open('/tmp/' + send_to.split('@')[0] + '.pdf',"rb").read() )
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(f))
+        msg.attach(part)
+
+    smtp = smtplib.SMTP('127.0.0.1', 25)
+    smtp.sendmail(send_from, send_to, msg.as_string())
+    smtp.quit()
 
 
 def add_user(db, table, chatid, destinatario):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
     aux = ('''INSERT INTO {} (chatid, remetente, destinatario, criacao, usado)
-        VALUES ('{}', 'remetente@gabrf.com', '{}',
+        VALUES ('{}', 'grfgabriel@gmail.com', '{}',
         '{}', '{}')''').format(table, chatid, destinatario,
         str(datetime.datetime.now()), str(datetime.datetime.now()))
     cursor.execute(aux)
@@ -162,10 +187,13 @@ if __name__ == '__main__':
             file_info = bot.get_file(message.document.file_id)
             file_url = ('https://api.telegram.org/file/bot' + TOKEN + '/' 
                 + file_info.file_path)
-                # print(file_url)
+            print(file_url)
         except:
             file_url = message.text
-        send_mail('grfgabriel@gmail.com', 'gabrielrf_kindle@kindle.com', '', '', file_url)
+
+        # f = requests.get(file_url)
+        send_mail('grfgabriel@gmail.com', 'grfgabriel@gmail.com', '', '', '')
+        #send_mail(send_from            , send_to                      , subject, text, files=None)
 
     @bot.callback_query_handler(lambda q: q.data == '/email')
     def email(call):
