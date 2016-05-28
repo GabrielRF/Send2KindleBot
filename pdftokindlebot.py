@@ -107,6 +107,14 @@ def upd_user_last(db, table, chatid):
     # logger_info.info(str(datetime.datetime.now()) + '\tLAST:\t'
     #   + str(chatid))
 
+def upd_user_file(db, table, chatid, file_url):
+    conn = sqlite3.connect(db)
+    cursor = conn.cursor()
+    aux = ('''UPDATE {} SET arquivo = {}
+        WHERE chatid = {}''').format(table, '"' + str(file_url) + '"', chatid)
+    cursor.execute(aux)
+    conn.commit()
+    conn.close()
 
 # Update user e-mail
 def upd_user_email(db, table, chatid, email):
@@ -261,6 +269,7 @@ if __name__ == '__main__':
 
         # data = select_user(db, table, message.from_user.id, '*')
         # f = requests.get(file_url)
+        upd_user_file(db, table, message.from_user.id, file_url)
         msg = bot.send_message(message.from_user.id,
             'Send file <b>as is</b> or <b>converted</b> to Kindle format?',
             parse_mode='HTML', reply_markup=button2)
@@ -270,13 +279,13 @@ if __name__ == '__main__':
     def ask_conv(call):
         data = select_user(db, table, call.from_user.id, '*')
         send_mail(str(call.from_user.id), data[2],
-            data[3], 'Convert', str(call.from_user.id), file_url)
+            data[3], 'Convert', str(call.from_user.id), data[7])
 
     @bot.callback_query_handler(lambda q: q.data == '/as_is')
     def ask_conv(call):
         data = select_user(db, table, call.from_user.id, '*')
         send_mail(str(call.from_user.id), data[2],
-            data[3], ' ', str(call.from_user.id), file_url)
+            data[3], ' ', str(call.from_user.id), data[7])
 
     @bot.callback_query_handler(lambda q: q.data == '/email')
     def email(call):
