@@ -29,7 +29,9 @@ if __name__ == '__main__':
         remetente TEXT,
         destinatario TEXT,
         criacao DATE NOT NULL,
-        usado DATE);
+        usado DATE,
+        idioma TEXT,
+        arquivo TEXT);
     ''').format(table)
 
     aux2 = ('''SELECT * FROM "{}"''').format(table)
