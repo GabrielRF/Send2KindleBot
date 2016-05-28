@@ -217,8 +217,6 @@ if __name__ == '__main__':
         bot.register_next_step_handler(msg, get_file)
 
     def get_file(message):
-        if '/start' in message.text or '/send' in message.text:
-            return 0
         if message.content_type == 'document':
         #try:
             file_size = message.document.file_size
@@ -229,6 +227,8 @@ if __name__ == '__main__':
             print(file_url)
         #except:
         elif message.content_type == 'text':
+            if '/start' in message.text or '/send' in message.text:
+                return 0
             file_url = message.text
         else:
             msg = bot.send_message(message.from_user.id, 'Please, send as a file.')
@@ -253,4 +253,4 @@ if __name__ == '__main__':
         bot.register_next_step_handler(msg, get_file)
 
 
-    bot.polling()
+    bot.polling(none_stop = True)
