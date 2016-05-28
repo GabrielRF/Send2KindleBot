@@ -42,8 +42,8 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
         bot.send_message(chatid, 'File not found. Aborted.')
         return 0
 
-    bot.send_message(chatid, str(u'\U0001F4E4')
-        + 'Please, wait...\nSending file.')
+    bot.send_message(chatid, str(u'\U0001F5DE')
+        + '<b>Sending file</b>.\nPlease, wait a moment.', parse_mode='HTML')
 
     part = MIMEBase('application', 'octet-stream')
     part.set_payload(open(files, 'rb').read())
@@ -179,7 +179,8 @@ if __name__ == '__main__':
             bot.register_next_step_handler(msg, add_email)
         else:
             bot.send_message(message.from_user.id, (
-                'Welcome back! Your registered e-mails are:\n{} {}\n{} {}\n' +
+                '<b>Welcome back</b>!\n'
+                + 'Your registered e-mails are:\n{} {}\n{} {}\n' +
                 'To send a file to your Kindle, click <b>Send file</b>.\n' +
                 'To change an e-mail, click <b>Set e-mail</b>.').format(
                 str(u'\U0001F4E4'), data[2], str(u'\U0001F4E5'), data[3]
@@ -206,7 +207,7 @@ if __name__ == '__main__':
                     upd_user_email(db, table, message.from_user.id, '"' +
                         str(message.text) + '"')
                     bot.reply_to(message,
-                        str(u'\U00002714') + '<b>Success</b>.\n' +
+                        str(u'\U00002705') + '<b>Success</b>.\n' +
                         'To send a file to your Kindle, click <b>Send file</b>'
                         + '.\nTo change your e-mail, click <b>Set e-mail</b>.',
                         parse_mode='HTML', reply_markup=button)
@@ -226,7 +227,7 @@ if __name__ == '__main__':
     def get_file(message):
         if message.content_type == 'document':
             file_size = message.document.file_size
-            bot.reply_to(message, str(u'\U00002714') + 'Downloaded '
+            bot.reply_to(message, str(u'\U00002705') + 'Downloaded '
                 + str(file_size) + ' bytes.')
             file_info = bot.get_file(message.document.file_id)
             file_url = ('https://api.telegram.org/file/bot' + TOKEN + '/'
