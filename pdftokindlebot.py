@@ -53,7 +53,19 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
     msg.attach(part)
 
     smtp = smtplib.SMTP('127.0.0.1')
-    smtp.sendmail(send_from, send_to, msg.as_string())
+
+    try:
+        smtp.sendmail(send_from, send_to, msg.as_string())
+    except smtplib.SMTPRecipientsRefused:
+        msg = bot.send_message(chatid,
+            str(u'\U000026A0') + '<b>Error</b>.\n'
+            + 'Please, check your e-mail and try again.')
+        smtp.close()
+        logger_info.info(str(datetime.datetime.now()) + '\tError:\t' 
+            + str(chatid) + '\t' + send_from + '\t' + send_to)
+        upd_user_last(db, table, chatid)
+        return 0
+
     smtp.close()
 
     upd_user_last(db, table, chatid)
@@ -65,7 +77,7 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
     bot.send_message(chatid,
         str(u'\U0001F4EE') + '<b>File sent</b>.'
         + '\nWait a few minutes and check on your device.'
-        + '\n\nSend a new command', parse_mode='HTML', reply_markup=button)
+        + '\n\nSend a new command.', parse_mode='HTML', reply_markup=button)
 
 
 # Add user to database
