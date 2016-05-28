@@ -59,7 +59,7 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
     except smtplib.SMTPRecipientsRefused:
         msg = bot.send_message(chatid,
             str(u'\U000026A0') + '<b>Error</b>.\n'
-            + 'Please, check your e-mail and try again.')
+            + 'Please, check your e-mail and try again.', parse_mode='HTML')
         smtp.close()
         logger_info.info(str(datetime.datetime.now()) + '\tError:\t'
             + str(chatid) + '\t' + send_from + '\t' + send_to)
@@ -120,7 +120,7 @@ def upd_user_file(db, table, chatid, file_url):
 def upd_user_email(db, table, chatid, email):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
-    if '@kindle.com' in email:
+    if '@kindle.com' in email.lower():
         aux = ('''UPDATE {} SET destinatario = {}
             WHERE chatid = {}''').format(table, email, chatid)
     else:
