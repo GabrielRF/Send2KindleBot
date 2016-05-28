@@ -179,7 +179,7 @@ if __name__ == '__main__':
             bot.register_next_step_handler(msg, add_email)
         else:
             bot.send_message(message.from_user.id, (
-                'Welcome back! Your registered e-mails are:\n{}{}\n{}{}\n' +
+                'Welcome back! Your registered e-mails are:\n{} {}\n{} {}\n' +
                 'To send a file to your Kindle, click <b>Send file</b>.\n' +
                 'To change an e-mail, click <b>Set e-mail</b>.').format(
                 str(u'\U0001F4E4'), data[2], str(u'\U0001F4E5'), data[3]
