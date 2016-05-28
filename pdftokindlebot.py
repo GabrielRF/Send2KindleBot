@@ -61,7 +61,7 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
             str(u'\U000026A0') + '<b>Error</b>.\n'
             + 'Please, check your e-mail and try again.')
         smtp.close()
-        logger_info.info(str(datetime.datetime.now()) + '\tError:\t' 
+        logger_info.info(str(datetime.datetime.now()) + '\tError:\t'
             + str(chatid) + '\t' + send_from + '\t' + send_to)
         upd_user_last(db, table, chatid)
         return 0
@@ -162,6 +162,10 @@ if __name__ == '__main__':
     btn1 = types.InlineKeyboardButton('Send file', callback_data='/send')
     btn2 = types.InlineKeyboardButton('Set e-mail', callback_data='/email')
     button.row(btn1, btn2)
+    button2 = types.InlineKeyboardMarkup()
+    btn3 = types.InlineKeyboardButton('As is', callback_data='/as_is')
+    btn4 = types.InlineKeyboardButton('Converted', callback_data='/converted')
+    button2.row(btn3, btn4)
     LOG_INFO_FILE = log_file
     logger_info = logging.getLogger('InfoLogger')
     logger_info.setLevel(logging.DEBUG)
@@ -244,7 +248,7 @@ if __name__ == '__main__':
             file_info = bot.get_file(message.document.file_id)
             file_url = ('https://api.telegram.org/file/bot' + TOKEN + '/'
                 + file_info.file_path)
-            print(file_url)
+            # print(file_url)
         elif message.content_type == 'text':
             if '/start' in message.text or '/send' in message.text:
                 return 0
@@ -255,10 +259,24 @@ if __name__ == '__main__':
             bot.register_next_step_handler(msg, get_file)
             return 0
 
-        data = select_user(db, table, message.from_user.id, '*')
+        # data = select_user(db, table, message.from_user.id, '*')
         # f = requests.get(file_url)
-        send_mail(str(message.from_user.id), data[2],
-            data[3], 'Convert', str(message.from_user.id), file_url)
+        msg = bot.send_message(message.from_user.id,
+            'Send file <b>as is</b> or <b>converted</b> to Kindle format?',
+            parse_mode='HTML', reply_markup=button2)
+        # bot.register_next_step_handler(msg, ask_conv)
+
+    @bot.callback_query_handler(lambda q: q.data == '/converted')
+    def ask_conv(call):
+        data = select_user(db, table, call.from_user.id, '*')
+        send_mail(str(call.from_user.id), data[2],
+            data[3], 'Convert', str(call.from_user.id), file_url)
+
+    @bot.callback_query_handler(lambda q: q.data == '/as_is')
+    def ask_conv(call):
+        data = select_user(db, table, call.from_user.id, '*')
+        send_mail(str(call.from_user.id), data[2],
+            data[3], ' ', str(call.from_user.id), file_url)
 
     @bot.callback_query_handler(lambda q: q.data == '/email')
     def email(call):
