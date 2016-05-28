@@ -32,7 +32,6 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
 #     print('Text: ' + text)
 #     print('Files: ' + file_url)
 
-    bot.send_message(chatid, 'Please, wait...\nSending file.')
 
     msg = MIMEMultipart()
     msg['From'] = send_from
@@ -42,7 +41,13 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
 
     msg.attach(MIMEText('Send2KindleBot'))
 
-    files = open_file(file_url, chatid)
+    try:
+        files = open_file(file_url, chatid)
+    except:
+        bot.send_message(chatid, 'File not found. Aborted.')
+        return 0
+
+    bot.send_message(chatid, 'Please, wait...\nSending file.')
 
     #msg = MIMEMultipart()
     part = MIMEBase('application', 'octet-stream')
@@ -209,19 +214,26 @@ if __name__ == '__main__':
         bot.register_next_step_handler(msg, get_file)
 
     def get_file(message):
-        try:
+        if message.content_type == 'document':
+        #try:
             file_size = message.document.file_size
             bot.reply_to(message, 'Downloaded ' + str(file_size) + ' bytes.')
             file_info = bot.get_file(message.document.file_id)
             file_url = ('https://api.telegram.org/file/bot' + TOKEN + '/' 
                 + file_info.file_path)
             print(file_url)
-        except:
+        #except:
+        elif message.content_type == 'text':
             file_url = message.text
+        else:
+            msg = bot.send_message(message.from_user.id, 'Please, send as a file.')
+            bot.register_next_step_handler(msg, get_file)
+            return 0
 
+        data = select_user(db, table, message.from_user.id, '*')
         # f = requests.get(file_url)
-        send_mail(str(message.from_user.id), 'grfgabriel@gmail.com', 
-            'gabrielrf_kindle@kindle.com', 'Convert', str(message.from_user.id), file_url)
+        send_mail(str(message.from_user.id), data[2], 
+            data[3], 'Convert', str(message.from_user.id), file_url)
         #send_mail(send_from            , send_to                      , subject, text, files=None)
 
     @bot.callback_query_handler(lambda q: q.data == '/email')
