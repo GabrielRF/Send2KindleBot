@@ -66,7 +66,8 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
     logger_info.info(str(datetime.datetime.now()) + '\tSENT:\t' + str(chatid) + '\t' + send_from + '\t' + send_to)
 
     os.remove(files)
-    bot.send_message(chatid, 'File sent. Wait a few minutes and check on your device.')
+    bot.send_message(chatid, 'File sent. Wait a few minutes and check on your device.'
+    + '\n\nSend a new command', reply_markup=button)
 
 def add_user(db, table, chatid):
     conn = sqlite3.connect(db)
@@ -90,7 +91,7 @@ def upd_user_last(db, table, chatid):
     cursor.execute(aux)
     conn.commit()
     conn.close()
-    logger_info.info(str(datetime.datetime.now()) + '\tLAST:\t' + str(chatid))
+    # logger_info.info(str(datetime.datetime.now()) + '\tLAST:\t' + str(chatid))
 
 
 def upd_user_email(db, table, chatid, email):
@@ -165,10 +166,12 @@ if __name__ == '__main__':
         # print('Data[3] ' + str(data[3]))
         # print(data[4])
         try:
-            aux = data[3]
+            aux1 = data[2]
+            aux2 = data[3]
         except:
-            aux = ' '
-        if len(aux) < 3:
+            aux1 = ' '
+            aux2 = ' '
+        if len(aux1) < 3 or len(aux2) < 3:
             msg = bot.send_message(message.from_user.id, 'Hi!\n' +
                 'This bot sends files to your Kindle.\n' +
                 'First, type your Kindle e-mail.', parse_mode = 'HTML')
@@ -214,6 +217,8 @@ if __name__ == '__main__':
         bot.register_next_step_handler(msg, get_file)
 
     def get_file(message):
+        if '/start' in message.text or '/send' in message.text:
+            return 0
         if message.content_type == 'document':
         #try:
             file_size = message.document.file_size
