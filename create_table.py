@@ -16,7 +16,8 @@ if __name__ == '__main__':
     LOG_INFO_FILE = log_file
     logger_info = logging.getLogger('InfoLogger')
     logger_info.setLevel(logging.DEBUG)
-    handler_info = logging.handlers.RotatingFileHandler(LOG_INFO_FILE,maxBytes=10240,backupCount=5,encoding='utf-8')
+    handler_info = logging.handlers.RotatingFileHandler(
+        LOG_INFO_FILE, maxBytes=10240, backupCount=5, encoding='utf-8')
     logger_info.addHandler(handler_info)
 
     conn = sqlite3.connect(db)
@@ -37,7 +38,8 @@ if __name__ == '__main__':
 
     try:
         cursor.execute(aux)
-        logger_info.info(str(datetime.datetime.now()) + ' Tabela usuarios criada')
+        logger_info.info('{} Tabela usuarios criada'.format(
+            datetime.datetime.now()))
     except:
         cursor.execute(aux2)
         usuarios = cursor.fetchall()
@@ -55,4 +57,3 @@ if __name__ == '__main__':
     conn.commit()
 
     conn.close()
-
