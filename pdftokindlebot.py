@@ -22,7 +22,7 @@ from validate_email import validate_email
 def open_file(file_url, chatid):
 
     file_name, headers = urllib.request.urlretrieve(file_url, 'send2kindle_'
-        + str(chatid) + '.pdf')
+        + str(chatid))
     return file_name
 
 
@@ -72,8 +72,10 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
 
     logger_info.info(str(datetime.datetime.now()) + '\tSENT:\t' + str(chatid)
         + '\t' + send_from + '\t' + send_to)
-
-    os.remove(files)
+    try:
+        os.remove(files)
+    except FileNotFoundError:
+        pass
     bot.send_message(chatid,
         str(u'\U0001F4EE') + '<b>File sent</b>.'
         + '\nWait a few minutes and check on your device.'
@@ -184,7 +186,7 @@ if __name__ == '__main__':
     # select_user(db, table, sys.argv[1])
     @bot.message_handler(commands=['start'])
     def start(message):
-        upd_user_last(db, table, message.from_user.id)
+        # upd_user_last(db, table, message.from_user.id)
         data = select_user(db, table, message.from_user.id, '*')
         # bot.send_message(message.from_user.id, str(data))
         # print(data)
@@ -241,6 +243,10 @@ if __name__ == '__main__':
                     + message.text + ' is not valid.\n' +
                     'Type your Kindle e-mail.', parse_mode='HTML')
                 bot.register_next_step_handler(msg, add_email)
+        else:
+            msg = bot.send_message(message.from_user.id,
+            '<b>Error</b>.\nType your Kindle e-mail.', parse_mode='HTML')
+        bot.register_next_step_handler(msg, add_email)
 
     @bot.message_handler(commands=['send'])
     def ask_file(message):
