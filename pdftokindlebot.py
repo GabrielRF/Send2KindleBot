@@ -28,6 +28,10 @@ def open_file(file_url, chatid):
 
 # Send e-mail function
 def send_mail(chatid, send_from, send_to, subject, text, file_url):
+    if len(send_from) < 5 or len(send_to) < 5:
+        bot.send_message(chatid, '<b>Error</b>.\n' +
+            'Click /start and check your e-mails.', parse_mode='HTML')
+        return 0
     msg = MIMEMultipart()
     msg['From'] = send_from
     msg['To'] = send_to
