@@ -105,7 +105,7 @@ def upd_user_last(db, table, chatid):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
     aux = ('''UPDATE {} SET usado = {}
-        WHERE chatid = {}''').format(table, '"' + str(datetime.datetime.now())
+        WHERE chatid = {}''').format(table, '"' + datetime.datetime.now()
         + '"', chatid)
     cursor.execute(aux)
     conn.commit()
@@ -117,7 +117,7 @@ def upd_user_file(db, table, chatid, file_url):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
     aux = ('''UPDATE {} SET arquivo = {}
-        WHERE chatid = {}''').format(table, '"' + str(file_url) + '"', chatid)
+        WHERE chatid = {}''').format(table, '"' + file_url + '"', chatid)
     cursor.execute(aux)
     conn.commit()
     conn.close()
@@ -145,7 +145,7 @@ def select_user(db, table, chatid, field):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
     aux = ('''SELECT {} FROM "{}" WHERE
-        chatid="{}"''').format(field, table, str(chatid))
+        chatid="{}"''').format(field, table, chatid)
     cursor.execute(aux)
     usuarios = cursor.fetchone()
     if usuarios:
@@ -180,12 +180,63 @@ if __name__ == '__main__':
     btn3 = types.InlineKeyboardButton('As is', callback_data='/as_is')
     btn4 = types.InlineKeyboardButton('Converted', callback_data='/converted')
     button2.row(btn3, btn4)
+    cmds = ['/start', '/send', '/info', '/help']
     LOG_INFO_FILE = log_file
     logger_info = logging.getLogger('InfoLogger')
     logger_info.setLevel(logging.DEBUG)
     handler_info = logging.handlers.RotatingFileHandler(LOG_INFO_FILE,
         maxBytes=10240, backupCount=5, encoding='utf-8')
     logger_info.addHandler(handler_info)
+
+    help_msg = (
+'''<b>What does this bot do?</b>
+This bot is able to send files to your Kindle as if you were sending them by e-mail.
+
+<b>What kind of files are supported?</b>
+Abode PDF <code>.pdf</code> 
+HTML <code>.htm .html</code>
+Images <code>.jpg .gif .bmp .png</code>
+Mobi book <code>.mobi</code>
+Microsoft Word <code>.doc .docx</code>
+Rich Text Format <code>.rtf</code>
+Text files <code>.txt</code>
+Zipped files <code>.zip .xzip</code>
+<i>* The file conversion to Kindle format is a experimental service done by Amazon.</i>
+
+<b>Is there any file size limit?</b>
+Documents sent by link are limited to 50 MB (before compression).
+Documents sent directly to the bot are limited to 20 MB.
+
+<b>For any other question, visit:</b>
+http://www.amazon.com/kindlepersonaldocuments/''')
+
+    info_msg = (
+'''
+This bot is under constant development!
+If you have any question or suggestion, please, talk to me!
+
+Twitter: <a href="http://twitter.com/GabRF">@GabRF</a>
+Telegram: @GabrielRF
+Website: http://grf.xyz/telegram
+
+Rate the bot:
+https://telegram.me/storebot?start=Send2Kindlebot
+Support the project:
+http://grf.xyz/paypal
+http://patreon.com/gabrielrf
+''')
+
+    @bot.message_handler(commands=['help'])
+    def help(message):
+        bot.send_message(message.from_user.id, help_msg, parse_mode='HTML', 
+            disable_web_page_preview=True)
+
+
+    @bot.message_handler(commands=['info'])
+    def help(message):
+        bot.send_message(message.from_user.id, info_msg, parse_mode='HTML', 
+            disable_web_page_preview=True)
+
 
     # select_user(db, table, sys.argv[1])
     @bot.message_handler(commands=['start'])
@@ -268,7 +319,7 @@ if __name__ == '__main__':
                 + file_info.file_path)
             # print(file_url)
         elif message.content_type == 'text':
-            if '/start' in message.text or '/send' in message.text:
+            if message.text.lower() in cmds:
                 return 0
             file_url = message.text
         else:
