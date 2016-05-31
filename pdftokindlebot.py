@@ -21,8 +21,8 @@ from validate_email import validate_email
 # Get file from URL
 def open_file(file_url, chatid):
 
-    file_name, headers = urllib.request.urlretrieve(file_url, 'send2kindle_'
-        + str(chatid))
+    file_name, headers = urllib.request.urlretrieve(file_url, 
+        'send2kindle_' + file_url.split('/')[-1])
     return file_name
 
 
@@ -105,7 +105,7 @@ def upd_user_last(db, table, chatid):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
     aux = ('''UPDATE {} SET usado = {}
-        WHERE chatid = {}''').format(table, '"' + datetime.datetime.now()
+        WHERE chatid = {}''').format(table, '"' + str(datetime.datetime.now())
         + '"', chatid)
     cursor.execute(aux)
     conn.commit()
@@ -164,7 +164,7 @@ def select_user(db, table, chatid, field):
 if __name__ == '__main__':
     config = configparser.ConfigParser()
     config.sections()
-    BOT_CONFIG_FILE = 'kindle.conf'
+    BOT_CONFIG_FILE = '/usr/local/bin/PDFtoKindleBot/kindle.conf'
     config.read(BOT_CONFIG_FILE)
     log_file = config['DEFAULT']['logfile']
     TOKEN = config['DEFAULT']['TOKEN']
@@ -192,6 +192,10 @@ if __name__ == '__main__':
 '''<b>What does this bot do?</b>
 This bot is able to send files to your Kindle as if you were sending them by e-mail.
 
+<b>Where is my Kindle's e-mail?</b>
+Log into your Amazon account. Visit <i>Manage your Devices</i> page at <i>Manage Your Kindle</i>.
+The e-mail address will end with <code>@Kindle.com</code>.
+
 <b>What kind of files are supported?</b>
 Abode PDF <code>.pdf</code> 
 HTML <code>.htm .html</code>
@@ -201,7 +205,7 @@ Microsoft Word <code>.doc .docx</code>
 Rich Text Format <code>.rtf</code>
 Text files <code>.txt</code>
 Zipped files <code>.zip .xzip</code>
-<i>* The file conversion to Kindle format is a experimental service done by Amazon.</i>
+<i>* The file conversion to Kindle format is an experimental service done by Amazon.</i>
 
 <b>Is there any file size limit?</b>
 Documents sent by link are limited to 50 MB (before compression).
