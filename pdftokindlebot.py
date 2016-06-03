@@ -260,7 +260,8 @@ http://patreon.com/gabrielrf
         if len(aux1) < 3 or len(aux2) < 3:
             msg = bot.send_message(message.from_user.id, 'Hi!\n' +
                 'This bot sends files to your Kindle.\n' +
-                'First, type your Kindle e-mail.', parse_mode='HTML')
+                'First, type your Kindle e-mail.\n' +
+                'It must end with <code>kindle.com</code>', parse_mode='HTML')
             bot.register_next_step_handler(msg, add_email)
         else:
             bot.send_message(message.from_user.id, (
@@ -279,15 +280,23 @@ http://patreon.com/gabrielrf
 
     def add_email(message):
         if '/' not in message.text:
+            data = select_user(db, table, message.from_user.id, '*')
             if validate_email(message.text.lower()):
                 if '@kindle.com' in message.text.lower():
                     upd_user_email(db, table, message.from_user.id, '"' +
                         str(message.text) + '"')
                     # check = select_user(db, table, message.from_user.id,
                     #     'remetente')
-                    msg = bot.reply_to(message,
-                        'Type your email used on your Amazon account.')
-                    bot.register_next_step_handler(msg, add_email)
+                    if len(data[3]) < 5:
+                        msg = bot.reply_to(message,
+                            'Type your email used on your Amazon account.')
+                        bot.register_next_step_handler(msg, add_email)
+                        return 0
+                    bot.reply_to(message,
+                        str(u'\U00002705') + '<b>Success</b>.\n' +
+                        'To send a file to your Kindle, click <b>Send file</b>'
+                        + '.\nTo change your e-mail, click <b>Set e-mail</b>.',
+                        parse_mode='HTML', reply_markup=button)
                 else:
                     upd_user_email(db, table, message.from_user.id, '"' +
                         str(message.text) + '"')
