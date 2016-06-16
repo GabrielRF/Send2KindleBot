@@ -126,7 +126,7 @@ def upd_user_file(db, table, chatid, file_url):
 def upd_user_email(db, table, chatid, email):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
-    if '@kindle.com' in email.lower():
+    if '@kindle.' in email.lower():
         aux = ('''UPDATE {} SET destinatario = {}
             WHERE chatid = {}''').format(table, email, chatid)
     else:
@@ -297,6 +297,11 @@ http://patreon.com/gabrielrf
                         'To send a file to your Kindle, click <b>Send file</b>'
                         + '.\nTo change your e-mail, click <b>Set e-mail</b>.',
                         parse_mode='HTML', reply_markup=button)
+                # elif len(data[3]) < 5:
+                #     msg = bot.reply_to(message,
+                #         'Type your email used on your Amazon account.')
+                #     bot.register_next_step_handler(msg, add_email)
+                #     return 0
                 else:
                     upd_user_email(db, table, message.from_user.id, '"' +
                         str(message.text) + '"')
