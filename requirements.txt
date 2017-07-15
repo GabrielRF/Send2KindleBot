@@ -1,3 +1,5 @@
-config_parser
-telegrambotapi
-validate_email
+configparser==3.5.0
+pyTelegramBotAPI==3.1.0
+requests==2.9.1
+urllib3==1.13.1
+validate-email==1.3
