@@ -83,6 +83,9 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
     bot.send_message(chatid,
         str(u'\U0001F4EE') + '<b>File sent</b>.'
         + '\nWait a few minutes and check on your device.'
+        + '\n\n' + str(u'\U00002B50') + '<b>Rate the bot:</b>'
+        + '\nhttps://telegram.me/storebot?start=Send2Kindlebot'
+        + '\n\n' + str(u'\U0001F4B5') + '<b>Donate!</b>' + '\nhttp://grf.xyz/paypal'
         + '\n\nSend a new command.', parse_mode='HTML', reply_markup=button)
 
 
@@ -164,7 +167,7 @@ def select_user(db, table, chatid, field):
 if __name__ == '__main__':
     config = configparser.ConfigParser()
     config.sections()
-    BOT_CONFIG_FILE = '/usr/local/bin/PDFtoKindleBot/kindle.conf'
+    BOT_CONFIG_FILE = '/usr/local/bin/Send2KindleBot/kindle.conf'
     config.read(BOT_CONFIG_FILE)
     log_file = config['DEFAULT']['logfile']
     TOKEN = config['DEFAULT']['TOKEN']
@@ -375,7 +378,7 @@ http://patreon.com/gabrielrf
     @bot.callback_query_handler(lambda q: q.data == '/send')
     def ask_file(call):
         msg = bot.send_message(call.from_user.id,
-            'Send me the file or the link to the file.')
+            'Send me the file (up to 20MB)  or the link to the file.')
         bot.register_next_step_handler(msg, get_file)
 
     bot.polling(none_stop=True)
