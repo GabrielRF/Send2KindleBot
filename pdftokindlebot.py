@@ -86,7 +86,8 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
         + '\n\n' + str(u'\U00002B50') + '<b>Rate the bot:</b>'
         + '\nhttps://telegram.me/storebot?start=Send2Kindlebot'
         + '\n\n' + str(u'\U0001F4B5') + '<b>Donate!</b>' + '\nhttp://grf.xyz/paypal'
-        + '\n\nSend a new command.', parse_mode='HTML', reply_markup=button)
+        + '\n\n<b>Send a new command</b>.', parse_mode='HTML',
+        reply_markup=button, disable_web_page_preview=True)
 
 
 # Add user to database
