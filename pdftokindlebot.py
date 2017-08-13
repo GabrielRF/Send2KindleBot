@@ -216,7 +216,11 @@ Documents sent by link are limited to 50 MB (before compression).
 Documents sent directly to the bot are limited to 20 MB.
 
 <b>For any other question, visit:</b>
-http://www.amazon.com/kindlepersonaldocuments/''')
+http://www.amazon.com/kindlepersonaldocuments/
+
+<b>Source code:</b>
+https://github.com/GabrielRF/Send2KindleBot
+''')
 
     info_msg = (
 '''
