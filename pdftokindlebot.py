@@ -385,8 +385,7 @@ http://patreon.com/gabrielrf
 
     @bot.callback_query_handler(lambda q: q.data == '/email')
     def email(call):
-        msg = 
-        (call.from_user.id,
+        msg = bot.send_message(call.from_user.id,
             'Type the e-mail you want to set.')
         bot.register_next_step_handler(msg, add_email)
 
