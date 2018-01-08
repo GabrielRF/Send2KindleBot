@@ -8,6 +8,7 @@ from email import encoders
 import logging
 import logging.handlers
 import os
+import uuid
 # import requests
 import smtplib
 import sqlite3
@@ -365,8 +366,16 @@ http://patreon.com/gabrielrf
     @bot.callback_query_handler(lambda q: q.data == '/converted')
     def ask_conv(call):
         data = select_user(db, table, call.from_user.id, '*')
+        outfname = uuid.uuid4();
+        if os.system('ebook-convert /dev/stdin <<<"%s" %s.mobi'%(data[7]), outfname) != 0:
+            msg = bot.send_message(call.from_user.id,
+            'Error while trying to convert the file.')
+            bot.register_next_step_handler(msg, add_email)
+        f = open('%s.mobi'%(outfname)', “r”) 
+        mobi = f.read()
+        os.remove('%s.mobi'%(outfname))
         send_mail(str(call.from_user.id), data[2],
-            data[3], 'Convert', str(call.from_user.id), data[7])
+            data[3], '', str(call.from_user.id), mobi)
 
     @bot.callback_query_handler(lambda q: q.data == '/as_is')
     def ask_conv(call):
@@ -376,7 +385,8 @@ http://patreon.com/gabrielrf
 
     @bot.callback_query_handler(lambda q: q.data == '/email')
     def email(call):
-        msg = bot.send_message(call.from_user.id,
+        msg = 
+        (call.from_user.id,
             'Type the e-mail you want to set.')
         bot.register_next_step_handler(msg, add_email)
 
