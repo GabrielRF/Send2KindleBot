@@ -357,31 +357,42 @@ http://patreon.com/gabrielrf
         # data = select_user(db, table, message.from_user.id, '*')
         # f = requests.get(file_url)
         upd_user_file(db, table, message.from_user.id, file_url)
-        msg = bot.send_message(message.from_user.id,
-            'Send file <b>as is</b> or <b>converted</b> to Kindle format?',
-            parse_mode='HTML', reply_markup=button2)
+        print(file_url)
+        if '.pdf' in file_url:
+            msg = bot.send_message(message.from_user.id,
+                'Send file <b>as is</b> or <b>converted</b> to Kindle format?',
+                parse_mode='HTML', reply_markup=button2)
+        else:
+            data = select_user(db, table, message.from_user.id, '*')
+            send_mail(str(message.from_user.id), data[2],
+                data[3], ' ', str(message.from_user.id), data[7])
+
         # bot.register_next_step_handler(msg, ask_conv)
 
     @bot.callback_query_handler(lambda q: q.data == '/converted')
     def ask_conv(call):
+        bot.answer_callback_query(call.id)
         data = select_user(db, table, call.from_user.id, '*')
         send_mail(str(call.from_user.id), data[2],
             data[3], 'Convert', str(call.from_user.id), data[7])
 
     @bot.callback_query_handler(lambda q: q.data == '/as_is')
     def ask_conv(call):
+        bot.answer_callback_query(call.id)
         data = select_user(db, table, call.from_user.id, '*')
         send_mail(str(call.from_user.id), data[2],
             data[3], ' ', str(call.from_user.id), data[7])
 
     @bot.callback_query_handler(lambda q: q.data == '/email')
     def email(call):
+        bot.answer_callback_query(call.id)
         msg = bot.send_message(call.from_user.id,
             'Type the e-mail you want to set.')
         bot.register_next_step_handler(msg, add_email)
 
     @bot.callback_query_handler(lambda q: q.data == '/send')
     def ask_file(call):
+        bot.answer_callback_query(call.id)
         msg = bot.send_message(call.from_user.id,
             'Send me the file (up to 20MB)  or the link to the file.')
         bot.register_next_step_handler(msg, get_file)
