@@ -46,6 +46,7 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
         bot.send_message(chatid, 'File not found. Aborted.')
         return 0
 
+    bot.send_chat_action(chatid, 'upload_document')
     bot.send_message(chatid, str(u'\U0001F5DE')
         + '<b>Sending file</b>.\nPlease, wait a moment.', parse_mode='HTML')
 
