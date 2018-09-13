@@ -359,7 +359,7 @@ http://patreon.com/gabrielrf
         # f = requests.get(file_url)
         upd_user_file(db, table, message.from_user.id, file_url)
         print(file_url)
-        if '.pdf' in file_url:
+        if '.pdf' in file_url.lower():
             msg = bot.send_message(message.from_user.id,
                 'Send file <b>as is</b> or <b>converted</b> to Kindle format?',
                 parse_mode='HTML', reply_markup=button2)
@@ -397,5 +397,15 @@ http://patreon.com/gabrielrf
         msg = bot.send_message(call.from_user.id,
             'Send me the file (up to 20MB)  or the link to the file.')
         bot.register_next_step_handler(msg, get_file)
+
+    @bot.message_handler(func=lambda m: True)
+    def generic_msg(message):
+        bot.send_chat_action(message.chat.id, 'typing')
+        get_file(message)
+
+    @bot.message_handler(content_types=['document'])
+    def generic_file(message):
+        bot.send_chat_action(message.chat.id, 'typing')
+        get_file(message)
 
     bot.polling(none_stop=True)
