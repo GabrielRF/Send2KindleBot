@@ -400,8 +400,9 @@ http://patreon.com/gabrielrf
 
     @bot.message_handler(func=lambda m: True)
     def generic_msg(message):
-        bot.send_chat_action(message.chat.id, 'typing')
-        get_file(message)
+        if '@' not in message.text:
+            bot.send_chat_action(message.chat.id, 'typing')
+            get_file(message)
 
     @bot.message_handler(content_types=['document'])
     def generic_file(message):
