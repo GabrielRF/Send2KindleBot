@@ -171,13 +171,10 @@ def user_lang(message):
     btn3 = types.InlineKeyboardButton(i18n.t('bot.btn3'), callback_data='/as_is')
     btn4 = types.InlineKeyboardButton(i18n.t('bot.btn4'), callback_data='/converted')
     button2.row(btn3, btn4)
-    if message.from_user.language_code == 'en-US':
-        i18n.set('locale', 'enus')
-    elif message.from_user.language_code == 'pt-BR':
-        i18n.set('locale', 'ptbr')
-    else:
-        i18n.set('locale', 'enus')
-
+    user_lang = message.from_user.language_code.strip('-').lower()
+    print(user_lang)
+    i18n.set('locale', user_lang)
+    i18n.set('fallback', 'en-us')
 if __name__ == '__main__':
     config = configparser.ConfigParser()
     config.sections()
