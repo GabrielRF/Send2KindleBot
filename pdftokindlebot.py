@@ -5,6 +5,7 @@ from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.utils import formatdate
 from email import encoders
+import i18n
 import logging
 import logging.handlers
 import os
@@ -18,6 +19,9 @@ import urllib.request
 from validate_email import validate_email
 
 
+i18n.load_path.append('i18n')
+i18n.set('locale', 'enus')
+
 # Get file from URL
 def open_file(file_url, chatid):
 
@@ -29,8 +33,7 @@ def open_file(file_url, chatid):
 # Send e-mail function
 def send_mail(chatid, send_from, send_to, subject, text, file_url):
     if len(send_from) < 5 or len(send_to) < 5:
-        bot.send_message(chatid, '<b>Error</b>.\n' +
-            'Click /start and check your e-mails.', parse_mode='HTML')
+        bot.send_message(chatid, i18n.t('bot.error'), parse_mode='HTML')
         return 0
     msg = MIMEMultipart()
     msg['From'] = send_from
@@ -43,12 +46,12 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
     try:
         files = open_file(file_url, chatid)
     except:
-        bot.send_message(chatid, 'File not found. Aborted.')
+        bot.send_message(chatid, i18n.t('bot.filenotfound'))
         return 0
 
     bot.send_chat_action(chatid, 'upload_document')
     bot.send_message(chatid, str(u'\U0001F5DE')
-        + '<b>Sending file</b>.\nPlease, wait a moment.', parse_mode='HTML')
+        + i18n.t('bot.sendingfile'), parse_mode='HTML')
 
     part = MIMEBase('application', 'octet-stream')
     part.set_payload(open(files, 'rb').read())
@@ -63,8 +66,7 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
         smtp.sendmail(send_from, send_to, msg.as_string())
     except smtplib.SMTPRecipientsRefused:
         msg = bot.send_message(chatid,
-            str(u'\U000026A0') + '<b>Error</b>.\n'
-            + 'Please, check your e-mail and try again.', parse_mode='HTML')
+            str(u'\U000026A0') + i18n.t('bot.checkemail'), parse_mode='HTML')
         smtp.close()
         logger_info.info(str(datetime.datetime.now()) + '\tError:\t'
             + str(chatid) + '\t' + send_from + '\t' + send_to)
@@ -82,12 +84,9 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
     except FileNotFoundError:
         pass
     bot.send_message(chatid,
-        str(u'\U0001F4EE') + '<b>File sent</b>.'
-        + '\nWait a few minutes and check on your device.'
-        + '\n\n' + str(u'\U00002B50') + '<b>Rate the bot:</b>'
-        + '\nhttps://telegram.me/storebot?start=Send2Kindlebot'
-        + '\n\n' + str(u'\U0001F4B5') + '<b>Donate!</b>' + '\nhttp://grf.xyz/paypal'
-        + '\n\n<b>Send a new command</b>.', parse_mode='HTML',
+        str(u'\U0001F4EE') + i18n.t('bot.filesent')
+        + '\n\n' + str(u'\U00002B50') + i18n.t('bot.rate')
+        + '\n\n' + str(u'\U0001F4B5') + i18n.t('bot.donate'), parse_mode='HTML',
         reply_markup=button, disable_web_page_preview=True)
 
 
@@ -154,17 +153,20 @@ def select_user(db, table, chatid, field):
     cursor.execute(aux)
     usuarios = cursor.fetchone()
     if usuarios:
-        # print('Existe')
         data = usuarios
     else:
-        # print('Nao existe')
         add_user(db, table, chatid)
         data = ''
-    # for usuarios in cursor.fetchall():
-    #     print(str(usuarios))
     conn.close()
-    # print(data)
     return data
+
+def user_lang(message):
+    if message.from_user.language_code == 'en-US':
+        i18n.set('locale', 'enus')
+    elif message.from_user.language_code == 'pt-BR':
+        i18n.set('locale', 'ptbr')
+    else:
+        i18n.set('locale', 'ptbr')
 
 if __name__ == '__main__':
     config = configparser.ConfigParser()
@@ -178,12 +180,12 @@ if __name__ == '__main__':
 
     bot = telebot.TeleBot(TOKEN)
     button = types.InlineKeyboardMarkup()
-    btn1 = types.InlineKeyboardButton('Send file', callback_data='/send')
-    btn2 = types.InlineKeyboardButton('Set e-mail', callback_data='/email')
+    btn1 = types.InlineKeyboardButton(i18n.t('bot.btn1'), callback_data='/send')
+    btn2 = types.InlineKeyboardButton(i18n.t('bot.btn2'), callback_data='/email')
     button.row(btn1, btn2)
     button2 = types.InlineKeyboardMarkup()
-    btn3 = types.InlineKeyboardButton('As is', callback_data='/as_is')
-    btn4 = types.InlineKeyboardButton('Converted', callback_data='/converted')
+    btn3 = types.InlineKeyboardButton(i18n.t('bot.btn3'), callback_data='/as_is')
+    btn4 = types.InlineKeyboardButton(i18n.t('bot.btn4'), callback_data='/converted')
     button2.row(btn3, btn4)
     cmds = ['/start', '/send', '/info', '/help']
     LOG_INFO_FILE = log_file
@@ -193,73 +195,26 @@ if __name__ == '__main__':
         when='midnight', interval=1, backupCount=7, encoding='utf-8')
     logger_info.addHandler(handler_info)
 
-    help_msg = (
-'''<b>What does this bot do?</b>
-This bot is able to send files to your Kindle as if you were sending them by e-mail.
-
-<b>Where is my Kindle's e-mail?</b>
-Log into your Amazon account. Visit <i>Manage your Devices</i> page at <i>Manage Your Kindle</i>.
-The e-mail address will end with <code>@Kindle.com</code>.
-
-<b>What kind of files are supported?</b>
-Abode PDF <code>.pdf</code> 
-HTML <code>.htm .html</code>
-Images <code>.jpg .gif .bmp .png</code>
-Mobi book <code>.mobi</code>
-Microsoft Word <code>.doc .docx</code>
-Rich Text Format <code>.rtf</code>
-Text files <code>.txt</code>
-Zipped files <code>.zip .xzip</code>
-<i>* The file conversion to Kindle format is an experimental service done by Amazon.</i>
-
-<b>Is there any file size limit?</b>
-Documents sent by link are limited to 50 MB (before compression).
-Documents sent directly to the bot are limited to 20 MB.
-
-<b>For any other question, visit:</b>
-http://www.amazon.com/kindlepersonaldocuments/
-
-<b>Source code:</b>
-https://github.com/GabrielRF/Send2KindleBot
-''')
-
-    info_msg = (
-'''
-This bot is under constant development!
-If you have any question or suggestion, please, talk to me!
-
-Twitter: <a href="http://twitter.com/GabRF">@GabRF</a>
-Telegram: @GabrielRF
-Website: http://grf.xyz/telegram
-
-Rate the bot:
-https://telegram.me/storebot?start=Send2Kindlebot
-Support the project:
-http://grf.xyz/paypal
-http://patreon.com/gabrielrf
-''')
 
     @bot.message_handler(commands=['help'])
     def help(message):
-        bot.send_message(message.from_user.id, help_msg, parse_mode='HTML', 
+        user_lang(message)
+        bot.send_message(message.from_user.id, i18n.t('bot.help'), parse_mode='HTML', 
             disable_web_page_preview=True)
 
 
     @bot.message_handler(commands=['info'])
     def help(message):
-        bot.send_message(message.from_user.id, info_msg, parse_mode='HTML', 
+        user_lang(message)
+        bot.send_message(message.from_user.id, i18n.t('bot.info'), parse_mode='HTML', 
             disable_web_page_preview=True)
 
 
     # select_user(db, table, sys.argv[1])
     @bot.message_handler(commands=['start'])
     def start(message):
-        # upd_user_last(db, table, message.from_user.id)
+        user_lang(message)
         data = select_user(db, table, message.from_user.id, '*')
-        # bot.send_message(message.from_user.id, str(data))
-        # print(data)
-        # print('Data[3] ' + str(data[3]))
-        # print(data[4])
         try:
             aux1 = data[2]
             aux2 = data[3]
@@ -267,27 +222,24 @@ http://patreon.com/gabrielrf
             aux1 = ' '
             aux2 = ' '
         if len(aux1) < 3 or len(aux2) < 3:
-            msg = bot.send_message(message.from_user.id, 'Hi!\n' +
-                'This bot sends files to your Kindle.\n' +
-                'First, type your Kindle e-mail.\n' +
-                'It must end with <code>kindle.com</code>', parse_mode='HTML')
+            msg = bot.send_message(message.from_user.id,
+                i18n.t('bot.startnewuser'), parse_mode='HTML')
             bot.register_next_step_handler(msg, add_email)
         else:
-            bot.send_message(message.from_user.id, (
-                '<b>Welcome back</b>!\n'
-                + 'Your registered e-mails are:\n{} {}\n{} {}\n' +
-                'To send a file to your Kindle, click <b>Send file</b>.\n' +
-                'To change an e-mail, click <b>Set e-mail</b>.').format(
+            bot.send_message(message.from_user.id,
+                i18n.t('bot.startolduser').format(
                 str(u'\U0001F4E4'), data[2], str(u'\U0001F4E5'), data[3]
             ), parse_mode='HTML', reply_markup=button)
 
     @bot.message_handler(commands=['email'])
     def ask_email(message):
+        user_lang(message)
         msg = bot.send_message(message.from_user.id,
             'Type your Kindle e-mail.')
         bot.register_next_step_handler(msg, add_email)
 
     def add_email(message):
+        user_lang(message)
         if '/' not in message.text:
             data = select_user(db, table, message.from_user.id, '*')
             if validate_email(message.text.lower()):
@@ -301,7 +253,7 @@ http://patreon.com/gabrielrf
                             'Type your email used on your Amazon account.')
                         bot.register_next_step_handler(msg, add_email)
                         return 0
-                    bot.reply_to(message,
+                    msg = bot.reply_to(message,
                         str(u'\U00002705') + '<b>Success</b>.\n' +
                         'To send a file to your Kindle, click <b>Send file</b>'
                         + '.\nTo change your e-mail, click <b>Set e-mail</b>.',
@@ -314,7 +266,7 @@ http://patreon.com/gabrielrf
                 else:
                     upd_user_email(db, table, message.from_user.id, '"' +
                         str(message.text) + '"')
-                    bot.reply_to(message,
+                    msg = bot.reply_to(message,
                         str(u'\U00002705') + '<b>Success</b>.\n' +
                         'To send a file to your Kindle, click <b>Send file</b>'
                         + '.\nTo change your e-mail, click <b>Set e-mail</b>.',
@@ -332,11 +284,13 @@ http://patreon.com/gabrielrf
 
     @bot.message_handler(commands=['send'])
     def ask_file(message):
+        user_lang(message)
         msg = bot.send_message(message.from_user.id,
-            'Send me the file (up to 20MB) or the link to the file.')
+            i18n.t('bot.askfile'))
         bot.register_next_step_handler(msg, get_file)
 
     def get_file(message):
+        user_lang(message)
         if message.content_type == 'document':
             file_size = message.document.file_size
             bot.reply_to(message, str(u'\U00002705') + 'Downloaded '
@@ -395,17 +349,19 @@ http://patreon.com/gabrielrf
     def ask_file(call):
         bot.answer_callback_query(call.id)
         msg = bot.send_message(call.from_user.id,
-            'Send me the file (up to 20MB)  or the link to the file.')
+            i18n.t('bot.askfile'))
         bot.register_next_step_handler(msg, get_file)
 
     @bot.message_handler(func=lambda m: True)
     def generic_msg(message):
+        user_lang(message)
         if '@' not in message.text:
             bot.send_chat_action(message.chat.id, 'typing')
             get_file(message)
 
     @bot.message_handler(content_types=['document'])
     def generic_file(message):
+        user_lang(message)
         bot.send_chat_action(message.chat.id, 'typing')
         get_file(message)
 
