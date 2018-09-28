@@ -1,5 +1,13 @@
 enus:
   askfile: Send me the file (up to 20MB)  or the link to the file.
+  askemail: Type your Kindle e-mail.
+  askemail2: Type your email used on your Amazon account.
+  askemail3: Type the e-mail you want to set.
+  askconvert: Send file <b>as is</b> or <b>converted</b> to Kindle format?
+  success: |
+    <b>Success</b>.
+    To send a file to your Kindle, click <b>Send file</b>.
+    To change your e-mail, click <b>Set e-mail</b>.
   startnewuser: |
     Hi!
     This bot sends files to your Kindle.

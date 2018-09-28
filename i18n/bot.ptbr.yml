@@ -1,5 +1,13 @@
 ptbr:
   askfile: Me envie um arquivo (de ate 20MB) ou o link de um arquivo.
+  askemail: Digite o e-mail do seu Kindle.
+  askemail2: Digite o e-mail usado em sua conta da Amazon.
+  askemail3: Digite o e-mail que deseja adicionar no bot.
+  askconvert: Enviar o arquivo <b>sem conversao</b> ou <b>convertido</b> para o formato do Kindle?
+  success: |
+    <b>Sucesso</b>.
+    Para enviar um arquivo ao seu Kindle, aperte em <b>Enviar arquivo</b>.
+    Para ajustar seu e-mail, clique em <b>Ajustar e-mail</b>.
   startnewuser: |
     Ola!
     Esse bot envia arquivos ao seu Kindle.
@@ -54,26 +62,27 @@ ptbr:
     <i>* A conversao de arquivos eh um servico experimental da Amazon.</i>
 
     <b>Ha um limite ao tamanho dos arquivos?</b>
-    Documents sent by link are limited to 50 MB (before compression).
-    Documents sent directly to the bot are limited to 20 MB.
+    Documentos enviados por link sao limitados a 50MB (antes da compressao).
+    Documentos enviados diretamente ao bot sao limitados a 20MB.
 
-    <b>For any other question, visit:</b>
+    <b>Para quaisquer outras perguntas, visite:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
-    <b>Source code:</b>
+    <b>Codigo fonte:</b>
     https://github.com/GabrielRF/Send2KindleBot
 
   info: |
-    This bot is under constant development!
-    If you have any question or suggestion, please, talk to me!
+    Bot em desenvolvimento constante!
+    Caso tenha perguntas ou sugestoes, por favor, fale comigo!
 
     Twitter: @GabRF (http://twitter.com/GabRF)
     Telegram: @GabrielRF
     Website: http://grf.xyz/telegram
 
-    Rate the bot:
+    Avalie o bot:
     https://telegram.me/storebot?start=Send2Kindlebot
 
-    Support the project:
+    Colabore com o projeto:
     http://grf.xyz/paypal
     http://patreon.com/gabrielrf
+    https://app.picpay.com/user/GabrielRF

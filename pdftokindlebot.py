@@ -161,6 +161,16 @@ def select_user(db, table, chatid, field):
     return data
 
 def user_lang(message):
+    global button
+    global button2
+    button = types.InlineKeyboardMarkup()
+    btn1 = types.InlineKeyboardButton(i18n.t('bot.btn1'), callback_data='/send')
+    btn2 = types.InlineKeyboardButton(i18n.t('bot.btn2'), callback_data='/email')
+    button.row(btn1, btn2)
+    button2 = types.InlineKeyboardMarkup()
+    btn3 = types.InlineKeyboardButton(i18n.t('bot.btn3'), callback_data='/as_is')
+    btn4 = types.InlineKeyboardButton(i18n.t('bot.btn4'), callback_data='/converted')
+    button2.row(btn3, btn4)
     if message.from_user.language_code == 'en-US':
         i18n.set('locale', 'enus')
     elif message.from_user.language_code == 'pt-BR':
@@ -179,14 +189,6 @@ if __name__ == '__main__':
     table = config['SQLITE3']['table']
 
     bot = telebot.TeleBot(TOKEN)
-    button = types.InlineKeyboardMarkup()
-    btn1 = types.InlineKeyboardButton(i18n.t('bot.btn1'), callback_data='/send')
-    btn2 = types.InlineKeyboardButton(i18n.t('bot.btn2'), callback_data='/email')
-    button.row(btn1, btn2)
-    button2 = types.InlineKeyboardMarkup()
-    btn3 = types.InlineKeyboardButton(i18n.t('bot.btn3'), callback_data='/as_is')
-    btn4 = types.InlineKeyboardButton(i18n.t('bot.btn4'), callback_data='/converted')
-    button2.row(btn3, btn4)
     cmds = ['/start', '/send', '/info', '/help']
     LOG_INFO_FILE = log_file
     logger_info = logging.getLogger('InfoLogger')
@@ -234,8 +236,7 @@ if __name__ == '__main__':
     @bot.message_handler(commands=['email'])
     def ask_email(message):
         user_lang(message)
-        msg = bot.send_message(message.from_user.id,
-            'Type your Kindle e-mail.')
+        msg = bot.send_message(message.from_user.id, i18n.t('bot.askemail'))
         bot.register_next_step_handler(msg, add_email)
 
     def add_email(message):
@@ -249,14 +250,11 @@ if __name__ == '__main__':
                     # check = select_user(db, table, message.from_user.id,
                     #     'remetente')
                     if len(data[3]) < 5:
-                        msg = bot.reply_to(message,
-                            'Type your email used on your Amazon account.')
+                        msg = bot.reply_to(message, i18n.t('bot.askemail'))
                         bot.register_next_step_handler(msg, add_email)
                         return 0
                     msg = bot.reply_to(message,
-                        str(u'\U00002705') + '<b>Success</b>.\n' +
-                        'To send a file to your Kindle, click <b>Send file</b>'
-                        + '.\nTo change your e-mail, click <b>Set e-mail</b>.',
+                        str(u'\U00002705') + i18n.t('bot.success'),
                         parse_mode='HTML', reply_markup=button)
                 # elif len(data[3]) < 5:
                 #     msg = bot.reply_to(message,
@@ -267,19 +265,15 @@ if __name__ == '__main__':
                     upd_user_email(db, table, message.from_user.id, '"' +
                         str(message.text) + '"')
                     msg = bot.reply_to(message,
-                        str(u'\U00002705') + '<b>Success</b>.\n' +
-                        'To send a file to your Kindle, click <b>Send file</b>'
-                        + '.\nTo change your e-mail, click <b>Set e-mail</b>.',
+                        str(u'\U00002705') + i18n.t('bot.success'),
                         parse_mode='HTML', reply_markup=button)
             else:
                 msg = bot.send_message(message.from_user.id, str(u'\U000026A0')
-                    + '<b>Error</b>. \n'
-                    + message.text + ' is not valid.\n' +
-                    'Type your Kindle e-mail.', parse_mode='HTML')
+                    + i18n.t('bot.askemail'), parse_mode='HTML')
                 bot.register_next_step_handler(msg, add_email)
         else:
             msg = bot.send_message(message.from_user.id,
-            '<b>Error</b>.\nType your Kindle e-mail.', parse_mode='HTML')
+            i18n.t('bot.askemail'), parse_mode='HTML')
         bot.register_next_step_handler(msg, add_email)
 
     @bot.message_handler(commands=['send'])
@@ -304,8 +298,7 @@ if __name__ == '__main__':
                 return 0
             file_url = message.text
         else:
-            msg = bot.send_message(message.from_user.id,
-                'Please, send as a file.')
+            msg = bot.send_message(message.from_user.id, i18n.t('bot.askfile'))
             bot.register_next_step_handler(msg, get_file)
             return 0
 
@@ -314,8 +307,7 @@ if __name__ == '__main__':
         upd_user_file(db, table, message.from_user.id, file_url)
         print(file_url)
         if '.pdf' in file_url.lower():
-            msg = bot.send_message(message.from_user.id,
-                'Send file <b>as is</b> or <b>converted</b> to Kindle format?',
+            msg = bot.send_message(message.from_user.id, i18n.t('bot.askconvert'),
                 parse_mode='HTML', reply_markup=button2)
         else:
             data = select_user(db, table, message.from_user.id, '*')
@@ -341,8 +333,7 @@ if __name__ == '__main__':
     @bot.callback_query_handler(lambda q: q.data == '/email')
     def email(call):
         bot.answer_callback_query(call.id)
-        msg = bot.send_message(call.from_user.id,
-            'Type the e-mail you want to set.')
+        msg = bot.send_message(call.from_user.id, i18n.t('bot.askemail3'))
         bot.register_next_step_handler(msg, add_email)
 
     @bot.callback_query_handler(lambda q: q.data == '/send')
