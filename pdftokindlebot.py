@@ -171,7 +171,7 @@ def user_lang(message):
     btn3 = types.InlineKeyboardButton(i18n.t('bot.btn3'), callback_data='/as_is')
     btn4 = types.InlineKeyboardButton(i18n.t('bot.btn4'), callback_data='/converted')
     button2.row(btn3, btn4)
-    user_lang = message.from_user.language_code.strip('-').lower()
+    user_lang = message.from_user.language_code.lower()
     print(user_lang)
     i18n.set('locale', user_lang)
     i18n.set('fallback', 'en-us')
