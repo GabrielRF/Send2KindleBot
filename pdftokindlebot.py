@@ -176,7 +176,7 @@ def user_lang(message):
     elif message.from_user.language_code == 'pt-BR':
         i18n.set('locale', 'ptbr')
     else:
-        i18n.set('locale', 'ptbr')
+        i18n.set('locale', 'enus')
 
 if __name__ == '__main__':
     config = configparser.ConfigParser()
