@@ -83,10 +83,19 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
         os.remove(files)
     except FileNotFoundError:
         pass
-    bot.send_message(chatid,
-        str(u'\U0001F4EE') + i18n.t('bot.filesent')
-        + '\n\n' + str(u'\U00002B50') + i18n.t('bot.rate')
-        + '\n\n' + str(u'\U0001F4B5') + i18n.t('bot.donate'), parse_mode='HTML',
+    msg = (
+        '{icon_x} {msg_a}\n\n'
+        '{icon_y} {msg_b}\n\n'
+        '{icon_z} {msg_c}'
+    ).format(
+        icon_x=u'\U0001F4EE',
+        icon_y=u'\U00002B50',
+        icon_z=u'\U0001F4B5',
+        msg_a=i18n.t('bot.filesent'),
+        msg_b=i18n.t('bot.rate'),
+        msg_c=i18n.t('bot.donate'),
+    )
+    bot.send_message(chatid, msg, parse_mode='HTML',
         reply_markup=button, disable_web_page_preview=True)
 
 
@@ -161,6 +170,14 @@ def select_user(db, table, chatid, field):
     return data
 
 def user_lang(message):
+    user_lang = message.from_user.language_code.lower()
+    # print(user_lang)
+    i18n.set('locale', user_lang)
+    i18n.set('fallback', 'en-us')
+    set_buttons()
+
+
+def set_buttons():
     global button
     global button2
     button = types.InlineKeyboardMarkup()
@@ -171,10 +188,8 @@ def user_lang(message):
     btn3 = types.InlineKeyboardButton(i18n.t('bot.btn3'), callback_data='/as_is')
     btn4 = types.InlineKeyboardButton(i18n.t('bot.btn4'), callback_data='/converted')
     button2.row(btn3, btn4)
-    user_lang = message.from_user.language_code.lower()
-    print(user_lang)
-    i18n.set('locale', user_lang)
-    i18n.set('fallback', 'en-us')
+
+
 if __name__ == '__main__':
     config = configparser.ConfigParser()
     config.sections()
