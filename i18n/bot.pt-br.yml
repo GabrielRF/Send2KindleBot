@@ -3,19 +3,19 @@ pt-br:
   askemail: Digite o e-mail do seu Kindle.
   askemail2: Digite o e-mail usado em sua conta da Amazon.
   askemail3: Digite o e-mail que deseja adicionar no bot.
-  askconvert: Enviar o arquivo <b>sem conversao</b> ou <b>convertido</b> para o formato do Kindle?
+  askconvert: Enviar o arquivo <b>sem conversão</b> ou <b>convertido</b> para o formato do Kindle?
   success: |
     <b>Sucesso</b>.
     Para enviar um arquivo ao seu Kindle, aperte em <b>Enviar arquivo</b>.
     Para ajustar seu e-mail, clique em <b>Ajustar e-mail</b>.
   startnewuser: |
-    Ola!
+    Olá!
     Esse bot envia arquivos ao seu Kindle.
     Primeiro, envie o e-mail do seu Kindle.
     Deve terminar em <code>@kindle.com</code>
   startolduser: |
     <b>Bem vindo de volta</b>!
-    Seus e-mails cadastrados sao:
+    Seus e-mails cadastrados são:
     {} {}
     {} {}
     Para enviar um arquivo ao seu Kindle, clique em <b>Enviar arquivo</b>.
@@ -23,7 +23,7 @@ pt-br:
   error: |
     <b>Erro</b>.
     Clique /start e verifique seus e-mails.
-  filenotfound: Arquivo nao encontrado. Operação abortada.
+  filenotfound: Arquivo não encontrado. Operação abortada.
   sendingfile: |
     <b>Enviando arquivo</b>.
     Por favor, aguarde.
@@ -41,39 +41,39 @@ pt-br:
     http://grf.xyz/paypal
   btn1: Enviar arquivo
   btn2: Ajustar e-mail
-  btn3: Sem conversao
+  btn3: Sem conversão
   btn4: Convertido
   help: |
     <b>O que esse bot faz?</b>
-    Este bot é capaz de enviar arquivos para seu Kindle como o servico de e-mail da Amazon.
-
+    Este bot é capaz de enviar arquivos para seu Kindle como o serviço de e-mail da Amazon.
+    
     <b>Onde consulto o e-mail do meu Kindle?</b>
-    Entre em sua conta da Amazon. Acesse <i>Gerencie seu conteudo e dispositivos</i>, <i>Seus dispositivos</i>.
-    O e-mail terminara com <code>@kindle.com</code>.
+    Entre em sua conta da Amazon. Acesse <i>Gerencie seu conteúdo e dispositivos</i>, <i>Seus dispositivos</i>.
+    O e-mail terminara com <code>@Kindle.com</code>.
 
-    <b>Quais tipos de arquivo sao suportados?</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
-    Images <code>.jpg .gif .bmp .png</code>
+    <b>Quais tipos de arquivos sao suportados?</b>
+    Abode PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Imagens <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
     Rich Text Format <code>.rtf</code>
-    Text files <code>.txt</code>
-    Zipped files <code>.zip .xzip</code>
-    <i>* A conversao de arquivos eh um servico experimental da Amazon.</i>
+    Arquivos de texto <code>.txt</code>
+    Arquivos zip <code>.zip .xzip</code>
+    <i>* A conversão de arquivos é um serviço experimental da Amazon.</i>
 
-    <b>Ha um limite ao tamanho dos arquivos?</b>
-    Documentos enviados por link sao limitados a 50MB (antes da compressao).
-    Documentos enviados diretamente ao bot sao limitados a 20MB.
+    <b>Há um limite ao tamanho dos arquivos?</b>
+    Documentos enviados por link são limitados a 50MB (antes da compressão).
+    Documentos enviados diretamente ao bot são limitados a 20MB.
 
     <b>Para quaisquer outras perguntas, visite:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
-    <b>Codigo fonte:</b>
+    <b>Código fonte:</b>
     https://github.com/GabrielRF/Send2KindleBot
 
   info: |
     Bot em desenvolvimento constante!
-    Caso tenha perguntas ou sugestoes, por favor, fale comigo!
+    Caso tenha perguntas ou sugestões, por favor, fale comigo!
 
     Twitter: @GabRF (http://twitter.com/GabRF)
     Telegram: @GabrielRF
