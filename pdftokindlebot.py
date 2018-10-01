@@ -265,7 +265,7 @@ if __name__ == '__main__':
                     # check = select_user(db, table, message.from_user.id,
                     #     'remetente')
                     if len(data[3]) < 5:
-                        msg = bot.reply_to(message, i18n.t('bot.askemail'))
+                        msg = bot.reply_to(message, i18n.t('bot.askemail2'))
                         bot.register_next_step_handler(msg, add_email)
                         return 0
                     msg = bot.reply_to(message,
