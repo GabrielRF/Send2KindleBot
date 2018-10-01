@@ -1,5 +1,5 @@
 en-us:
-  askfile: Send me the file (up to 20MB)  or the link to the file.
+  askfile: Send me the file (up to 20MB) or the link to the file.
   askemail: Type your Kindle e-mail.
   askemail2: Type your email used on your Amazon account.
   askemail3: Type the e-mail you want to set.
@@ -46,13 +46,13 @@ en-us:
   help: |
     <b>What does this bot do?</b>
     This bot is able to send files to your Kindle as if you were sending them by e-mail.
-    
+
     <b>Where is my Kindle's e-mail?</b>
     Log into your Amazon account. Visit <i>Manage your Devices</i> page at <i>Manage Your Kindle</i>.
-    The e-mail address will end with <code>@Kindle.com</code>.
+    The e-mail address will end with <code>@kindle.com</code>.
 
     <b>What kind of files are supported?</b>
-    Abode PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
     Images <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
