@@ -170,8 +170,11 @@ def select_user(db, table, chatid, field):
     return data
 
 def user_lang(message):
-    user_lang = message.from_user.language_code.lower()
-    # print(user_lang)
+    try:
+        user_lang = message.from_user.language_code.lower()
+    except:
+        user_lang = 'en-us'
+    print(user_lang)
     i18n.set('locale', user_lang)
     i18n.set('fallback', 'en-us')
     set_buttons()
@@ -317,7 +320,7 @@ if __name__ == '__main__':
         # data = select_user(db, table, message.from_user.id, '*')
         # f = requests.get(file_url)
         upd_user_file(db, table, message.from_user.id, file_url)
-        print(file_url)
+        # print(file_url)
         if '.pdf' in file_url.lower():
             msg = bot.send_message(message.from_user.id, i18n.t('bot.askconvert'),
                 parse_mode='HTML', reply_markup=button2)
