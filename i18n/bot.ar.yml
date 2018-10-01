@@ -1,0 +1,78 @@
+ar:
+askfile: أرسل لي ملف (حتى 20 ميغابايت) أو رابط للكتاب (حتى 50 ميغابايت)
+askemail: اكتب بريدك الإلكتروني المسجل في كيندل
+askemail2: اكتب بريدك الألكتروني المستخدم في أمازون
+askemail3: Type the e-mail you want to set.
+askconvert: أرسل الكتاب <b>كما هو</b> أو <b>قم بتحويله</b> لصيغة مناسبة للكيندل?
+success: |
+<b>تم بنجاح</b>.
+لإرسال الكتاب إلى جهازك الكيندل، إضغط <b>أرسل الملف</b>.
+لتغيير بريدك الإلكتروني، إضغط <b>تغيير البريد الإلكتروني</b>.
+startnewuser: |
+أهلا!
+هذا ’البوت’ يقوم بإرسال ملفاتك إلى جهاز الكيندل الخاص بك
+أولاً، أكتب بريدك الإلكتروني في كيندل
+يجب أن يكون منتهياً بـ <code>kindle.com</code>
+startolduser: |
+<b>مرحباً بعودتك</b>!
+بريدك الإلكتروني المسجل هو:
+{} {}
+{} {}
+لإرسال الكتاب إلى جهازك الكيندل، إضغط <b>أرسل الملف</b>.
+لتغيير بريدك الإلكتروني، إضغط <b>تغيير البريد الإلكتروني</b>.
+error: |
+<b>خطأ!</b>.
+إضغط /start للتأكد من بريدك الإلكتروني
+filenotfound: الملف غير موجود. فشلت المهمة.
+sendingfile: |
+<b>يتم إرسال الملف</b>.
+فضلاً، إنتظر لحظة.
+checkemail: |
+<b>خطأ!</b>.
+فضلاً، تأكد من البريد الإلكتروني ثم حاول مجدداً
+filesent: |
+<b>تم إرسال الملف</b>.
+إنتظر لحظات، ثم تحقق من جهاز الكيندل الخاص بك
+rate: |
+<b>:قيّم ’البوت’</b>
+https://telegram.me/storebot?start=Send2Kindlebot
+donate: |
+<b>تبرّع!</b>
+http://grf.xyz/paypal\n\n<b>Send a new command</b>.
+btn1: إرسال ملف
+btn2: إختيار البريد الإلكتروني
+btn3: إرساله كما هو
+btn4: إرساله بعد تحويله
+help: |
+<b>ما الذي يفعله هذا ’البوت’؟</b>
+يتيح لك هذا ’البوت’ إرسال كتبك إلى جهاز الكيندل الخاص بك كما ترسلها عن طريق بريد كيندل الخاص بك
+<b>أين يمكن أن أجد بريد كيندل الإلكتروني الخاص بي؟</b>
+سجّل دخولك في موقع أمازون، اذهب لصفحة <i>Manage your Devices</i> من <i>Manage Your Kindle</i>.
+ستجد بريدك الإلكتروني منتهياً بـ <code>@Kindle.com</code>.
+<b>ما نوع الملفات المدعومة؟</b>
+Abode PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+Images <code>.jpg .gif .bmp .png</code>
+Mobi book <code>.mobi</code>
+Microsoft Word <code>.doc .docx</code>
+Rich Text Format <code>.rtf</code>
+Text files <code>.txt</code>
+Zipped files <code>.zip .xzip</code>
+<i>* تحويل الملفات لصيغة مناسبة للكيندل، هي عملية تجريبية من قبل أمازون</i>
+<b>هل هناك أي أحجام معينة للتحويل؟</b>
+الملفات المرسلة عن طريق روابط، محدودة بحجم 50 ميغابايت
+الملفات المرسلة مباشرة لل’بوت’، محدودة بحجم 20 ميغابايت
+<b>لمزيد من الإستفسارات قم بزيارة:</b>
+http://www.amazon.com/kindlepersonaldocuments/
+<b>مصدر الكود:</b>
+https://github.com/GabrielRF/Send2KindleBot
+info: |
+هذا ’البوت’ يتم تحديثه بشكل دوري
+إن كان لديك أي اقتراحات أو أسئلة، فضلاً، تواصل معي
+تويتر: @GabRF (http://twitter.com/GabRF)
+تيلقرام: @GabrielRF
+الموقع: http://grf.xyz/telegram
+قيّم ’البوت’:
+https://telegram.me/storebot?start=Send2Kindlebot
+إدعم المشروع:
+http://grf.xyz/paypal
+http://patreon.com/gabrielrf
