@@ -20,7 +20,7 @@ from validate_email import validate_email
 
 
 i18n.load_path.append('i18n')
-i18n.set('locale', 'enus')
+i18n.set('locale', 'en-us')
 
 # Get file from URL
 def open_file(file_url, chatid):
