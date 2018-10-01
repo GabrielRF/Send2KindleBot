@@ -1,0 +1,87 @@
+id:
+  askfile: Kirimkan dokumen kepada saya (ukuran hingga 20 MB) atau tautan menuju dokumen.
+  askemail: Ketik email Kindle anda.
+  askemail2: Ketik email yang anda gunakan untuk akun Amazon anda.
+  askemail3: Ketik email yang ingin anda tuju.
+  askconvert: Kirim dokumen dalam <b>bentuk semula</b> atau <b>terkonversi</b> dalam format Kindle?
+  success: |
+    <b>Berhasil</b>.
+    Untuk mengirimkan dokumen ke Kindle anda, klik <b>Kirim dokumen</b>.
+    Untuk mengganti email anda, klik <b>Ubah email</b>.
+  startnewuser: |
+    Hi!
+    Bot ini berfungsi untuk mengirimkan dokumen ke Kindle anda.
+    Pertama, ketik email Kindle anda.
+    Email anda harus diakhiri dengan <code>@kindle.com</code>
+  startolduser: |
+    <b>Selamat datang kembali</b>!
+    Email yang sudah anda daftarkan:
+    {} {}
+    {} {}
+    Untuk mengirimkan dokumen ke Kindle anda, klik <b>Kirim dokumen</b>.
+    Untuk mengganti email anda, klik <b>Ubah email</b>
+  error: |
+    <b>Error</b>.
+    Klik /start dan cek email anda.
+  filenotfound: Dokumen tidak ditemukan. Proses dibatalkan.
+  sendingfile: |
+    <b>Mengirimkan dokumen</b>.
+    Mohon tunggu sejenak.
+  checkemail: |
+    <b>Error</b>.
+    Mohon cek email anda lalu coba kembali.
+  filesent: |
+    <b>Dokumen dikirimkan</b>.
+    Tunggu beberapa saat dan cek Kindle anda.
+  rate: |
+    <b>Nilai bot kami:</b>
+    https://telegram.me/storebot?start=Send2Kindlebot
+  donate: |
+    <b>Donasi!</b>
+    http://grf.xyz/paypal\n\n<b>Kirimkan perintah baru</b>.
+  btn1: Kirim Dokumen
+  btn2: Tetapkan email
+  btn3: Seperti semula
+  btn4: Dikonversikan
+  help: |
+    <b>Apa yang dapat bot ini lakukan?</b>
+    Bot ini dapat mengirimkan dokumen ke Kindle anda sama seperti jika anda mengirimkannya lewat email. 
+
+    <b>Dimanakah akun email Kindle saya?</b>
+    Masuk ke akun Amazon anda. Kunjungi halaman <i>Atur perangkat anda</i> di <i>Atur Kindle anda</i>.
+    Alamat email anda akan diakhiri dengan <code>@Kindle.com</code>.
+
+    <b>Jenis file apa saja yang didukung?</b>
+    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Gambar <code>.jpg .gif .bmp .png</code>
+    Mobi book <code>.mobi</code>
+    <i>Microsoft Word</i> <code>.doc .docx</code>
+    <i>Rich Text Format</i> <code>.rtf</code>
+    <i>Text files</i> <code>.txt</code>
+    <i>Zipped files</i> <code>.zip .xzip</code>
+    <i>* Konversi dokumen menuju format Kindle masih dalam proses percobaan oleh Amazon.</i>
+    
+    <b>Apakah ada batasan dokumen?</b>
+    Dokumen yang dikirimkan lewat tautan memiliki kuota hingga 50 MB (sebelum dikompresi).
+    Dokumen yang dikirimkan langsung ke bot akan dibatasi hingga 20 MB.
+
+    <b>Jika ada pertanyaan, kunjungi:</b>
+    http://www.amazon.com/kindlepersonaldocuments/
+
+    <b>Kode sumber:</b>
+    https://github.com/GabrielRF/Send2KindleBot
+
+  info: |
+    Bot ini dalam proses pengembangan!
+    Jika anda memiliki pertanyaan atau saran, mohon hubungi saya!
+
+    Twitter: @GabRF (http://twitter.com/GabRF)
+    Telegram: @GabrielRF
+    Website: http://grf.xyz/telegram
+
+    Nilai botnya:
+    https://telegram.me/storebot?start=Send2Kindlebot
+
+    Dukung proyek ini:
+    http://grf.xyz/paypal
+    http://patreon.com/gabrielrf
