@@ -1,0 +1,90 @@
+fr-fr:
+  askfile: Envoyer moi le fichier (max 20 MB) ou le lien.
+  askemail: Entrez votre courriel Kindle.
+  askemail2: Entrez votre courriel utilisé dans votre compte Amazon.
+  askemail3: Entrez le courriel que vous souhaitez utilisé.
+  askconvert: Envoyer le fichier <b>comme il est</b> ou <b>converti</b> au format Kindle?
+  success: |
+    <b>Succès</b>.
+    Pour envoyer un fichier à votre kindle, cliquer sur <b>Envoyer fichier</b>
+    Pour changer votre courriel, cliquer sur <b>Configurer courriel</b>
+  startnewuser: |
+    Bonjour!
+    Ce robot envoient les fichiers sur votre Kindle.
+    Premièrement entrez votre courriel Kindle.
+    Celle-ci doit se terminer par <code>kindle.com</code>
+  startolduser: |
+    <b>Rebonjour</b>!
+    Vos courriels enregistrés sont:
+    {} {}
+    {} {}
+    Pour envoyer un fichier à votre kindle, cliquer sur <b>Envoyer fichier</b>
+    Pour changer votre courriel, cliquer sur <b>Configurer courriel</b>
+  error: |
+    <b>Erreur</b>.
+    Cliquer sur /start et vérifier vos courriels.
+  filenotfound: Fichier non trouvé. Annuler.
+  sendingfile: |
+    <b>Envoie du fichier</b>.
+    Merci de patienter.
+  checkemail: |
+    <b>Erreur</b>.
+    Merci de vérifier vos courriels puis recommencer.
+  filesent: |
+    <b>Fichier envoyé</b>.
+    Attendez quelques minutes puis vérifier votre Kindle.
+  rate: |
+    <b>Donner une note au robot:</b>
+    https://telegram.me/storebot?start=Send2Kindlebot
+  donate: |
+    <b>Donner!</b>
+    http://grf.xyz/paypal\n\n<b>Send a new command</b>.
+  btn1: Envoyer fichier.
+  btn2: Configurer le courriel.
+  btn3: Tel quel
+  btn4: Converti
+  help: |
+    <b>Que fais le robot?</b>
+    Ce robot est capable d'envoyer des fichiers à votre Kindle comme ci vous les envoyiez par courriel.
+
+    <b>Où est mon adresse de courriel Kindle ?</b>
+    Connectez-vous sur votre compte Amazon.
+    Allez à <i>Gérer votre contenu et vos appareils.</i>.
+    Depuis <i>Paramètres</i>, faites défiler la page jusqu'à la section <i>Paramètres de documents personnels.</i>
+    Sous <i>Paramètres courriel Envoyer-vers-Kindle</i>, vous trouverez votre adresse.
+    Celle-ci doit se terminer par <code>kindle.com</code>.
+
+    <b>Quelles genres de fichiers sont supportés?</b>
+    Abode PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Images <code>.jpg .gif .bmp .png</code>
+    Livre Mobi <code>.mobi</code>
+    Microsoft Word <code>.doc .docx</code>
+    Rich Text Format <code>.rtf</code>
+    Fichiers texte.<code>.txt</code>
+    Fichiers zippés <code>.zip .xzip</code>
+    <i>* La conversion de fichier au format Kindle est un service expérimental d'Amazon.</i>
+
+    <b>Y a-t-il une taille limite de fichier ?</b>
+    Les fichiers envoyés via un lien sont limités à 50 MB (avant compression).
+    Les fichiers envoyés directement au robot sont limités à 20 MB.
+
+    <b>Pour les autres questions, visiter:</b>
+    http://www.amazon.com/kindlepersonaldocuments/
+
+    <b>Code source:</b>
+    https://github.com/GabrielRF/Send2KindleBot
+
+  info: |
+    Ce robot est constament en développement!
+    Si vous avez des questions ou des suggestions, s'il vous plaît contacter moi.
+
+    Twitter: @GabRF (http://twitter.com/GabRF)
+    Telegram: @GabrielRF
+    Website: http://grf.xyz/telegram
+
+    Donner une note au robot:
+    https://telegram.me/storebot?start=Send2Kindlebot
+
+    Donner au projet:
+    http://grf.xyz/paypal
+    http://patreon.com/gabrielrf
