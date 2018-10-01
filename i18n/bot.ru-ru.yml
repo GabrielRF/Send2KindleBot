@@ -10,7 +10,7 @@ ru-ru:
     Для смены e-mail, нажми <b>Настройка e-mail</b>.
   startnewuser: |
     Привет!
-    Этот бот шлет файлы на твой Kindle.
+    Этот бот пересылает файлы на твой Kindle.
     Сперва введи свой Kindle e-mail.
     Он должен заканчиваться на <code>kindle.com</code>
   startolduser: |
