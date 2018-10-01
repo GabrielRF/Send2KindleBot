@@ -1,0 +1,87 @@
+en-us:
+  askfile: Stuur me het bestand (tot 20MB) of een link naar het bestand.
+  askemail: Typ uw Kindle e-mail.
+  askemail2: Typ uw e-mail adres dat u voor uw Amazon account gebruikt.
+  askemail3: Typ het e-mail adres dat u wilt instellen.
+  askconvert: Stuur het bestand <b>zoals het is</b> or <b>geconverteerd</b> naar Kindle formaat?
+  success: |
+    <b>Succesvol</b>.
+    Om een bestand naar uw Kindle te sturen, klik <b>Stuur bestand</b>.
+    Om uw e-mail adres te wijzigen, klik <b>Wijzig e-mail</b>.
+  startnewuser: |
+    Hallo!
+    Deze bot stuurt bestanden naar uw Kindle.
+    Maar eerst, uw e-mail adres alstublieft.
+    Het moet eindigen met <code>kindle.com</code>
+  startolduser: |
+    <b>Welkom terug</b>!
+    Uw geregistreerde e-mail adressen zijn:
+    {} {}
+    {} {}
+    Om een bestand naar uw Kindle te sturen, klik <b>Stuur bestand</b>.
+    Om uw e-mail adres te wijzigen, klik <b>Wijzig e-mail</b>.
+  error: |
+    <b>Error</b>.
+    Klik op /start en check uw e-mail.
+  filenotfound: Bestand niet gevonden. Gestopt.
+  sendingfile: |
+    <b>Bestand aan het versturen</b>.
+    Een moment geduld, alstublieft.
+  checkemail: |
+    <b>Fout</b>.
+    Controleer uw e-mail en probeer opnieuw.
+  filesent: |
+    <b>Bestand vezonden</b>.
+    Wacht enkele minuten en check op uw apparaat.
+  rate: |
+    <b>Becijfer deze bot:</b>
+    https://telegram.me/storebot?start=Send2Kindlebot
+  donate: |
+    <b>Doneer!</b>
+    http://grf.xyz/paypal\n\n<b>Stuur een nieuw commando</b>.
+  btn1: Stuur Bestand
+  btn2: Wijzig e-mail
+  btn3: Zoals het is
+  btn4: Geconverteerd
+  help: |
+    <b>Wat doet deze bot?</b>
+    Deze bot kan bestanden naar uw Kindle versturen, alsof je het per e-mail stuurt.
+
+    <b>Waar kan ik mijn Kindle e-mail adres vinden?</b>
+    Log in op Amazon. Bezoek de <i>Manage your Devices</i> pagina via <i>Manage Your Kindle</i>.
+    Het e-mail adres moet eindigen op <code>@kindle.com</code>.
+
+    <b>Welke bestanden worden ondersteund?</b>
+    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Afbeeldingen <code>.jpg .gif .bmp .png</code>
+    Mobi book <code>.mobi</code>
+    Microsoft Word <code>.doc .docx</code>
+    Rich Text Format <code>.rtf</code>
+    Text bestanden <code>.txt</code>
+    Zip bestanden <code>.zip .xzip</code>
+    <i>* De bestand conversie naar Kindle formaat is een experimentele dienst van Amazon.</i>
+
+    <b>Is er een bestandsgrootte limiet?</b>
+    Documenten mogen niet groter zijn dan 50 MB (zonder compressie).
+    Documenten direct verzonden naar de bot mogen niet groter zijn dan 20 MB.
+
+    <b>Voor andere vragen, bezoek:</b>
+    http://www.amazon.com/kindlepersonaldocuments/
+
+    <b>Broncode:</b>
+    https://github.com/GabrielRF/Send2KindleBot
+
+  info: |
+    Deze bot is continu in ontwikkeling!
+    Ik hoor het graag als u vragen heeft of suggesties!
+
+    Twitter: @GabRF (http://twitter.com/GabRF)
+    Telegram: @GabrielRF
+    Website: http://grf.xyz/telegram
+
+    Becijfer deze bot:
+    https://telegram.me/storebot?start=Send2Kindlebot
+
+    Ondersteun het project:
+    http://grf.xyz/paypal
+    http://patreon.com/gabrielrf
