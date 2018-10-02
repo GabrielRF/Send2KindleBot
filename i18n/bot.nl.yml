@@ -1,9 +1,9 @@
 nl:
-  askfile: Stuur het bestand (maximaal 20 MB) of de link naar het bestand.
+  askfile: Stuur het bestand (maximaal 20 MB) of een link naar het bestand.
   askemail: Typ hier uw Kindle e-mailadres.
-  askemail2: Typ uw e-mailadres gebruikt voor uw Amazon-account.
-  askemail3: Typ de e-mail die u wilt instellen.
-  askconvert: Bestand verzenden <b>zoals is</b> of <b>geconverteerd</b> naar Kindle-indeling?
+  askemail2: Typ uw e-mailadres dat u gebruikt voor uw Amazon-account.
+  askemail3: Typ het e-mailadres dat u wilt instellen.
+  askconvert: Bestand verzenden <b>zoals het is</b> of <b>geconverteerd</b> naar Kindle-formaat?
   success: |
     <b>Success</b>.
     Als je een bestand naar je Kindle wilt verzenden, klik je op <b>Bestand verzenden</b>.
@@ -11,25 +11,25 @@ nl:
   startnewuser: >-
     Hallo!
     Deze bot verzendt bestanden naar je Kindle.
-    Ten eerst, typ je Kindle e-mail.
+    Ten eerst, typ je Kindle e-mailadres.
     Het moet eindigen met <code>kindle.com</code>
   startolduser: |
     <b>Welkom terug</b>!
     Uw geregistreerde e-mails zijn:
     {} {}
     {} {}
-    Als u een bestand naar uw Kindle wilt verzenden, klikt u op <b>Bestand verzenden</b>.
-    Om een e-mail te wijzigen, klik op <b>E-mail instellen</b>
+    Als je een bestand naar je Kindle wilt verzenden, klik je op <b>Bestand verzenden</b>.
+    Als je je e-mailadres wilt wijzigen, klik je op <b>E-mail instellen</b>.
   error: |
     <b>Fout</b>.
     Klik /start en controleer uw e-mails.
   filenotfound: Bestand niet gevonden. Afgebroken.
   sendingfile: |
     <b>Bestand verzenden</b>.
-    Een moment gedult.
+    Een moment geduld, alstublieft.
   checkemail: |
     <b>Fout</b>.
-    Controleer alstublieft uw e-mail en probeer het opnieuw.
+    Controleer uw e-mail en probeer het opnieuw.
   filesent: |
     <b>Bestand verzonden</b>.
     Wacht een paar minuten en controleer uw apparaat.
@@ -41,25 +41,25 @@ nl:
     http://grf.xyz/paypal\n\n<b>Stuur een nieuwe opdracht</b>.'
   btn1: Bestand verzenden
   btn2: E-mail instellen
-  btn3: Zoals is
+  btn3: Zoals het is
   btn4: Geconverteerd
   help: |
     <b>Wat doet deze bot?</b>
     Deze bot kan bestanden naar je Kindle verzenden alsof je deze per e-mail verzendt.
 
     <b>Waar is de e-mail van mijn Kindle?</b>
-    Log in uw Amazon-account. Ga naar de pagina <i>Uw apparaten beheren</i> op <i>Uw Kindle beheren</i>. 
+    Log in uw Amazon-account. Ga naar de pagina <i>Uw apparaten beheren</i> op <i>Uw Kindle beheren</i>.
     Het e-mailadres eindigt met <code>@Kindle.com</code>.
 
-    <b>Wat voor soort bestanden worden ondersteund?</b>
+    <b>Welke bestandsformaten worden ondersteund?</b>
     Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
     Afbeeldingen <code>.jpg .gif .bmp .png</code>
-    Mobi-boek <code>.mobi</code>
+    Mobi-boeken <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
     Rich Text Format <code>.rtf</code>
     Tekstbestanden <code>.txt</code>
-    Zipped bestanden <code>.zip .xzip</code>
-    <i>* De bestandsconversie naar Kindle-indeling is een experimentele service die wordt uitgevoerd door Amazon.</i>
+    Zip bestanden <code>.zip .xzip</code>
+    <i>* De conversie naar Kindle-formaat is een experimentele service van Amazon.</i>
 
     <b>Is er een limiet voor de bestandsgrootte?</b>
     Documenten die per link worden verzonden, zijn beperkt tot 50 MB (vóór compressie).
@@ -78,7 +78,7 @@ nl:
     Telegram: @GabrielRF
     Website: http://grf.xyz/telegram
 
-    Rate the bot:
+    Beoordeel deze bot:
     https://telegram.me/storebot?start=Send2Kindlebot
 
     Steun het project:
