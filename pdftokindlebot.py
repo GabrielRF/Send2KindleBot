@@ -251,7 +251,7 @@ if __name__ == '__main__':
     @bot.message_handler(commands=['email'])
     def ask_email(message):
         user_lang(message)
-        msg = bot.send_message(message.from_user.id, i18n.t('bot.askemail'))
+        msg = bot.send_message(message.from_user.id, i18n.t('bot.askemail3'))
         bot.register_next_step_handler(msg, add_email)
 
     def add_email(message):
