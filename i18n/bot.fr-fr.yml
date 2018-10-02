@@ -1,0 +1,87 @@
+fr-fr:
+  askfile: Envoyez moi le fichier (jusqu'a 20MB) ou un lien vers le fichier.
+  askemail: Entrez votre addresse e-mail Kindle.
+  askemail2: Entrez l'email utilisé pour votre compte Amazon.
+  askemail3: Entrez l'e-mail que vous voulez utiliser.
+  askconvert: Envoyer le fichier <b>tel quel</b> ou <b>convertir</b> au format Kindle?
+  success: |
+    <b>Succès</b>.
+    Pour envoyer un fichier sur votre Kindle, cliquez sur <b>Envoyer un fichier</b>.
+    Pour changer votre e-mail, cliquez sur <b>Changer l'email</b>.
+  startnewuser: |
+    Bonjour!
+    Ce bot envoit des fichiers sur votre Kindle.
+    Pour commencer, entrez votre addresse e-mail Kindle.
+    Elle doit se terminer par <code>kindle.com</code>
+  startolduser: |
+    <b>Ravi de vous revoir</b>!
+    Vos addresses e-mail enregistrées sont:
+    {} {}
+    {} {}
+    Pour envoyer un fichier sur votre Kindle, cliquez <b>Envoyer un fichier</b>.
+    Pour changer votre e-mail, cliquez <b>Changer l'email</b>.
+  error: |
+    <b>Erreur</b>.
+    Cliquez sur /start and verifiez vos e-mails.
+  filenotfound: Fichier introuvable. Annulé.
+  sendingfile: |
+    <b>Envoi du fichier</b>.
+    Patientez un momen.
+  checkemail: |
+    <b>Erreur</b>.
+    Vérifiez vos e-mails et réessayez.
+  filesent: |
+    <b>Fichier envoyé</b>.
+    Patientez quelques minutes et vérifiez sur votre appareil.
+  rate: |
+    <b>Notez le bot:</b>
+    https://telegram.me/storebot?start=Send2Kindlebot
+  donate: |
+    <b>Faites une donation!</b>
+    http://grf.xyz/paypal\n\n<b>Entrez une nouvell commande</b>.
+  btn1: Envoyer un fichier
+  btn2: Changer l'e-mail
+  btn3: Tel quel
+  btn4: Convertir
+  help: |
+    <b>Que fait ce bot?</b>
+    Ce bot vous aide a transférer des fichiers sur votre Kindle comme si vous les envoyiez par e-mail.
+
+    <b>Ou trouver mon e-mail Kindle?</b>
+    Connectez-vous à votre compte Amazon. Visitez la page <i>Gérez vos appareils</i> dans <i>Gérer ma Kindle</i>.
+    L'addresse e-mail se termine par <code>@Kindle.com</code>.
+
+    <b>Quels fichiers sont supportés?</b>
+    Les PDF Abode <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Images <code>.jpg .gif .bmp .png</code>
+    Mobi book <code>.mobi</code>
+    Microsoft Word <code>.doc .docx</code>
+    Rich Text Format <code>.rtf</code>
+    Text files <code>.txt</code>
+    Fichiers zippés<code>.zip .xzip</code>
+    <i>* La conversion des fichiers au format Kindle est un service expérimental rendu par Amazon.</i>
+
+    <b>Y-a-t'il une limite de taille de fichiers</b>
+    Les documents envoyés par lien sont limités à 50MB (avant compression).
+    Les documents envoyés directment au bot sont limités à 20MB.
+
+    <b>Pour toute autre question, visitez:</b>
+    http://www.amazon.com/kindlepersonaldocuments/
+
+    <b>Code source</b>
+    https://github.com/GabrielRF/Send2KindleBot
+
+  info: |
+    Ce bot est en développement permanent!
+    Si vous avez des questions ou suggestions, dites le moi!
+
+    Twitter: @GabRF (http://twitter.com/GabRF)
+    Telegram: @GabrielRF
+    Site web: http://grf.xyz/telegram
+
+    Notez le bot:
+    https://telegram.me/storebot?start=Send2Kindlebot
+
+    Supportez le projet:
+    http://grf.xyz/paypal
+    http://patreon.com/gabrielrf
