@@ -3,7 +3,7 @@ tr-tr:
   askemail: Kindle e-mailinizi yazın.
   askemail2: Amazon hesabınızda kullanılan e-mailinizi yazın.
   askemail3: Kullanmak istediğiniz e-mailinizi yazın.
-  askconvert: Dosyayı<b>olduğu gibi</b> veya <b>dönüştürülmüş</b> Kindle formatı ile mi göndereyim?
+  askconvert: Dosyayı <b>olduğu gibi</b> veya <b>dönüştürülmüş</b> Kindle formatı ile mi göndereyim?
   success: |
     <b>Başarılı</b>.
     Dosyayı Kindle'ınıza göndermek için <b>Dosyayı gönder</b>e tıklayın.
