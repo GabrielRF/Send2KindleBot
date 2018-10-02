@@ -1,0 +1,79 @@
+tr-tr:
+  askfile: Bana dosyayı(20 MB'a kadar) ya da dosyanın linkini gönderin.
+  askemail: Kindle e-mailinizi yazın.
+  askemail2: Amazon hesabınızda kullanılan e-mailinizi yazın.
+  askemail3: Kullanmak istediğiniz e-mailinizi yazın.
+  askconvert: Dosyayı<b>olduğu gibi</b> veya <b>dönüştürülmüş</b> Kindle formatı ile mi göndereyim?
+  success: |
+    <b>Başarılı</b>.
+    Dosyayı Kindle'ınıza göndermek için <b>Dosyayı gönder</b>e tıklayın.
+    E-mailinizi değiştirmek için, <b>E-mail ayarla</b>ya tıklayın.
+  startnewuser: |
+    Selam!
+    Bu bot Kindle'ınıza dosya gönderir.
+    Öncelikle, Kindle e-mailinizi yazın.
+    E-mailiniz <code>kindle.com</code> ile bitmeli.
+  startolduser: |
+    <b>Tekrar hoşgeldin</b>!
+    Kayıtlı e-maillerin:
+    {} {}
+    {} {}
+    Kindle'ınıza dosya göndermek için <b>Dosya gönder</b>e tıklayın.
+    E-mail adresinizi değiştirmek için <b>E-mail ayarla</b>ya tıklayın.
+  error: |
+    <b>Hata</b>.
+    /start a tıklayın ve e-mailinizi kontrol edin.
+  filenotfound: Dosya bulunamadı. İptal ediliyor.
+  sendingfile: |
+    <b>Dosya gönderiliyor</b>.
+    Lütfen bekleyin.
+  checkemail: |
+    <b>Hata</b>.
+    LÜtfen e-mailiniz kontrol edin ve tekrar deneyin.
+  filesent: |
+    <b>Dosya gönderildi</b>.
+    Birkaç dakika bekleyin ve cihazınızı kontrol edin.
+  rate: |
+    <b>Botu derecelendirin:</b>
+    https://telegram.me/storebot?start=Send2Kindlebot
+  donate: |
+    <b>Destek olun!</b>
+    http://grf.xyz/paypal\n\n<b>Send a new command</b>.
+  btn1: Dosya gönder
+  btn2: E-mail ayarla
+  btn3: Olduğu gibi
+  btn4: Dönüştürülmüş
+  help: |
+    <b>Bu bot ne işe yarar?</b>
+    Bu bot dosyalarınızı Kindleınıza tıpkı e-mail ile gönderiyormuşsunuz gibi göndermenizi sağlar.
+    <b>Kindle'ımın e-maili nerede?</b>
+    Amazon hesabınıza giriş yapın. <i>Kindle'ınızı Yönetin</i> sayfasındaki <i>Cihazlarınızı Yönetin</i> sayfasını ziyaret edin.
+    E-mail adresi <code>@kindle.com</code> ile bitiyor olacak.
+    <b>Hangi tip dosyalar destekleniyor?</b>
+    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Resimler <code>.jpg .gif .bmp .png</code>
+    Mobi kitap <code>.mobi</code>
+    Microsoft Word <code>.doc .docx</code>
+    Rich Text Format <code>.rtf</code>
+    Metin dosyaları <code>.txt</code>
+    Zip dosyaları <code>.zip .xzip</code>
+    <i>* Kindle formatına dosya dönüştürme, Amazon tarafından sağlanan deneysel bir servistir.</i>
+    <b>Bir dosya boyut limiti var mı?</b>
+    Link ile gönderilen dosyaların limiti 50 MB'tır(sıkıştırma öncesinde).
+    Bota doğrudan gönderilen dosyaların limiti 20 MB'tır.
+    <b>Daha fazla bilgi için, şurayı ziyaret edin:</b>
+    http://www.amazon.com/kindlepersonaldocuments/
+    <b>Kaynak kod:</b>
+    https://github.com/GabrielRF/Send2KindleBot
+  info: |
+    This bot is under constant development!
+    Bot geliştirme aşamasındadır!
+    Soru ya da öneriniz olması halinde lütfen benimle iletişime geçin!
+    Twitter: @GabRF (http://twitter.com/GabRF)
+    Telegram: @GabrielRF
+    Website: http://grf.xyz/telegram
+    Botu derecelendirin:
+    https://telegram.me/storebot?start=Send2Kindlebot
+    Projeye destek olun:
+    http://grf.xyz/paypal
+    http://patreon.com/gabrielrf
