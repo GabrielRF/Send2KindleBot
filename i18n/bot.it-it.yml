@@ -22,7 +22,7 @@ it-it:
     Per modificare il tuo indirizzo e-mail, clicca <b>Modifica e-mail</b>
   error: |
     <b>Errore</b>.
-    Clicca /inizia e verifica i tuoi indirizzi e-mail.
+    Clicca /start e verifica i tuoi indirizzi e-mail.
   filenotfound: File not trovato. Processo interrotto.
   sendingfile: |
     <b>Sto inviando il file</b>.
