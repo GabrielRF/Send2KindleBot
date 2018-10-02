@@ -170,8 +170,11 @@ def select_user(db, table, chatid, field):
     return data
 
 def user_lang(message):
-    user_lang = message.from_user.language_code.lower()
-    # print(user_lang)
+    try:
+        user_lang = message.from_user.language_code.lower()
+    except:
+        user_lang = 'en-us'
+    print(user_lang)
     i18n.set('locale', user_lang)
     i18n.set('fallback', 'en-us')
     set_buttons()
@@ -248,12 +251,14 @@ if __name__ == '__main__':
     @bot.message_handler(commands=['email'])
     def ask_email(message):
         user_lang(message)
-        msg = bot.send_message(message.from_user.id, i18n.t('bot.askemail'))
+        msg = bot.send_message(message.from_user.id, i18n.t('bot.askemail3'))
         bot.register_next_step_handler(msg, add_email)
 
     def add_email(message):
         user_lang(message)
-        if '/' not in message.text:
+        if message.text.lower() in cmds:
+            return 0
+        elif '/' not in message.text:
             data = select_user(db, table, message.from_user.id, '*')
             if validate_email(message.text.lower()):
                 if '@kindle.com' in message.text.lower():
@@ -262,7 +267,7 @@ if __name__ == '__main__':
                     # check = select_user(db, table, message.from_user.id,
                     #     'remetente')
                     if len(data[3]) < 5:
-                        msg = bot.reply_to(message, i18n.t('bot.askemail'))
+                        msg = bot.reply_to(message, i18n.t('bot.askemail2'))
                         bot.register_next_step_handler(msg, add_email)
                         return 0
                     msg = bot.reply_to(message,
@@ -317,7 +322,7 @@ if __name__ == '__main__':
         # data = select_user(db, table, message.from_user.id, '*')
         # f = requests.get(file_url)
         upd_user_file(db, table, message.from_user.id, file_url)
-        print(file_url)
+        # print(file_url)
         if '.pdf' in file_url.lower():
             msg = bot.send_message(message.from_user.id, i18n.t('bot.askconvert'),
                 parse_mode='HTML', reply_markup=button2)
