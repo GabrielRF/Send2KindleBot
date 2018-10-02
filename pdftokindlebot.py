@@ -256,7 +256,9 @@ if __name__ == '__main__':
 
     def add_email(message):
         user_lang(message)
-        if '/' not in message.text:
+        if message.text.lower() in cmds:
+            return 0
+        elif '/' not in message.text:
             data = select_user(db, table, message.from_user.id, '*')
             if validate_email(message.text.lower()):
                 if '@kindle.com' in message.text.lower():
