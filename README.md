@@ -1,4 +1,4 @@
-# [Send2KindleBot](http://telegram.me/Send2Kindle) 
+# [Send2KindleBot](http://telegram.me/Send2Kindle)
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7Q29T7QE6A948)
 
@@ -12,7 +12,7 @@ This is a [Telegram](http://telegram.org) Bot that sends documents to Kindle dev
 
 ## Usage
 
-In order to work, users must register on the bot two e-mails, Amazon's Account e-mail and Kindle's e-mail. 
+In order to work, users must register on the bot two e-mails, Amazon's Account e-mail and Kindle's e-mail.
 
 If you need help with your Kindle's e-mail, please, refer to: https://www.amazon.com/gp/sendtokindle/email
 
@@ -24,7 +24,7 @@ First of all, install Postfix on your computer/server. Make sure port 25 is open
 # apt-get install postfix
 ```
 
-After initial setup, copy both files from the folder `postfix` to `/etc/postfix`. 
+After initial setup, copy both files from the folder `postfix` to `/etc/postfix`.
 
 ```
 # mv postfix/* /etc/postfix
@@ -45,11 +45,19 @@ Clone/Download this repository. Install requirements.
 # pip3 install -r requirements.txt
 ```
 
- Make sure `kindle.conf` is properly configured.
- ```
- cp kindle.conf_sample kindle.conf
- ```
- 
+Use Pipenv. Install requirements.
+
+```
+# pip3 install pipenv
+# pipenv install -r requirements.txt
+```
+
+Make sure `kindle.conf` is properly configured.
+
+```
+cp kindle.conf_sample kindle.conf
+```
+
 `TOKEN` = Bot's token given by the BotFather.
 
 `logfile` = Log file with 24 hour rotation.
