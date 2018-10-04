@@ -1,0 +1,78 @@
+zh-hant-tw:
+  askfile: 傳送檔案(最大 20MB)或檔案的連結給我。
+  askemail: 輸入您的 Kindle 電子郵件。
+  askemail2: 輸入您在 Amazon 帳戶中使用的電子郵件。
+  askemail3: 輸入要設定的電子郵件。
+  askconvert: 按<b>保持原樣</b>傳送檔案或<b>轉換</b>為 Kindle 格式？
+  success: |
+    <b>成功</b>。
+    要將檔案傳送到Kindle，請單擊<b>傳送檔案</ b>。
+    要更改電子郵件，請單擊<b>設定電子郵件</ b>。
+  startnewuser: |
+    嗨！
+    這個機器人將檔案傳送到你的Kindle。
+    首先，輸入您的Kindle電子郵件。
+    它必須以<code> kindle.com </ code>結尾
+  startolduser: |
+    <b>歡迎回來</b>!
+    您註冊的電子郵件是:
+    {} {}
+    {} {}
+    要將檔案傳送到Kindle，請點<b>傳送檔案</b>。
+    要更改電子郵件，請點<b>設定電子郵件</b>
+  error: |
+    <b>錯誤</b>。
+    點 /start 並檢查您的電子郵件。
+  filenotfound: 找不到檔案。已終止。
+  sendingfile: |
+    <b>傳送檔案中</b>。
+    請稍後。
+  checkemail: |
+    <b>錯誤</b>。
+    請檢查您的電子郵件，然後重試。
+  filesent: |
+    <b>檔案已傳送</b>。
+    請等幾分鐘，然後查看您的設備。
+  rate: |
+    <b>為機器人評分:</b>
+    https://telegram.me/storebot?start=Send2Kindlebot
+  donate: |
+    <b>贊助!</b>
+    http://grf.xyz/paypal\n\n<b>發送新指令</b>。
+  btn1: 傳送檔案
+  btn2: 設定電子郵件
+  btn3: 保持原樣
+  btn4: 轉換
+  help: |
+    <b>這個機器人是幹甚麼的?</b>
+    這個機器人能夠將檔案傳送到您的 Kindle，就像您通過電子郵件發送它們一樣。
+    <b>我的 Kindle 電子郵件在哪裡?</b>
+    登錄您的 Amazon 帳戶。訪問<i>管理您的 Kindle </i>頁面裡的，<i>管理您的設備</ i>頁面。
+    電子郵件地址將以 <code>@kindle.com</code> 結尾。
+    <b>支援哪種檔案?</b>
+    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    圖片 <code>.jpg .gif .bmp .png</code>
+    Mobi book <code>.mobi</code>
+    Microsoft Word <code>.doc .docx</code>
+    Rich Text Format <code>.rtf</code>
+    文字檔 <code>.txt</code>
+    壓縮檔 <code>.zip .xzip</code>
+    <i>* 轉換為Kindle格式是由 Amazon 提供的實驗性服務。</i>
+    <b>是否有文件大小限制?</b>
+    使用連結傳送的檔案限制為 50 MB（壓縮前）。.
+    直接傳送到機器人的檔案限制為 20 MB。
+    <b有任何其他問題，請訪問:</b>
+    http://www.amazon.com/kindlepersonaldocuments/
+    <b>原始碼:</b>
+    https://github.com/GabrielRF/Send2KindleBot
+  info: |
+    這個機器在在持續開發中!
+    如果您有任何問題或建議，請與我聯繫！
+    Twitter: @GabRF (http://twitter.com/GabRF)
+    Telegram: @GabrielRF
+    網站: http://grf.xyz/telegram
+    為機器人評分:
+    https://telegram.me/storebot?start=Send2Kindlebot
+    支持計畫:
+    http://grf.xyz/paypal
+    http://patreon.com/gabrielrf
