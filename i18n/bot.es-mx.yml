@@ -1,5 +1,5 @@
 es-mx:
-  askfile: Envíame el fichero (máximo 20MB) o el enlace.
+  askfile: Envía el fichero (máximo 20MB) o el enlace.
   askemail: Escribe tu correo electrónico Kindle.
   askemail2: Escribe tu correo electrónico usado en tu cuenta de Amazon.
   askemail3: Escribe el correo electrónico que quieres establecer.
@@ -34,7 +34,7 @@ es-mx:
     <b>Fichero enviado</b>.
     Espera unos minutos y comprueba tu dispositivo.
   rate: |
-    <b>Puntúa el bot:</b>
+    <b>A punta el bot:</b>
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>¡Donar!</b>
@@ -79,7 +79,7 @@ es-mx:
     Telegram: @GabrielRF
     Página Web: http://grf.xyz/telegram
     
-    Puntúa el bot:
+    A punta el bot:
     https://telegram.me/storebot?start=Send2Kindlebot
     
     Apoya al proyecto:
