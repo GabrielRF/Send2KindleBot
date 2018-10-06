@@ -1,0 +1,87 @@
+kr:
+  askfile: 파일(20MB이하) 또는 링크를 보내 주세요.
+  askemail: 킨들 이메일주소를 입력하세요.
+  askemail2: Amazon 계정에 사용한 이메일주소를 입력하세요.
+  askemail3: 설정하고자 하는 이메일주소를 입력하세요.
+  askconvert: 파일 전송시 현재 포맷을 <b>유지</b>할까요? 또는 킨들 포맷으로 <b>변환</b>할까요?
+  success: |
+    <b>성공</b>.
+    킨들로 파일을 보내려면 <b>파일전송</b>을 클릭하세요.
+    이메일 주소를 변경하려면 <b>이메일설정</b>을 클릭하세요.
+  startnewuser: |
+    안녕하세요!
+    이 봇은 당신의 킨들로 파일을 전송합니다.
+    먼저, 킨들 이메일 주소를 입력하세요.
+    킨들 이메일 주소는 <code>kindle.com</code>으로 끝납니다.
+  startolduser: |
+    <b>잘 돌아오셨습니다</b>!
+    등록된 이메일 주소:
+    {} {}
+    {} {}
+    킨들로 파일을 보내려면 <b>파일전송</b>을 클릭하세요.
+    이메일 주소를 변경하려면 <b>이메일설정</b>을 클릭하세요.
+  error: |
+    <b>에러</b>.
+    /start 를 누르고 이메일주소를 확인하세요.
+  filenotfound: 파일을 찾을 수 없습니다. 중단합니다.
+  sendingfile: |
+    <b>파일 전송중</b>.
+    잠시만 기다리세요.
+  checkemail: |
+    <b>에러</b>.
+    이메일주소를 확인하고 다시 시도해주세요.
+  filesent: |
+    <b>파일 전송 완료</b>.
+    잠시후 기기를 확인해 보세요.
+  rate: |
+    <b>평가하기:</b>
+    https://telegram.me/storebot?start=Send2Kindlebot
+  donate: |
+    <b>기부하기!</b>
+    http://grf.xyz/paypal\n\n<b>명령 보내기</b>.
+  btn1: 파일전송
+  btn2: 이메일설정
+  btn3: 유지
+  btn4: 변환
+  help: |
+    <b>이 봇은 무슨 일을 하나요?</b>
+    이 봇은 킨들기기로 파일을 전송합니다.
+
+    <b>킨들 이메일주소는 어디에서 확인하나요?</b>
+    Amazon 계정에 접속하세요. <i>Manage Your Kindle</i>의 <i>Manage your Devices</i> 페이지를 확인하세요.
+    킨들 이메일주소는 <code>@kindle.com</code>로 끝납니다.
+
+    <b>지원되는 파일 종류는?</b>
+    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    그림파일 <code>.jpg .gif .bmp .png</code>
+    Mobi 책 <code>.mobi</code>
+    Microsoft Word <code>.doc .docx</code>
+    Rich Text Format <code>.rtf</code>
+    텍스트 파일 <code>.txt</code>
+    압축파일 <code>.zip .xzip</code>
+    <i>* 킨들 포맷으로의 변환기능은 Amazon에서 제공하는 시범서비스입니다.</i>
+
+    <b>파일 크기에 제약이 있나요?</b>
+    링크로 지정된 파일은 최대 50 MB 까지 가능합니다.(압축하기 전).
+    직접 전송하는 파일은 최대 20 MB 까지 가능합니다.
+
+    <b>다른 질문이 있다면 링크를 방문하세요:</b>
+    http://www.amazon.com/kindlepersonaldocuments/
+
+    <b>소스코드:</b>
+    https://github.com/GabrielRF/Send2KindleBot
+
+  info: |
+    이 봇은 지속적으로 개발중입니다.
+    질문이나 제안이 있다면 알려주세요!
+
+    Twitter: @GabRF (http://twitter.com/GabRF)
+    Telegram: @GabrielRF
+    Website: http://grf.xyz/telegram
+
+    평가하기:
+    https://telegram.me/storebot?start=Send2Kindlebot
+
+    지원하기:
+    http://grf.xyz/paypal
+    http://patreon.com/gabrielrf
