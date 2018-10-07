@@ -1,0 +1,103 @@
+ur-en:
+  askfile:  مجھے فائل (۲۰ مب تک کی) بھیج دیجیے یا پھر فائل کی لینک
+  askemail: اپنی کنڈل ای میل لکھیں
+  askemail2: اپنی آمزون ای میل لکھیں
+  askemail3: جو ای میل آپ سیٹ کرنا چاھتے ہین وہ لکھیں
+  askconvert: فائل بہیجنے کیلئے
+  ؟<b>جیسے کہ ہے</b> یا <b>تبدیل شدا </b>
+  success: |
+    <b>کامیابی</b>.
+    اپنے کنڈل پر فائل بھیجنہ کے لئے
+    <b>فائل بھیجئے</b>
+    کلیک کریے
+    ای میل بدل نے کے لئے
+    <b>سیٹ ایمیل</b>
+    کلیک کریے
+  startnewuser: |
+    سلام
+    یے باٹ آپ کے کنڈل تک فائل بھیجتا ہے
+    پہلے اپنی کنڈل ای میل لکھیں
+    وہ
+    <code>kindle.com</code>
+    پر ختم ہونی چاہی یہ ہے
+  startolduser: |
+    <b>خشامدید</b>!
+    آپ کے رجسٹرڈ ای میل ہیں:
+    {} {}
+    {} {}
+    کنڈل تک فائل بھیجنے کے لیے
+    <b>فائل بھیجیے</b>
+    کلیک کریے
+    ای میل بدل نے کے لئے
+    <b>سیٹ ایمیل</b>
+    کلیک کریں
+  error: |
+    <b>ایرر</b>.
+    /شرو
+    کلیک کرکے اپنی ای میل چیک کریے
+  filenotfound: فائل نہیں ملی. ختم ہوگیا
+  sendingfile: |
+    <b>فائل بھیج رہا ہے</b>.
+    ازراہ کرم تھوڑا انتظار کیجیے
+  checkemail: |
+    <b>ایرر</b>.
+    براہ کرم اپنا ای میل چیک کریں اور دوبارہ کوشش کریں
+  filesent: |
+    <b>فائل بھیجی گئی</b>
+    کچھ منٹ انتظار کریے اور اپنے آلے پر چیک کری
+  rate: |
+    <b>باٹ کو ریٹ دیں</b>
+    https://telegram.me/storebot?start=Send2Kindlebot
+  donate: |
+    <b>عطیہ دیں</b>
+    http://grf.xyz/paypal\n\n<b>نیا کمانڈ بھیجیں</b>.
+  btn1: فائل بھیجیے
+  btn2: سیٹ ایمیل
+  btn3: جیسے ہے
+  btn4: تبدیل شدا
+  help: |
+    <b>یہ باٹ کیا کرتا ہے؟</b>
+    یہ بوٹ آپ کے کنڈل پر فائلوں کو بھیجنے کے قابل ہے جیسے آپ انہیں ای میل کے ذریعہ بھیج رہے تھے.
+
+    <b>میرا کنڈل کا ای میل کہاں ہے؟</b>
+    اپنے ایمیزون اکاؤنٹ میں لاگ ان کریں
+    <i> اپنے کنڈل کا نظم کریں </ i> پر <i> اپنے آلات کا انتظام کریں </i>
+     ای میل پتہ
+    <code> @kindle.com </code>
+    کے ساتھ ختم ہو جائے گا
+
+    <b>کونسی فائلون کی حمایت کی جاتی ہے؟</b>
+    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Images <code>.jpg .gif .bmp .png</code>
+    Mobi book <code>.mobi</code>
+    Microsoft Word <code>.doc .docx</code>
+    Rich Text Format <code>.rtf</code>
+    Text files <code>.txt</code>
+    Zipped files <code>.zip .xzip</code>
+    <i>* کنڈل ٹائپ میں فائل کا تبادلوں ایمیزون کی طرف سے تجرباتی سروس ہے</i>
+
+    <b> فائل سائز محدود یے؟</b>
+    لنکس کی طرف سے بھیجے گئی فائلیں ۵۰ مب تک محدود ہیں
+    (کمپریشن سے پہلے)
+    باٹ تک سیدی بہیجی ہوی فائل ۲۰ مب تک محدود ہیں
+
+    <b> دیگر سوالات کے لئے، ملاحظہ کریں</b>
+    http://www.amazon.com/kindlepersonaldocuments/
+
+    <b>اس کا کوڈ</b>
+    https://github.com/GabrielRF/Send2KindleBot
+
+  info: |
+    یہ بوٹ مسلسل ترقی کے تحت ہے
+    اگر آپ کے پاس کوئی سوال یا مشورے ہیں تو، براہ کرم مجھ سے رابطہ کریں
+
+    Twitter: @GabRF (http://twitter.com/GabRF)
+    Telegram: @GabrielRF
+    Website: http://grf.xyz/telegram
+
+    Rate the bot:
+    https://telegram.me/storebot?start=Send2Kindlebot
+
+    Support the project:
+    http://grf.xyz/paypal
+    http://patreon.com/gabrielrf
