@@ -1,0 +1,79 @@
+bm-ms:
+  askfile: Hantar saya fail (sehingga 20MB) atau pautan ke fail tersebut
+  askemail: Taipkan e-mel Kindle anda.
+  askemail2: Taipkan e-mel anda yang digunakan pada akaun Amazon anda.
+  askemail3: Taipkan e-mel yang anda mahu tetapkan.
+  askconvert: Hantar fail <b>seperti itu</b> atau <b>tukar</b> kepada format Kindle?
+  success: |
+    <b>Berjaya</b>.
+    Untuk menghantar fail ke Kindle anda, tekan <b>Hantar fail</b>.
+    Untuk menukar e-mel anda, tekan <b>Tukar e-mel</b>.
+  startnewuser: |
+    Salam!
+    Bot ini menghantar fail-fail ke Kindle anda.
+    Pertama, taipkan e-mel Kindle anda.
+    Ia mesti berakhir dengan <code>kindle.com</code>
+  startolduser: |
+    <b>Selamat kembali</b>!
+    E-mel berdaftar anda:
+    {} {}
+    {} {}
+    Untuk menghantar fail anda ke Kindle, tekan <b>Hantar fail</b>.
+    Untuk menukar e-mel, tekan <b>Tukar e-mel</b>
+  error: |
+    <b>Masaalah</b>.
+    Tekan /bermula dan semak e-mel anda.
+  filenotfound: Fail tidak jumpa. Dibatalkan.
+  sendingfile: |
+    <b>Menghantar fail</b>.
+    Sila tunggu sebentar.
+  checkemail: |
+    <b>Masaalah</b>.
+    Tolong semakkan e-mel anda dan cuba lagi.
+  filesent: |
+    <b>Fail dihantar</b>.
+    Tunggu beberapa minit dan periksa penanti anda.
+  rate: |
+    <b>Rate bot:</b>
+    https://telegram.me/storebot?start=Send2Kindlebot
+  donate: |
+    <b>Derma!</b>
+    http://grf.xyz/paypal\n\n<b>Hantar arahan baru</b>.
+  btn1: Hantar fail
+  btn2: Tukar e-mel
+  btn3: Seperti Itu
+  btn4: Tukar
+  help: |
+    <b>Apa yang dapat dilakukan oleh bot ini?</b>
+    Bot ini dapat menghantar fail ke Kindle anda seperti menghantarkan ia secara e-mel.
+    
+    <b>Dimana e-mel Kindle saya?</b>
+    Log masuk ke akaun Amazon anda. Lawati halaman <i>Kerola Peranti anda</i> di <i>Uruskan Kinda Anda</i>.
+    Alamat e-mel akan berakhir dengan <code>@Kindle.com</code>.
+    <b>Apakah jenis fail yang disokong menghantar?</b>
+    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Gambar-gambar <code>.jpg .gif .bmp .png</code>
+    Mobi book <code>.mobi</code>
+    Microsoft Word <code>.doc .docx</code>
+    Rich Text Format <code>.rtf</code>
+    Fail Text <code>.txt</code>
+    Fail Zipped <code>.zip .xzip</code>
+    <i>* Penukaran fail ke format Kindle adalah perkhidmatan eksperimen yang dilakukan oleh Amazon.</i>
+    <b>Adakah terdapat had saiz fail?</b>
+    Dokumen yang dihantar melalui pautan adalah terhad kepada 50 MB (sebelum pemampatan).
+    Dokumen dihantar terus ke bot adalah terhad kepada 20 MB.
+    <b>Untuk sebarang pertanyaan lain, lawati:</b>
+    http://www.amazon.com/kindlepersonaldocuments/
+    <b>Kod sumber:</b>
+    https://github.com/GabrielRF/Send2KindleBot
+  info: |
+    Bot ini berada di bawah perkembangan beterusan!
+    Jika anda mempunyai sebarang soalan atau cadangan, sila hubungi saya!
+    Twitter: @GabRF (http://twitter.com/GabRF)
+    Telegram: @GabrielRF
+    Website: http://grf.xyz/telegram
+    Rate bot:
+    https://telegram.me/storebot?start=Send2Kindlebot
+    Sokong projek ini:
+    http://grf.xyz/paypal
+    http://patreon.com/gabrielrf
