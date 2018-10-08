@@ -1,79 +1,79 @@
-en-us:
-  askfile: Send me the file (up to 20MB) or the link to the file.
-  askemail: Type your Kindle e-mail.
-  askemail2: Type your email used on your Amazon account.
-  askemail3: Type the e-mail you want to set.
-  askconvert: Send file <b>as is</b> or <b>converted</b> to Kindle format?
+sv-se:
+  askfile: Skicka mig filen (upp till 20MB) eller länken till filen.
+  askemail: SKriv in din Kindle e-mail.
+  askemail2: Skriv in din e-mail som används till ditt Amazon konto.
+  askemail3: Skriv e-mailen du vill ändra till.
+  askconvert: Skicka filen <b>som den är</b> eller <b>konvertera</b> till Kindle format?
   success: |
-    <b>Success</b>.
-    To send a file to your Kindle, click <b>Send file</b>.
-    To change your e-mail, click <b>Set e-mail</b>.
+    <b>Operationen lyckades</b>.
+    För att skicka en fil till din Kindle, klicka på <b>Skicka fil</b>.
+    För att ändra din e-mail, klicka på <b>Ändra e-mail</b>.
   startnewuser: |
-    Hi!
-    This bot sends files to your Kindle.
-    First, type your Kindle e-mail.
-    It must end with <code>kindle.com</code>
+    Hej!
+    Den här bot'en skickar filer till din Kindle.
+    Börja med att skriva in din Kindle e-mail.
+    Den måste sluta på <code>kindle.com</code>
   startolduser: |
-    <b>Welcome back</b>!
+    <b>Välkommen tillbaka</b>!
     Your registered e-mails are:
     {} {}
     {} {}
-    To send a file to your Kindle, click <b>Send file</b>.
-    To change an e-mail, click <b>Set e-mail</b>
+    För att skicka en fil till din Kindle, klicka på <b>Skicka fil</b>.
+    För att ändra din e-mail, klicka på <b>Ändra e-mail</b>.
   error: |
     <b>Error</b>.
-    Click /start and check your e-mails.
-  filenotfound: File not found. Aborted.
+    Klicka /start och kolla dina e-mails.
+  filenotfound: Filen kunde inte hittas. Operation avbruten.
   sendingfile: |
-    <b>Sending file</b>.
-    Please, wait a moment.
+    <b>Skickar fil</b>.
+    Var vänlig att vänta.
   checkemail: |
     <b>Error</b>.
-    Please, check your e-mail and try again.
+    Var vänlig och kontrollera angiven e-mail och försök igen.
   filesent: |
-    <b>File sent</b>.
-    Wait a few minutes and check on your device.
+    <b>Filen skickad</b>.
+    vänta ett par minuter och kolla din enhet.
   rate: |
-    <b>Rate the bot:</b>
+    <b>Betygsätt bot'en:</b>
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
-    <b>Donate!</b>
-    http://grf.xyz/paypal\n\n<b>Send a new command</b>.
-  btn1: Send File
-  btn2: Set e-mail
-  btn3: As is
-  btn4: Converted
+    <b>Donera!</b>
+    http://grf.xyz/paypal\n\n<b>Skicka nytt kommando</b>.
+  btn1: Skicka fil
+  btn2: Ändra e-mail
+  btn3: Som den är
+  btn4: KOnverterad
   help: |
-    <b>What does this bot do?</b>
-    This bot is able to send files to your Kindle as if you were sending them by e-mail.
+    <b>Vad gör den här bot'en?</b>
+    Den här bot'en kan skicka filer till din Kindle som om du skickade dom via e-mail.
 
-    <b>Where is my Kindle's e-mail?</b>
-    Log into your Amazon account. Visit <i>Manage your Devices</i> page at <i>Manage Your Kindle</i>.
-    The e-mail address will end with <code>@kindle.com</code>.
+    <b>Vart kan jag hitta min Kindle's e-mail?</b>
+    Logga in på ditt Amazon konto. Gå till <i>Manage your Devices</i> under <i>Manage Your Kindle</i>.
+    Den e-mail du letar efter slutar på <code>@kindle.com</code>.
 
-    <b>What kind of files are supported?</b>
+    <b>Vilka sorters filer stödjer den?</b>
     Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
-    Images <code>.jpg .gif .bmp .png</code>
+    Bilder <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
     Rich Text Format <code>.rtf</code>
-    Text files <code>.txt</code>
-    Zipped files <code>.zip .xzip</code>
-    <i>* The file conversion to Kindle format is an experimental service done by Amazon.</i>
+    Text filer <code>.txt</code>
+    Zippade filer <code>.zip .xzip</code>
+    <i>* Konverteringen till Kindle format är en experimentell tjänst gjord av Amazon.</i>
 
-    <b>Is there any file size limit?</b>
-    Documents sent by link are limited to 50 MB (before compression).
-    Documents sent directly to the bot are limited to 20 MB.
+    <b>Finns det någon gräns på filens storlek?</b>
+    Filer som skickas via länk har en gräns på 50 MB (innan komrimering).
+    Filer som skickas direkt till bot'en har en gräns på 20 MB.
 
-    <b>For any other question, visit:</b>
+    <b>Om du har fler frågor besök:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
-    <b>Source code:</b>
+    <b>Källkod:</b>
     https://github.com/GabrielRF/Send2KindleBot
 
   info: |
-    This bot is under constant development!
-    If you have any question or suggestion, please, talk to me!
+    Den här bot'en är under konstant utveckling!
+    Om du har några förslag på förbättringar eller frågor så tveka inte att kontakt mig!
 
     Twitter: @GabRF (http://twitter.com/GabRF)
     Telegram: @GabrielRF
