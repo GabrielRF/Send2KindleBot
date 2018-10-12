@@ -8,7 +8,7 @@
 
 This is a [Telegram](http://telegram.org) Bot that sends documents to Kindle devices. It runs on Python 3 and uses Postfix and SQLite3.
 
-[Try it!](http://telegram.me/Send2KindleBot)
+[Try it!](https://telegram.me/Send2KindleBot)
 
 ## Usage
 
