@@ -15,7 +15,7 @@ es:
     Debe terminar en <code>kindle.com</code>
   startolduser: |
     <b>¡Bienvenido de nuevo</b>!
-    Tus correos electrónicos són:
+    Tus correos electrónicos son:
     {} {}
     {} {}
     Para enviar un fichero a tu Kindle, haz click a <b>Enviar fichero</b>
@@ -44,11 +44,11 @@ es:
   btn3: Como es
   btn4: Convertido
   help: |
-    <b>¿Que hace éste bot?</b>
-    Éste bot puede enviar ficheros a tu Kindle cómo si los estuvieras enviando por correo electrónico.
+    <b>¿Que hace este bot?</b>
+    Este bot puede enviar ficheros a tu Kindle cómo si los estuvieras enviando por correo electrónico.
     
     <b>¿Dónde se encuentra mi correo electrónico Kindle?</b>
-    Inicia sessión a tu cuenta de Amazon. Navega hasta la página <i>Gestiona tus Dispositivos</i> en <i>Gestiona tu Kindle</i>.
+    Inicia sesión con tu cuenta de Amazon. Navega hasta la página <i>Gestiona tus Dispositivos</i> en <i>Gestiona tu Kindle</i>.
     La dirección de correo electrónico termina con <code>@Kindle.com</code>.
 
     <b>¿Qué tipos de ficheros soporta el bot?</b>
