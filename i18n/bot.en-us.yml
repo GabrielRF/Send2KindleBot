@@ -38,7 +38,9 @@ en-us:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Donate!</b>
-    http://grf.xyz/paypal\n\n<b>Send a new command</b>.
+    http://grf.xyz/paypal
+    
+    <b>Send a new command</b>.
   btn1: Send File
   btn2: Set e-mail
   btn3: As is
@@ -52,7 +54,8 @@ en-us:
     The e-mail address will end with <code>@kindle.com</code>.
 
     <b>What kind of files are supported?</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Images <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
