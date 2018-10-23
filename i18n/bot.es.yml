@@ -38,7 +38,9 @@ es:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>¡Donar!</b>
-    http://grf.xyz/paypal\n\n<b>Enviar un comando nuevo</b>.
+    http://grf.xyz/paypal
+    
+    <b>Enviar un comando nuevo</b>.
   btn1: Enviar Fichero
   btn2: Establecer correo electrónico
   btn3: Como es
@@ -52,7 +54,8 @@ es:
     La dirección de correo electrónico termina con <code>@Kindle.com</code>.
 
     <b>¿Qué tipos de ficheros soporta el bot?</b>
-    Abode PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Abode PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Fotografías <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
