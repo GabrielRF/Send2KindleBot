@@ -14,7 +14,7 @@ pl-PL:
     Na początku, podaj swój adres e-mail Kindle.
     Adres ten, kończy się na <code>kindle.com</code>
   startolduser: |
-    <b>Witaj spowrotem</b>!
+    <b>Witaj z powrotem</b>!
     Twoje zarejestrowane adresy e-mail to:
     {} {}
     {} {}
@@ -65,7 +65,7 @@ pl-PL:
     Pliki wysyłane e-mailem przed kompresją, nie mogą być większe niż 50 MB.
     Pliki wysyłane bezpośrednio do bota, nie mogą być większe niż 20 MB.
 
-    <b>Odpowiedzi na pozostałe pytanie, znajdziesz pod adresem:</b>
+    <b>Odpowiedzi na pozostałe pytania, znajdziesz pod adresem:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
     <b>Kod źródłowy:</b>
