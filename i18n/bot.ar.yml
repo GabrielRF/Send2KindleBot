@@ -38,7 +38,9 @@ ar:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>!للتبرع</b>
-    http://grf.xyz/paypal\n\n<b>إرسال ملف جديد</b>.
+    http://grf.xyz/paypal
+    
+    <b>إرسال ملف جديد</b>.
   btn1: إرسال ملف
   btn2: اختيار البريد الإلكتروني
   btn3: إرسال الملف كما هو
@@ -52,7 +54,8 @@ ar:
     ستجد بريدك الإلكتروني منتهياً بـ <code>@Kindle.com</code>.
     
     <b>ما نوع الملفات المدعومة؟</b>
-    Abode PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Abode PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Images <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
