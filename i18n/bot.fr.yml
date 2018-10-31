@@ -23,13 +23,13 @@ fr:
   error: |
     <b>Erreur</b>.
     Cliquez sur /start et vérifiez vos emails.
-  filenotfound: Fichier introuvable. Annulé.
+  filenotfound: Fichier introuvable. Opération annulé.
   sendingfile: |
     <b>Fichier en cours d'envoi</b>.
     Merci de patienter.
   checkemail: |
     <b>Erreur</b>.
-    Merci de vérifier votre email, puis réessayez.
+    Merci de vérifier votre email, puis de réessayer.
   filesent: |
     <b>Fichier envoyé</b>.
     Attendez quelques minutes et vérifiez sur votre appareil.
@@ -44,7 +44,7 @@ fr:
   btn1: Envoyer un fichier
   btn2: Configurer mon email
   btn3: Tel quel
-  btn4: Converti
+  btn4: Convertir
   help: |
     <b>Que fait ce bot ?</b>
     Ce bot permet d'envoyer des fichiers à votre Kindle comme si vous les envoyiez par email.
@@ -78,13 +78,13 @@ fr:
     Ce bot est en développement constant !
     Si vous avez des questions ou des suggestions, n'hésitez pas à me contacter !
 
-    Twitter: @GabRF (http://twitter.com/GabRF)
-    Telegram: @GabrielRF
-    Site web: http://grf.xyz/telegram
+    Twitter : @GabRF (http://twitter.com/GabRF)
+    Telegram : @GabrielRF
+    Site web : http://grf.xyz/telegram
 
-    Noter le bot:
+    Noter le bot :
     https://telegram.me/storebot?start=Send2Kindlebot
 
-    Supporter le projet:
+    Supporter le projet :
     http://grf.xyz/paypal
     http://patreon.com/gabrielrf
