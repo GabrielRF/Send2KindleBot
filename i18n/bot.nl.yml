@@ -38,7 +38,9 @@ nl:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Doneer!</b>
-    http://grf.xyz/paypal\n\n<b>Stuur een nieuwe opdracht</b>.'
+    http://grf.xyz/paypal
+
+    <b>Stuur een nieuwe opdracht</b>.'
   btn1: Bestand verzenden
   btn2: E-mail instellen
   btn3: Zoals het is
@@ -52,7 +54,8 @@ nl:
     Het e-mailadres eindigt met <code>@Kindle.com</code>.
 
     <b>Welke bestandsformaten worden ondersteund?</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Afbeeldingen <code>.jpg .gif .bmp .png</code>
     Mobi-boeken <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>

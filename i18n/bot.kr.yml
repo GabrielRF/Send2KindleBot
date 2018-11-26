@@ -38,7 +38,9 @@ kr:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>기부하기!</b>
-    http://grf.xyz/paypal\n\n<b>명령 보내기</b>.
+    http://grf.xyz/paypal
+
+    <b>명령 보내기</b>.
   btn1: 파일전송
   btn2: 이메일설정
   btn3: 유지
@@ -52,7 +54,8 @@ kr:
     킨들 이메일주소는 <code>@kindle.com</code>로 끝납니다.
 
     <b>지원되는 파일 종류는?</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     그림파일 <code>.jpg .gif .bmp .png</code>
     Mobi 책 <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>

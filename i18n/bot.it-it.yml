@@ -38,7 +38,9 @@ it-it:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Dona!</b>
-    http://grf.xyz/paypal\n\n<b>Invia un nuovo comando</b>.
+    http://grf.xyz/paypal
+
+    <b>Invia un nuovo comando</b>.
   btn1: Invia File
   btn2: Imposta e-mail
   btn3: Così com'è
@@ -51,7 +53,8 @@ it-it:
     Entra nel tuo account Amazon. Visita la pagina <i>I miei dispositivi</i> in <i>I miei contenuti e dispositivi</i>.
     L'indirizzo e-mail termina con <code>@Kindle.com</code>.
     <b>Che tipo di file sono supportati?</b>
-    Adode PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adode PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Images <code>.jpg .gif .bmp .png</code>
     Libri Mobi <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>

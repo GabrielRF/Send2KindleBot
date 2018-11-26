@@ -38,7 +38,9 @@ hi:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>दान करना!</b>
-    http://grf.xyz/paypal\n\n<b>एक नया आदेश भेजें</b>.
+    http://grf.xyz/paypal
+
+    <b>एक नया आदेश भेजें</b>.
   btn1: फाइल भेज
   btn2: ई-मेल सेट करें
   btn3: जैसा है
@@ -53,7 +55,8 @@ hi:
     ई-मेल पता <code>@kindle.com</code> के साथ समाप्त होगा।
 
     <b>किस तरह की फाइलों का समर्थन किया जाता है?</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Images <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>

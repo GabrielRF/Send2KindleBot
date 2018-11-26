@@ -50,7 +50,9 @@ ur-en:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>عطیہ دیں</b>
-    http://grf.xyz/paypal\n\n<b>نیا کمانڈ بھیجیں</b>.
+    http://grf.xyz/paypal
+
+    <b>نیا کمانڈ بھیجیں</b>.
   btn1: فائل بھیجیے
   btn2: سیٹ ایمیل
   btn3: جیسے ہے
@@ -67,7 +69,8 @@ ur-en:
     کے ساتھ ختم ہو جائے گا
 
     <b>کونسی فائلون کی حمایت کی جاتی ہے؟</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Images <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>

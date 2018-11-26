@@ -38,7 +38,9 @@ ml-in:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>സംഭാവനചെയ്യുക</b>
-    http://grf.xyz/paypal\n\n<b>Send a new command</b>.
+    http://grf.xyz/paypal
+
+    <b>Send a new command</b>.
   btn1: ഫയൽ അയയ്ക്കുക
   btn2: ഇമെയിൽ സജ്ജമാക്കുക
   btn3: യഥാർത്ഥ ഫോർമാറ്റിൽ അയയ്ക്കുക
@@ -53,7 +55,8 @@ ml-in:
     കിൻഡിൽ ഇമെയിലിന്റെ അവസാന ഭാഗം <b>@kindel.com</b>എന്നായിരിക്കും.  
 
     <b>കിൻഡിൽ പിന്തുണയ്ക്കുന്ന ഫയലുകൾ ഏതൊക്കെയാണ് ?</b>
-    PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     ചിത്രങ്ങൾ <code>.jpg .gif .bmp .png</code>
     Mobi പുസ്തകങ്ങൾ <code>.mobi</code>
     മൈക്രോസോഫ്റ്റ് വേർഡ് <code>.doc .docx</code>

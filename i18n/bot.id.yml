@@ -38,7 +38,9 @@ id:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Donasi!</b>
-    http://grf.xyz/paypal\n\n<b>Kirimkan perintah baru</b>.
+    http://grf.xyz/paypal
+
+    <b>Kirimkan perintah baru</b>.
   btn1: Kirim Dokumen
   btn2: Tetapkan email
   btn3: Seperti semula
@@ -52,7 +54,8 @@ id:
     Alamat email anda akan diakhiri dengan <code>@Kindle.com</code>.
 
     <b>Jenis file apa saja yang didukung?</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Gambar <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     <i>Microsoft Word</i> <code>.doc .docx</code>

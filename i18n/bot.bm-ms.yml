@@ -38,7 +38,9 @@ bm-ms:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Derma!</b>
-    http://grf.xyz/paypal\n\n<b>Hantar arahan baru</b>.
+    http://grf.xyz/paypal
+    
+    <b>Hantar arahan baru</b>.
   btn1: Hantar fail
   btn2: Tukar e-mel
   btn3: Seperti Itu
@@ -51,7 +53,8 @@ bm-ms:
     Log masuk ke akaun Amazon anda. Lawati halaman <i>Kerola Peranti anda</i> di <i>Uruskan Kinda Anda</i>.
     Alamat e-mel akan berakhir dengan <code>@Kindle.com</code>.
     <b>Apakah jenis fail yang disokong menghantar?</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Gambar-gambar <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>

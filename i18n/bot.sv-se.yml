@@ -38,7 +38,9 @@ sv-se:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Donera!</b>
-    http://grf.xyz/paypal\n\n<b>Skicka nytt kommando</b>.
+    http://grf.xyz/paypal
+
+    <b>Skicka nytt kommando</b>.
   btn1: Skicka fil
   btn2: Ändra e-mail
   btn3: Som den är
@@ -52,7 +54,8 @@ sv-se:
     Den e-mail du letar efter slutar på <code>@kindle.com</code>.
 
     <b>Vilka sorters filer stödjer den?</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Bilder <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>

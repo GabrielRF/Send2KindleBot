@@ -38,7 +38,9 @@
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Зробити благодійний внесок</b>
-    http://grf.xyz/paypal\n\n<b>Відправити нову команду</b>.
+    http://grf.xyz/paypal
+
+    <b>Відправити нову команду</b>.
   btn1: Відправити файл
   btn2: Налаштувати е-мейл
   btn3: Без змін

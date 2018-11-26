@@ -38,7 +38,9 @@ ru:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Поддержка!</b>
-    http://grf.xyz/paypal\n\n<b>Отправь новую команду</b>.
+    http://grf.xyz/paypal
+
+    <b>Отправь новую команду</b>.
   btn1: Отправить файл
   btn2: Настройка e-mail
   btn3: Как есть
@@ -51,7 +53,8 @@ ru:
     Войди в аккаунт Amazon. Посети страницу <i>Manage your Devices</i> на <i>Manage Your Kindle</i>.
     e-mail адрес должен заканчиваться на <code>@kindle.com</code>.
     <b>Какие файлы поддерживаются?</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Изображения <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
