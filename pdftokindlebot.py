@@ -298,7 +298,7 @@ if __name__ == '__main__':
         user_lang(message)
         msg = bot.send_message(message.from_user.id,
             i18n.t('bot.askfile'))
-        bot.register_next_step_handler(msg, get_file)
+        # bot.register_next_step_handler(msg, get_file)
 
     def get_file(message):
         user_lang(message)
@@ -358,7 +358,7 @@ if __name__ == '__main__':
         bot.answer_callback_query(call.id)
         msg = bot.send_message(call.from_user.id,
             i18n.t('bot.askfile'))
-        bot.register_next_step_handler(msg, get_file)
+        # bot.register_next_step_handler(msg, get_file)
 
     @bot.message_handler(func=lambda m: True)
     def generic_msg(message):
