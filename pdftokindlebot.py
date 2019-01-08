@@ -85,14 +85,14 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
         pass
     msg = (
         '{icon_x} {msg_a}\n\n'
-        '{icon_y} {msg_b}\n\n'
+        #'{icon_y} {msg_b}\n\n'
         '{icon_z} {msg_c}'
     ).format(
         icon_x=u'\U0001F4EE',
         icon_y=u'\U00002B50',
         icon_z=u'\U0001F4B5',
         msg_a=i18n.t('bot.filesent'),
-        msg_b=i18n.t('bot.rate'),
+        #msg_b=i18n.t('bot.rate'),
         msg_c=i18n.t('bot.donate'),
     )
     bot.send_message(chatid, msg, parse_mode='HTML',
