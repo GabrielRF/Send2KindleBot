@@ -204,7 +204,7 @@ if __name__ == '__main__':
     table = config['SQLITE3']['table']
 
     bot = telebot.TeleBot(TOKEN)
-    cmds = ['/start', '/send', '/info', '/help']
+    cmds = ['/start', '/send', '/info', '/help', '/email']
     LOG_INFO_FILE = log_file
     logger_info = logging.getLogger('InfoLogger')
     logger_info.setLevel(logging.DEBUG)
