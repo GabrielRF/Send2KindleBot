@@ -266,7 +266,7 @@ if __name__ == '__main__':
                         str(message.text) + '"')
                     # check = select_user(db, table, message.from_user.id,
                     #     'remetente')
-                    if len(data[3]) < 5:
+                    if '@' not in str(data[3]):
                         msg = bot.reply_to(message, i18n.t('bot.askemail2'))
                         bot.register_next_step_handler(msg, add_email)
                         return 0
@@ -274,8 +274,7 @@ if __name__ == '__main__':
                         str(u'\U00002705') + i18n.t('bot.success'),
                         parse_mode='HTML', reply_markup=button)
                 # elif len(data[3]) < 5:
-                #     msg = bot.reply_to(message,
-                #         'Type your email used on your Amazon account.')
+                #     msg = bot.reply_to(message, i18n.t('bot.askemail2'))
                 #     bot.register_next_step_handler(msg, add_email)
                 #     return 0
                 else:
