@@ -259,30 +259,21 @@ if __name__ == '__main__':
         if message.text.lower() in cmds:
             return 0
         elif '/' not in message.text:
-            data = select_user(db, table, message.from_user.id, '*')
             if validate_email(message.text.lower()):
-                if '@kindle.com' in message.text.lower():
-                    upd_user_email(db, table, message.from_user.id, '"' +
-                        str(message.text) + '"')
-                    # check = select_user(db, table, message.from_user.id,
-                    #     'remetente')
-                    if '@' not in str(data[3]):
-                        msg = bot.reply_to(message, i18n.t('bot.askemail2'))
-                        bot.register_next_step_handler(msg, add_email)
-                        return 0
-                    msg = bot.reply_to(message,
-                        str(u'\U00002705') + i18n.t('bot.success'),
-                        parse_mode='HTML', reply_markup=button)
-                # elif len(data[3]) < 5:
-                #     msg = bot.reply_to(message, i18n.t('bot.askemail2'))
-                #     bot.register_next_step_handler(msg, add_email)
-                #     return 0
-                else:
-                    upd_user_email(db, table, message.from_user.id, '"' +
-                        str(message.text) + '"')
-                    msg = bot.reply_to(message,
-                        str(u'\U00002705') + i18n.t('bot.success'),
-                        parse_mode='HTML', reply_markup=button)
+                upd_user_email(db, table, message.from_user.id, '"' +
+                    str(message.text) + '"')
+                data = select_user(db, table, message.from_user.id, '*')
+                if '@' not in str(data[3]):
+                    msg = bot.reply_to(message, i18n.t('bot.askemail'))
+                    bot.register_next_step_handler(msg, add_email)
+                    return 0
+                if '@' not in str(data[2]):
+                    msg = bot.reply_to(message, i18n.t('bot.askemail2'))
+                    bot.register_next_step_handler(msg, add_email)
+                    return 0
+                msg = bot.reply_to(message,
+                    str(u'\U00002705') + i18n.t('bot.success'),
+                    parse_mode='HTML', reply_markup=button)
             else:
                 msg = bot.send_message(message.from_user.id, str(u'\U000026A0')
                     + i18n.t('bot.askemail'), parse_mode='HTML')
