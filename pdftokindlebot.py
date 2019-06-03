@@ -139,7 +139,7 @@ def upd_user_file(db, table, chatid, file_url):
 def upd_user_email(db, table, chatid, email):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
-    if '@kindle.' in email.lower():
+    if '@kindle.' in email.lower() or '@free.kindle.' in email.lower():
         aux = ('''UPDATE {} SET destinatario = {}
             WHERE chatid = {}''').format(table, email, chatid)
     else:
