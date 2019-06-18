@@ -296,7 +296,7 @@ if __name__ == '__main__':
             file_size = message.document.file_size
             bot.reply_to(message, str(u'\U00002705') + 'Downloaded '
                 + str(file_size) + ' bytes.')
-            if file_size > 50000000:
+            if file_size > 20000000:
                 bot.send_message(message.from_user.id, i18n.t('bot.help'),
                     parse_mode='HTML', disable_web_page_preview=True)
                 return 0
