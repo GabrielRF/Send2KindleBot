@@ -73,6 +73,10 @@ nl:
 
     <b>Bron code:</b>
     https://github.com/GabrielRF/Send2KindleBot
+  fsize: |
+    <b>Is er een limiet voor de bestandsgrootte?</b>
+    Documenten die per link worden verzonden, zijn beperkt tot 50 MB (vóór compressie).
+    Documenten die rechtstreeks naar de bot worden verzonden, zijn beperkt tot 20 MB.
   info: |
     Deze bot is constant in ontwikkeling!
     Als je een vraag of suggestie hebt, praat dan alsjeblieft met me!

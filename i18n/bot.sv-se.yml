@@ -73,7 +73,10 @@ sv-se:
 
     <b>Källkod:</b>
     https://github.com/GabrielRF/Send2KindleBot
-
+  fsize: |
+    <b>Finns det någon gräns på filens storlek?</b>
+    Filer som skickas via länk har en gräns på 50 MB (innan komrimering).
+    Filer som skickas direkt till bot'en har en gräns på 20 MB.
   info: |
     Den här bot'en är under konstant utveckling!
     Om du har några förslag på förbättringar eller frågor så tveka inte att kontakt mig!

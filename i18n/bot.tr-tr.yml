@@ -68,6 +68,10 @@ tr-tr:
     http://www.amazon.com/kindlepersonaldocuments/
     <b>Kaynak kod:</b>
     https://github.com/GabrielRF/Send2KindleBot
+  fsize: |
+    <b>Bir dosya boyut limiti var mı?</b>
+    Link ile gönderilen dosyaların limiti 50 MB'tır(sıkıştırma öncesinde).
+    Bota doğrudan gönderilen dosyaların limiti 20 MB'tır.
   info: |
     This bot is under constant development!
     Bot geliştirme aşamasındadır!

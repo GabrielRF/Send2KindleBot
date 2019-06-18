@@ -69,6 +69,10 @@ it-it:
     http://www.amazon.com/kindlepersonaldocuments/
     <b>Codice sorgente:</b>
     https://github.com/GabrielRF/Send2KindleBot
+  fsize: |
+    <b>Ci sono limiti di dimensione?</b>
+    I documenti inviati attraverso un link sono limitati a 50 MB (prima della compressione).
+    I documenti inviati direttamente al bot sono limitati a 20 MB.
   info: |
     Questo bot è sotto costante sviluppo!
     Se hai domande o suggerimenti, per favore, scrivimi!

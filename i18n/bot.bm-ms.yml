@@ -69,6 +69,10 @@ bm-ms:
     http://www.amazon.com/kindlepersonaldocuments/
     <b>Kod sumber:</b>
     https://github.com/GabrielRF/Send2KindleBot
+  fsize: |
+    <b>Adakah terdapat had saiz fail?</b>
+    Dokumen yang dihantar melalui pautan adalah terhad kepada 50 MB (sebelum pemampatan).
+    Dokumen dihantar terus ke bot adalah terhad kepada 20 MB.
   info: |
     Bot ini berada di bawah perkembangan beterusan!
     Jika anda mempunyai sebarang soalan atau cadangan, sila hubungi saya!

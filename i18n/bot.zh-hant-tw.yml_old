@@ -65,6 +65,10 @@ zh-hant-tw:
     http://www.amazon.com/kindlepersonaldocuments/
     <b>原始碼:</b>
     https://github.com/GabrielRF/Send2KindleBot
+  fsize: |
+    <b>是否有文件大小限制?</b>
+    使用連結傳送的檔案限制為 50 MB（壓縮前）。.
+    直接傳送到機器人的檔案限制為 20 MB。
   info: |
     這個機器在在持續開發中!
     如果您有任何問題或建議，請與我聯繫！

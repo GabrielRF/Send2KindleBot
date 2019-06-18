@@ -73,7 +73,10 @@ en-us:
 
     <b>Source code:</b>
     https://github.com/GabrielRF/Send2KindleBot
-
+  fsize: |
+    <b>Is there any file size limit?</b>
+    Documents sent by link are limited to 50 MB (before compression).
+    Documents sent directly to the bot are limited to 20 MB.
   info: |
     This bot is under constant development!
     If you have any question or suggestion, please, talk to me!
