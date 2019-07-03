@@ -22,11 +22,18 @@ from validate_email import validate_email
 i18n.load_path.append('i18n')
 i18n.set('locale', 'en-us')
 
+document_dict = {}
+
+class Document:
+    def __init__(self, name):
+        self.name = name
+
 # Get file from URL
 def open_file(file_url, chatid):
-
+    fname = document_dict[str(chatid)]
     file_name, headers = urllib.request.urlretrieve(file_url, 
-        'send2kindle_' + file_url.split('/')[-1])
+        # 'send2kindle_' + file_url.split('/')[-1])
+        fname.name)
     return file_name
 
 
@@ -294,6 +301,9 @@ if __name__ == '__main__':
         user_lang(message)
         if message.content_type == 'document':
             file_size = message.document.file_size
+            file_name = message.document.file_name
+            document = Document(file_name)
+            document_dict[str(message.from_user.id)] = document
             bot.reply_to(message, str(u'\U00002705') + 'Downloaded '
                 + str(file_size) + ' bytes.')
             if file_size > 20000000:
