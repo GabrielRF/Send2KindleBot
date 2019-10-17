@@ -59,6 +59,7 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
     bot.send_chat_action(chatid, 'upload_document')
     bot.send_message(chatid, str(u'\U0001F5DE')
         + i18n.t('bot.sendingfile'), parse_mode='HTML')
+    bot.send_chat_action(chatid, 'upload_document')
 
     part = MIMEBase('application', 'octet-stream')
     part.set_payload(open(files, 'rb').read())
@@ -84,7 +85,7 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
 
     upd_user_last(db, table, chatid)
 
-    logger_info.info(str(datetime.datetime.now()) + '\tSENT:\t' + str(chatid)
+    logger_info.info(str(datetime.datetime.now()) + ' SENT: ' + str(chatid)
         + '\t' + send_from + '\t' + send_to)
     try:
         os.remove(files)
@@ -306,6 +307,7 @@ if __name__ == '__main__':
             document_dict[str(message.from_user.id)] = document
             bot.reply_to(message, str(u'\U00002705') + 'Downloaded '
                 + str(file_size) + ' bytes.')
+            bot.send_chat_action(message.from_user.id, 'upload_document')
             if file_size > 20000000:
                 bot.send_message(message.from_user.id, i18n.t('bot.fsize'),
                     parse_mode='HTML', disable_web_page_preview=True)
