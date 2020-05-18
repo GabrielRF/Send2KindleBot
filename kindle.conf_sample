@@ -1,0 +1,8 @@
+[DEFAULT]
+TOKEN = 
+logfile = 
+
+
+[SQLITE3]
+data_base = 
+table = 
