@@ -13,10 +13,12 @@ import os
 import smtplib
 import sqlite3
 # import sys
+import subprocess
 import telebot
 from telebot import types
 import urllib.request
 from validate_email import validate_email
+import time
 
 
 i18n.load_path.append('i18n')
@@ -28,13 +30,27 @@ class Document:
     def __init__(self, name):
         self.name = name
 
+def epub2mobi(file_name_epub, chatid):
+    bot.send_chat_action(chatid, 'upload_document')
+    file_name_mobi = file_name_epub.replace('.epub', '.mobi')
+    subprocess.Popen(['ebook-convert', file_name_epub, file_name_mobi]).wait()
+    os.remove(file_name_epub)
+    return file_name_mobi
+
 # Get file from URL
 def open_file(file_url, chatid):
-    fname = document_dict[str(chatid)]
-    file_name, headers = urllib.request.urlretrieve(file_url, 
-        # 'send2kindle_' + file_url.split('/')[-1])
-        fname.name)
-    return file_name
+    try:
+        fname = document_dict[str(chatid)]
+        file_name, headers = urllib.request.urlretrieve(file_url, 
+            fname.name)
+    except KeyError:
+        file_name, headers = urllib.request.urlretrieve(file_url, 
+            file_url.split('/')[-1])
+    new_file_name = os.path.splitext(file_name)[0][:20] + '.' + file_name.split('.')[-1]
+    print(file_name)
+    print(new_file_name)
+    os.rename(file_name, new_file_name)
+    return new_file_name
 
 
 # Send e-mail function
@@ -51,7 +67,10 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
     msg.attach(MIMEText('Send2KindleBot'))
 
     try:
+    #if True:
         files = open_file(file_url, chatid)
+        if '.epub' in files:
+            files = epub2mobi(files, chatid)
     except:
         bot.send_message(chatid, i18n.t('bot.filenotfound'))
         return 0
@@ -86,7 +105,7 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
     upd_user_last(db, table, chatid)
 
     logger_info.info(str(datetime.datetime.now()) + ' SENT: ' + str(chatid)
-        + '\t' + send_from + '\t' + send_to)
+        + '\t' + send_from + '\t' + send_to + '\t ' + files)
     try:
         os.remove(files)
     except FileNotFoundError:
@@ -264,7 +283,11 @@ if __name__ == '__main__':
 
     def add_email(message):
         user_lang(message)
-        if message.text.lower() in cmds:
+        try:
+            text = message.text.lower()
+        except AttributeError:
+            text = None
+        if text in cmds:
             return 0
         elif '/' not in message.text:
             if validate_email(message.text.lower()):
@@ -289,7 +312,7 @@ if __name__ == '__main__':
         else:
             msg = bot.send_message(message.from_user.id,
             i18n.t('bot.askemail'), parse_mode='HTML')
-        bot.register_next_step_handler(msg, add_email)
+            bot.register_next_step_handler(msg, add_email)
 
     @bot.message_handler(commands=['send'])
     def ask_file(message):
@@ -302,7 +325,7 @@ if __name__ == '__main__':
         user_lang(message)
         if message.content_type == 'document':
             file_size = message.document.file_size
-            file_name = message.document.file_name
+            file_name = message.document.file_name.encode('ASCII', 'ignore').decode('ASCII')
             document = Document(file_name)
             document_dict[str(message.from_user.id)] = document
             bot.reply_to(message, str(u'\U00002705') + 'Downloaded '

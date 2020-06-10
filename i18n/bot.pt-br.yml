@@ -2,7 +2,7 @@ pt-br:
   askfile: Me envie um arquivo (de ate 20MB) ou o link de um arquivo.
   askemail: Digite o e-mail do seu Kindle.
   askemail2: Digite o e-mail usado em sua conta da Amazon.
-  askemail3: Digite o e-mail que deseja adicionar no bot.
+  askemail3: Digite o e-mail que deseja adicionar ou atualizar no bot.
   askconvert: Enviar o arquivo <b>sem conversão</b> ou <b>convertido</b> para o formato do Kindle?
   success: |
     <b>Sucesso</b>.
@@ -38,7 +38,7 @@ pt-br:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Colabore!</b>
-    https://grf.xyz/donate
+    https://picpay.me/GabrielRF
   btn1: Enviar arquivo
   btn2: Ajustar e-mail
   btn3: Sem conversão
@@ -81,11 +81,11 @@ pt-br:
 
     Twitter: @GabRF (http://twitter.com/GabRF)
     Telegram: @GabrielRF
-    Website: http://grf.xyz/telegram
+    Website: http://grf.xyz/
 
     Avalie o bot:
     https://telegram.me/storebot?start=Send2Kindlebot
 
     Colabore com o projeto:
-    http://patreon.com/gabrielrf
+    https://picpay.me/GabRF
     https://picpay.me/GabrielRF
