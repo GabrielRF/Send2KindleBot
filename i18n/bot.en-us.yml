@@ -4,6 +4,7 @@ en-us:
   askemail2: Type your email used on your Amazon account.
   askemail3: Type the e-mail you want to set.
   askconvert: Send file <b>as is</b> or <b>converted</b> to Kindle format?
+  slowmode: Please, wait 15 minutes to send another epub.
   success: |
     <b>Success</b>.
     To send a file to your Kindle, click <b>Send file</b>.

@@ -31,6 +31,7 @@ class Document:
         self.name = name
 
 def epub2mobi(file_name_epub, chatid):
+    logger_info.info(str(datetime.datetime.now()) + ' EPUB: ' + str(chatid) + ' ' + file_name_epub)
     bot.send_chat_action(chatid, 'upload_document')
     file_name_mobi = file_name_epub.replace('.epub', '.mobi')
     subprocess.Popen(['ebook-convert', file_name_epub, file_name_mobi]).wait()
@@ -54,7 +55,11 @@ def open_file(file_url, chatid):
 
 
 # Send e-mail function
-def send_mail(chatid, send_from, send_to, subject, text, file_url):
+def send_mail(chatid, send_from, send_to, subject, text, file_url, last_usage):
+    try:
+        interval = (datetime.datetime.now() - datetime.datetime.strptime(last_usage, "%Y-%m-%d %H:%M:%S.%f")).total_seconds()
+    except ValueError:
+        interval = 901
     if len(send_from) < 5 or len(send_to) < 5:
         bot.send_message(chatid, i18n.t('bot.error'), parse_mode='HTML')
         return 0
@@ -70,7 +75,15 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
     #if True:
         files = open_file(file_url, chatid)
         if '.epub' in files:
-            files = epub2mobi(files, chatid)
+            if interval < 900:
+                try:
+                    bot.send_message(chatid, i18n.t('bot.slowmode'))
+                except:
+                    bot.send_message(chatid, 'Wait 15 minutes')
+                os.remove(files)
+                return 0
+            else:
+                files = epub2mobi(files, chatid)
     except:
         bot.send_message(chatid, i18n.t('bot.filenotfound'))
         return 0
@@ -80,9 +93,12 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url):
         + i18n.t('bot.sendingfile'), parse_mode='HTML')
     bot.send_chat_action(chatid, 'upload_document')
 
-    part = MIMEBase('application', 'octet-stream')
-    part.set_payload(open(files, 'rb').read())
-    encoders.encode_base64(part)
+    try:
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload(open(files, 'rb').read())
+        encoders.encode_base64(part)
+    except FileNotFoundError:
+        bot.send_message(chatid, i18n.t('bot.filenotfound'))
     part.add_header('Content-Disposition',
         'attachment; filename="{0}"'.format(os.path.basename(files)))
     msg.attach(part)
@@ -358,7 +374,7 @@ if __name__ == '__main__':
         else:
             data = select_user(db, table, message.from_user.id, '*')
             send_mail(str(message.from_user.id), data[2],
-                data[3], ' ', str(message.from_user.id), data[7])
+                data[3], ' ', str(message.from_user.id), data[7], data[5])
 
         # bot.register_next_step_handler(msg, ask_conv)
 
@@ -367,14 +383,14 @@ if __name__ == '__main__':
         bot.answer_callback_query(call.id)
         data = select_user(db, table, call.from_user.id, '*')
         send_mail(str(call.from_user.id), data[2],
-            data[3], 'Convert', str(call.from_user.id), data[7])
+            data[3], 'Convert', str(call.from_user.id), data[7], data[5])
 
     @bot.callback_query_handler(lambda q: q.data == '/as_is')
     def ask_conv(call):
         bot.answer_callback_query(call.id)
         data = select_user(db, table, call.from_user.id, '*')
         send_mail(str(call.from_user.id), data[2],
-            data[3], ' ', str(call.from_user.id), data[7])
+            data[3], ' ', str(call.from_user.id), data[7], data[5])
 
     @bot.callback_query_handler(lambda q: q.data == '/email')
     def email(call):

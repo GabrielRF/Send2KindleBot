@@ -4,6 +4,7 @@ es:
   askemail2: Escribe tu correo electrónico usado en tu cuenta de Amazon.
   askemail3: Escribe el correo electrónico que quieres establecer.
   askconvert: ¿Enviar fichero <b>sin modificar</b> o <b>convertido</b> al formato Kindle?
+  slowmode: Por favor, espere 15 minutos para enviar otro epub.
   success: |
     <b>Completado con Éxito</b>.
     Para enviar un fichero a tu Kindle, haz click a <b>Enviar fichero</b>
