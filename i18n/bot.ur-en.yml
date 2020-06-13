@@ -88,6 +88,9 @@ ur-en:
     <b> دیگر سوالات کے لئے، ملاحظہ کریں</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>اس کا کوڈ</b>
     https://github.com/GabrielRF/Send2KindleBot
   fsize: |
@@ -108,3 +111,6 @@ ur-en:
 
     Support the project:
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

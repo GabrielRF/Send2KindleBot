@@ -72,6 +72,9 @@ ar:
     <b>لمزيد من الإستفسارات قم بزيارة:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>مصدر الكود:</b>
     https://github.com/GabrielRF/Send2KindleBot
 
@@ -92,3 +95,7 @@ ar:
 
     لدعم المشروع:
     http://patreon.com/gabrielrf
+
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

@@ -72,6 +72,9 @@ hi:
     <b>किसी अन्य प्रश्न के लिए, यहां जाएं:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>सोर्स कोड:</b>
     https://github.com/GabrielRF/Send2KindleBot
   fsize: |
@@ -90,3 +93,6 @@ hi:
 
     Support the project:
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

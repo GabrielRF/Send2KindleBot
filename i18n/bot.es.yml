@@ -72,6 +72,9 @@ es:
     <b>Por cualquier otra duda, visita:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>Código fuente:</b>
     https://github.com/GabrielRF/Send2KindleBot
   fsize: |
@@ -91,3 +94,6 @@ es:
 
     Apoya al proyecto:
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

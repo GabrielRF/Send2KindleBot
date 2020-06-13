@@ -72,6 +72,9 @@ kr:
     <b>다른 질문이 있다면 링크를 방문하세요:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>소스코드:</b>
     https://github.com/GabrielRF/Send2KindleBot
 
@@ -92,3 +95,6 @@ kr:
 
     지원하기:
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

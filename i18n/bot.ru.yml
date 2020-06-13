@@ -68,6 +68,8 @@ ru:
     Документы, отправляемые напрямую, ограничены 20 MB.
     <b>При возникновении других вопросов посетите:</b>
     http://www.amazon.com/kindlepersonaldocuments/
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
     <b>Исходный код:</b>
     https://github.com/GabrielRF/Send2KindleBot
   fsize: |
@@ -84,3 +86,6 @@ ru:
     https://telegram.me/storebot?start=Send2Kindlebot
     Поддержка проекта:
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

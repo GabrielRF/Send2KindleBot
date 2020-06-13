@@ -67,6 +67,8 @@ tr-tr:
     Bota doğrudan gönderilen dosyaların limiti 20 MB'tır.
     <b>Daha fazla bilgi için, şurayı ziyaret edin:</b>
     http://www.amazon.com/kindlepersonaldocuments/
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
     <b>Kaynak kod:</b>
     https://github.com/GabrielRF/Send2KindleBot
   fsize: |
@@ -84,3 +86,6 @@ tr-tr:
     https://telegram.me/storebot?start=Send2Kindlebot
     Projeye destek olun:
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

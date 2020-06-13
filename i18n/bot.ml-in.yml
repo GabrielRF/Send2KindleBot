@@ -73,6 +73,9 @@ ml-in:
     <b>മറ്റേതെങ്കിലും ചോദ്യത്തിന്, സന്ദർശിക്കുക:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>സോഴ്സ് കോഡ്:</b>
     https://github.com/GabrielRF/Send2KindleBot
 
@@ -92,3 +95,6 @@ ml-in:
 
     നിങ്ങൾ ഈ പ്രോജക്റ്റ് ഇഷ്ടപ്പെട്ടുവെങ്കിൽ, ദയവായി പിന്തുണയ്ക്കുക:
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

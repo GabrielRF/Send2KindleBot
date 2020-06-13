@@ -262,6 +262,11 @@ if __name__ == '__main__':
         bot.send_message(message.from_user.id, i18n.t('bot.help'), parse_mode='HTML', 
             disable_web_page_preview=True)
 
+    @bot.message_handler(commands=['tos'])
+    def tos(message):
+        user_lang(message)
+        bot.send_message(message.from_user.id, i18n.t('bot.tos'), parse_mode='HTML',
+            disable_web_page_preview=True)
 
     @bot.message_handler(commands=['info'])
     def help(message):

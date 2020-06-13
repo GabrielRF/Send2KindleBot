@@ -68,6 +68,8 @@ it-it:
     I documenti inviati direttamente al bot sono limitati a 20 MB.
     <b>Per ogni altra domanda, visita:</b>
     http://www.amazon.com/kindlepersonaldocuments/
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
     <b>Codice sorgente:</b>
     https://github.com/GabrielRF/Send2KindleBot
   fsize: |
@@ -84,3 +86,6 @@ it-it:
     https://telegram.me/storebot?start=Send2Kindlebot
     Supporta il progetto:
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

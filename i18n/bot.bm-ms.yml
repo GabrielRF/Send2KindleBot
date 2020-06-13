@@ -68,6 +68,8 @@ bm-ms:
     Dokumen dihantar terus ke bot adalah terhad kepada 20 MB.
     <b>Untuk sebarang pertanyaan lain, lawati:</b>
     http://www.amazon.com/kindlepersonaldocuments/
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
     <b>Kod sumber:</b>
     https://github.com/GabrielRF/Send2KindleBot
   fsize: |
@@ -84,3 +86,6 @@ bm-ms:
     https://telegram.me/storebot?start=Send2Kindlebot
     Sokong projek ini:
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

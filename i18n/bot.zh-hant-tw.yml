@@ -67,6 +67,8 @@ zh-hant-tw:
     直接傳送到機器人的檔案限制為 20 MB。
     <b>有任何其他問題，請訪問：</b>
     http://www.amazon.com/kindlepersonaldocuments
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
     <b>原始碼：</b>
     https://github.com/GabrielRF/Send2KindleBot
   fsize: |
@@ -83,3 +85,6 @@ zh-hant-tw:
     https://telegram.me/storebot?start=Send2Kindlebot
     支持計畫：
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

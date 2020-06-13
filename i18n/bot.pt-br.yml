@@ -70,6 +70,9 @@ pt-br:
     <b>Para quaisquer outras perguntas, visite:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Termos de Serviço:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>Código fonte:</b>
     https://github.com/GabrielRF/Send2KindleBot
   fsize: |
@@ -90,3 +93,7 @@ pt-br:
     Colabore com o projeto:
     https://picpay.me/GabRF
     https://picpay.me/GabrielRF
+
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
