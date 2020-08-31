@@ -10,6 +10,7 @@ import logging
 import logging.handlers
 import os
 # import requests
+import sentry_sdk
 import smtplib
 import sqlite3
 # import sys
@@ -31,10 +32,13 @@ class Document:
         self.name = name
 
 def epub2mobi(file_name_epub, chatid):
-    logger_info.info(str(datetime.datetime.now()) + ' EPUB: ' + str(chatid) + ' ' + file_name_epub)
+    logger_info.info(str(datetime.datetime.now()) + ' CONVERT: ' + str(chatid) + ' ' + file_name_epub)
     bot.send_chat_action(chatid, 'upload_document')
-    file_name_mobi = file_name_epub.replace('.epub', '.mobi')
-    subprocess.Popen(['ebook-convert', file_name_epub, file_name_mobi]).wait()
+    file_name_mobi = file_name_epub.replace(file_name_epub.split('.')[-1], '.mobi')
+    if '.cbr' in file_name_epub or '.cbz' in file_name_epub:
+        subprocess.Popen(['ebook-convert', file_name_epub, file_name_mobi, '--output-profile', 'tablet']).wait()
+    else:
+        subprocess.Popen(['ebook-convert', file_name_epub, file_name_mobi]).wait()
     os.remove(file_name_epub)
     return file_name_mobi
 
@@ -48,7 +52,6 @@ def open_file(file_url, chatid):
         file_name, headers = urllib.request.urlretrieve(file_url, 
             file_url.split('/')[-1])
     new_file_name = os.path.splitext(file_name)[0][:20] + '.' + file_name.split('.')[-1]
-    print(file_name)
     print(new_file_name)
     os.rename(file_name, new_file_name)
     return new_file_name
@@ -72,10 +75,10 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url, last_usage):
     msg.attach(MIMEText('Send2KindleBot'))
 
     try:
-    #if True:
         files = open_file(file_url, chatid)
-        if '.epub' in files:
-            if interval < 900:
+        upd_user_last(db, table, chatid)
+        if '.epub' in files or '.cbr' in files or '.cbz' in files or '.azw3' in files:
+            if interval < 900 and '9083329' not in chatid:
                 try:
                     bot.send_message(chatid, i18n.t('bot.slowmode'))
                 except:
@@ -113,7 +116,6 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url, last_usage):
         smtp.close()
         logger_info.info(str(datetime.datetime.now()) + '\tError:\t'
             + str(chatid) + '\t' + send_from + '\t' + send_to)
-        upd_user_last(db, table, chatid)
         return 0
 
     smtp.close()
@@ -188,7 +190,6 @@ def upd_user_email(db, table, chatid, email):
     else:
         aux = ('''UPDATE {} SET remetente = {}
             WHERE chatid = {}''').format(table, email, chatid)
-    # print(aux)
     logger_info.info(str(datetime.datetime.now()) + '\tUPD:\t' + str(chatid)
         + '\t' + email)
     cursor.execute(aux)
@@ -217,7 +218,6 @@ def user_lang(message):
         user_lang = message.from_user.language_code.lower()
     except:
         user_lang = 'en-us'
-    print(user_lang)
     i18n.set('locale', user_lang)
     i18n.set('fallback', 'en-us')
     set_buttons()
@@ -359,20 +359,22 @@ if __name__ == '__main__':
             file_info = bot.get_file(message.document.file_id)
             file_url = ('https://api.telegram.org/file/bot' + TOKEN + '/'
                 + file_info.file_path)
-            # print(file_url)
         elif message.content_type == 'text':
             if message.text.lower() in cmds:
                 return 0
             file_url = message.text
+            file_name = message.text
         else:
             msg = bot.send_message(message.from_user.id, i18n.t('bot.askfile'))
             bot.register_next_step_handler(msg, get_file)
             return 0
 
+        logger_info.info(str(datetime.datetime.now()) + ' FILE: '
+            + str(message.from_user.id) + ' ' + str(message.message_id) + '\t' + file_name)
+
         # data = select_user(db, table, message.from_user.id, '*')
         # f = requests.get(file_url)
         upd_user_file(db, table, message.from_user.id, file_url)
-        # print(file_url)
         if '.pdf' in file_url.lower():
             msg = bot.send_message(message.from_user.id, i18n.t('bot.askconvert'),
                 parse_mode='HTML', reply_markup=button2)
@@ -385,27 +387,43 @@ if __name__ == '__main__':
 
     @bot.callback_query_handler(lambda q: q.data == '/converted')
     def ask_conv(call):
-        bot.answer_callback_query(call.id)
+        try:
+            bot.answer_callback_query(call.id)
+        except:
+            pass
         data = select_user(db, table, call.from_user.id, '*')
-        send_mail(str(call.from_user.id), data[2],
-            data[3], 'Convert', str(call.from_user.id), data[7], data[5])
+        try:
+            send_mail(str(call.from_user.id), data[2],
+                data[3], 'Convert', str(call.from_user.id), data[7], data[5])
+        except IndexError:
+            bot.register_next_step_handler(msg, add_email)
+            return 0
 
     @bot.callback_query_handler(lambda q: q.data == '/as_is')
     def ask_conv(call):
-        bot.answer_callback_query(call.id)
+        try:
+            bot.answer_callback_query(call.id)
+        except:
+            pass
         data = select_user(db, table, call.from_user.id, '*')
         send_mail(str(call.from_user.id), data[2],
             data[3], ' ', str(call.from_user.id), data[7], data[5])
 
     @bot.callback_query_handler(lambda q: q.data == '/email')
     def email(call):
-        bot.answer_callback_query(call.id)
+        try:
+            bot.answer_callback_query(call.id)
+        except:
+            pass
         msg = bot.send_message(call.from_user.id, i18n.t('bot.askemail3'))
         bot.register_next_step_handler(msg, add_email)
 
     @bot.callback_query_handler(lambda q: q.data == '/send')
     def ask_file(call):
-        bot.answer_callback_query(call.id)
+        try:
+            bot.answer_callback_query(call.id)
+        except:
+            pass
         msg = bot.send_message(call.from_user.id,
             i18n.t('bot.askfile'))
         # bot.register_next_step_handler(msg, get_file)
@@ -415,12 +433,22 @@ if __name__ == '__main__':
         user_lang(message)
         if '@' not in message.text:
             bot.send_chat_action(message.chat.id, 'typing')
-            get_file(message)
+            try:
+                get_file(message)
+            except:
+                bot.send_message(message.chat.id, i18n.t('bot.filenotfound'))
 
     @bot.message_handler(content_types=['document'])
     def generic_file(message):
         user_lang(message)
         bot.send_chat_action(message.chat.id, 'typing')
-        get_file(message)
+        try:
+            get_file(message)
+        except:
+            bot.send_message(message.chat.id, i18n.t('bot.filenotfound'))
 
-    bot.polling(none_stop=True)
+    sentry_url = config['SENTRY']['url']
+    if sentry_url:
+        sentry_sdk.init(sentry_url)
+
+    bot.polling()
