@@ -20,7 +20,7 @@ from telebot import types
 import urllib.request
 from validate_email import validate_email
 import time
-
+import weasyprint
 
 i18n.load_path.append('i18n')
 i18n.set('locale', 'en-us')
@@ -44,10 +44,17 @@ def epub2mobi(file_name_epub, chatid):
 
 # Get file from URL
 def open_file(file_url, chatid):
+    if 'api.telegram.org/file' not in file_url:
+        return file_url
+    print(file_url)
     try:
-        fname = document_dict[str(chatid)]
-        file_name, headers = urllib.request.urlretrieve(file_url, 
-            fname.name)
+        if '.pdf' in file_url:
+            fname = document_dict[str(chatid)]
+            file_name, headers = urllib.request.urlretrieve(file_url,
+                fname.name)
+        else:
+            file_name, headers = urllib.request.urlretrieve(file_url,
+                file_url.split('/')[-1])
     except KeyError:
         file_name, headers = urllib.request.urlretrieve(file_url, 
             file_url.split('/')[-1])
@@ -95,7 +102,6 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url, last_usage):
     bot.send_message(chatid, str(u'\U0001F5DE')
         + i18n.t('bot.sendingfile'), parse_mode='HTML')
     bot.send_chat_action(chatid, 'upload_document')
-
     try:
         part = MIMEBase('application', 'octet-stream')
         part.set_payload(open(files, 'rb').read())
@@ -110,6 +116,14 @@ def send_mail(chatid, send_from, send_to, subject, text, file_url, last_usage):
 
     try:
         smtp.sendmail(send_from, send_to, msg.as_string())
+    except smtplib.SMTPSenderRefused:
+        print('Erro')
+        msg = bot.send_message(chatid,
+            str(u'\U000026A0') + i18n.t('bot.fsize'), parse_mode='HTML')
+        smtp.close()
+        logger_info.info(str(datetime.datetime.now()) + '\tError:\t'
+            + str(chatid) + '\t' + send_from + '\t' + send_to)
+        return 0
     except smtplib.SMTPRecipientsRefused:
         msg = bot.send_message(chatid,
             str(u'\U000026A0') + i18n.t('bot.checkemail'), parse_mode='HTML')
@@ -243,6 +257,7 @@ if __name__ == '__main__':
     config.read(BOT_CONFIG_FILE)
     log_file = config['DEFAULT']['logfile']
     TOKEN = config['DEFAULT']['TOKEN']
+    BLOCKED = config['DEFAULT']['BLOCKED']
     db = config['SQLITE3']['data_base']
     table = config['SQLITE3']['table']
 
@@ -303,12 +318,19 @@ if __name__ == '__main__':
         bot.register_next_step_handler(msg, add_email)
 
     def add_email(message):
+        if message.content_type != 'text':
+            msg = bot.send_message(message.from_user.id,
+                i18n.t('bot.askemail'), parse_mode='HTML')
+            bot.register_next_step_handler(msg, add_email)
+            return 0
         user_lang(message)
         try:
             text = message.text.lower()
         except AttributeError:
             text = None
         if text in cmds:
+            msg = bot.send_message(message.from_user.id, i18n.t('bot.askemail'))
+            bot.register_next_step_handler(msg, add_email)
             return 0
         elif '/' not in message.text:
             if validate_email(message.text.lower()):
@@ -344,6 +366,16 @@ if __name__ == '__main__':
 
     def get_file(message):
         user_lang(message)
+        if str(message.from_user.id) in BLOCKED:
+            print(message)
+            try:
+                logger_info.info(str(datetime.datetime.now()) + ' BLOCKED: '
+                    + str(message.from_user.id) + ' ' + str(message.message_id) + ' ' + message.text)
+            except:
+                logger_info.info(str(datetime.datetime.now()) + ' BLOCKED: '
+                    + str(message.from_user.id) + ' ' + str(message.message_id))
+            bot.delete_message(message.from_user.id, message.message_id)
+            return 0
         if message.content_type == 'document':
             file_size = message.document.file_size
             file_name = message.document.file_name.encode('ASCII', 'ignore').decode('ASCII')
@@ -361,9 +393,19 @@ if __name__ == '__main__':
                 + file_info.file_path)
         elif message.content_type == 'text':
             if message.text.lower() in cmds:
+                bot.send_message(message.from_user.id, i18n.t('bot.askfile'))
                 return 0
             file_url = message.text
-            file_name = message.text
+            try:
+                if message.text[-1] == '/':
+                    file_name = message.text.split('/')[-2] + '.pdf'
+                else:
+                    file_name = message.text.split('/')[-1] + '.pdf'
+            except:
+                file_name = message.text
+            pdf = weasyprint.HTML(file_url).write_pdf()
+            open(file_name, 'wb').write(pdf)
+            file_url = file_name
         else:
             msg = bot.send_message(message.from_user.id, i18n.t('bot.askfile'))
             bot.register_next_step_handler(msg, get_file)
@@ -373,7 +415,8 @@ if __name__ == '__main__':
             + str(message.from_user.id) + ' ' + str(message.message_id) + '\t' + file_name)
 
         # data = select_user(db, table, message.from_user.id, '*')
-        # f = requests.get(file_url)
+        #f = requests.get(file_url)
+        #print(f)
         upd_user_file(db, table, message.from_user.id, file_url)
         if '.pdf' in file_url.lower():
             msg = bot.send_message(message.from_user.id, i18n.t('bot.askconvert'),
@@ -431,7 +474,7 @@ if __name__ == '__main__':
     @bot.message_handler(func=lambda m: True)
     def generic_msg(message):
         user_lang(message)
-        if '@' not in message.text:
+        if ('@' not in message.text or '/' in message.text) and message.text not in cmds:
             bot.send_chat_action(message.chat.id, 'typing')
             try:
                 get_file(message)
