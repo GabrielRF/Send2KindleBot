@@ -425,6 +425,7 @@ if __name__ == "__main__":
     @bot.message_handler(commands=["start"])
     def start(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
+        set_buttons(user_lang)
         data = select_user(db, table, message.from_user.id, "*")
 
         try:
