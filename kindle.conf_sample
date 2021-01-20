@@ -1,0 +1,17 @@
+[DEFAULT]
+# Bot token. Get it talking to @BotFather.
+TOKEN = 
+# Log path.
+logfile = /var/log/Send2KindleBot/bot.log
+# Users blocked.
+BLOCKED = 
+
+[SQLITE3]
+# Database path.
+data_base = /usr/local/bin/Send2KindleBot/kindle.db
+# Table name.
+table = usuarios
+
+[SENTRY]
+# Sentry url.
+url = 
