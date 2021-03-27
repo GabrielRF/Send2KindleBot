@@ -6,6 +6,7 @@ import os
 import smtplib
 import sqlite3
 import subprocess
+import timeout_decorator
 import urllib.request
 from email import encoders
 from email.mime.base import MIMEBase
@@ -28,7 +29,7 @@ document_dict = {}
 
 class Document:
     def __init__(self, name):
-        self.name = name
+        self.name = name[:20] + name[-5:]
 
 
 def epub2mobi(file_name_epub, chatid):
@@ -69,8 +70,6 @@ def open_file(file_url, chatid):
     if "api.telegram.org/file" not in file_url:
         return file_url
 
-    print(file_url)
-
     try:
         if ".pdf" in file_url:
             fname = document_dict[str(chatid)]
@@ -87,9 +86,8 @@ def open_file(file_url, chatid):
         )
 
     new_file_name = (
-        os.path.splitext(file_name)[0][:20] + "." + file_name.split(".")[-1]
+        os.path.splitext(file_name)[0][:15] + "." + file_name.split(".")[-1]
     )
-    print(new_file_name)
     os.rename(file_name, new_file_name)
 
     return new_file_name
@@ -99,13 +97,13 @@ def open_file(file_url, chatid):
 def send_mail(
     chatid, send_from, send_to, subject, text, file_url, last_usage, user_lang
 ):
-    set_buttons(user_lang)
 
     try:
         interval = (
             datetime.datetime.now()
             - datetime.datetime.strptime(last_usage, "%Y-%m-%d %H:%M:%S.%f")
         ).total_seconds()
+        print(interval)
     except ValueError:
         interval = 901
 
@@ -122,11 +120,23 @@ def send_mail(
     msg["Date"] = formatdate(localtime=True)
     msg["Subject"] = subject
 
-    msg.attach(MIMEText("Send2KindleBot"))
+    text = 'Send2KindleBot - Document from user {}'
+
+    msg.attach(MIMEText(text.format(chatid)))
 
     try:
+        if interval < 1:
+            return 0
+        elif interval < 30:
+            try:
+                bot.send_message(
+                    chatid, i18n.t("bot.slowmodesec", locale=user_lang)
+                )
+            except:
+                bot.send_message(chatid, "Wait 30 seconds")
+            return 0
+
         files = open_file(file_url, chatid)
-        upd_user_last(db, table, chatid)
 
         if (
             ".epub" in files
@@ -134,37 +144,35 @@ def send_mail(
             or ".cbz" in files
             or ".azw3" in files
         ):
-            if interval < 900 and "9083329" not in chatid:
+            if interval < 900:
                 try:
                     bot.send_message(
                         chatid, i18n.t("bot.slowmode", locale=user_lang)
                     )
                 except:
                     bot.send_message(chatid, "Wait 15 minutes")
-
                 os.remove(files)
-
                 return 0
             else:
+                upd_user_last(db, table, chatid)
                 files = epub2mobi(files, chatid)
     except:
         bot.send_message(chatid, i18n.t("bot.filenotfound", locale=user_lang))
         return 0
 
-    bot.send_chat_action(chatid, "upload_document")
-    bot.send_message(
+    msg_sent = bot.send_message(
         chatid,
         str(u"\U0001F5DE") + i18n.t("bot.sendingfile", locale=user_lang),
         parse_mode="HTML",
     )
-    bot.send_chat_action(chatid, "upload_document")
 
     try:
         part = MIMEBase("application", "octet-stream")
         part.set_payload(open(files, "rb").read())
         encoders.encode_base64(part)
-    except FileNotFoundError:
+    except (FileNotFoundError, OSError) as e:
         bot.send_message(chatid, i18n.t("bot.filenotfound", locale=user_lang))
+        return 0
 
     part.add_header(
         "Content-Disposition",
@@ -245,15 +253,17 @@ def send_mail(
     except FileNotFoundError:
         pass
 
+    set_buttons(user_lang)
     msg = ("{icon_x} {msg_a}\n\n" "{icon_z} {msg_c}").format(
         icon_x=u"\U0001F4EE",
         icon_z=u"\U0001F4B5",
         msg_a=i18n.t("bot.filesent", locale=user_lang),
         msg_c=i18n.t("bot.donate", locale=user_lang),
     )
-    bot.send_message(
-        chatid,
+    bot.edit_message_text(
         msg,
+        chatid,
+        msg_sent.message_id,
         parse_mode="HTML",
         reply_markup=button,
         disable_web_page_preview=True,
@@ -428,6 +438,14 @@ if __name__ == "__main__":
         set_buttons(user_lang)
         data = select_user(db, table, message.from_user.id, "*")
 
+        logger_info.info(
+            str(datetime.datetime.now())
+            + " START: "
+            + str(message.from_user.id)
+            + " "
+            + str(message.message_id)
+        )
+
         try:
             aux1 = data[2]
             aux2 = data[3]
@@ -440,6 +458,7 @@ if __name__ == "__main__":
                 message.from_user.id,
                 i18n.t("bot.startnewuser", locale=user_lang),
                 parse_mode="HTML",
+                disable_web_page_preview=True,
             )
             bot.register_next_step_handler(msg, add_email)
         else:
@@ -462,6 +481,7 @@ if __name__ == "__main__":
 
     def add_email(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
+        set_buttons(user_lang)
 
         if message.content_type != "text":
             msg = bot.send_message(
@@ -541,6 +561,7 @@ if __name__ == "__main__":
             message.from_user.id, i18n.t("bot.askfile", locale=user_lang)
         )
 
+    @timeout_decorator.timeout(120, use_signals=False)
     def get_file(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
 
@@ -577,13 +598,6 @@ if __name__ == "__main__":
             ).decode("ASCII")
             document = Document(file_name)
             document_dict[str(message.from_user.id)] = document
-            bot.reply_to(
-                message,
-                str(u"\U00002705")
-                + "Downloaded "
-                + str(file_size)
-                + " bytes.",
-            )
             bot.send_chat_action(message.from_user.id, "upload_document")
 
             if file_size > 20000000:
@@ -622,8 +636,11 @@ if __name__ == "__main__":
             except:
                 file_name = message.text
 
-            pdf = weasyprint.HTML(file_url).write_pdf()
-            open(file_name, "wb").write(pdf)
+            try:
+                pdf = weasyprint.HTML(file_url).write_pdf()
+                open(file_name, "wb").write(pdf)
+            except AssertionError:
+                pdf = file_name
             file_url = file_name
         else:
             msg = bot.send_message(
@@ -749,12 +766,12 @@ if __name__ == "__main__":
     @bot.message_handler(func=lambda m: True)
     def generic_msg(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
-        user_lang(message)
+        #user_lang(message)
 
         if (
             "@" not in message.text or "/" in message.text
         ) and message.text not in cmds:
-            bot.send_chat_action(message.chat.id, "typing")
+            #bot.send_chat_action(message.chat.id, "typing")
 
             try:
                 get_file(message)
@@ -767,7 +784,7 @@ if __name__ == "__main__":
     @bot.message_handler(content_types=["document"])
     def generic_file(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
-        bot.send_chat_action(message.chat.id, "typing")
+        #bot.send_chat_action(message.chat.id, "typing")
 
         try:
             get_file(message)
@@ -781,4 +798,4 @@ if __name__ == "__main__":
     if sentry_url:
         sentry_sdk.init(sentry_url)
 
-    bot.polling()
+    bot.polling(timeout=60)

@@ -24,7 +24,9 @@ en-us:
   error: |
     <b>Error</b>.
     Click /start and check your e-mails.
-  filenotfound: File not found. Aborted.
+  filenotfound: |
+    File not found. Aborted.
+    Try again in a few minutes.
   sendingfile: |
     <b>Sending file</b>.
     Please, wait a moment.
