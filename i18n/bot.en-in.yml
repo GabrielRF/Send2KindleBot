@@ -4,6 +4,7 @@ hi:
   askemail2: अपने अमेज़ॅन पर इस्तेमाल किया गया अपना ईमेल टाइप करें।
   askemail3: वह ई-मेल टाइप करें जिसे आप सेट करना चाहते हैं।
   askconvert: फाइल <b> जैसा है </b> या <b> रूपांतरित </b> को किंडल प्रारूप में भेजें?
+  slowmode: Please, wait 15 minutes to send another epub.
   success: |
     <b>सफल</b>.
     अपनी किंडल में एक फाइल भेजने के लिए, <b> फ़ाइल भेजें </b> क्लिक करें।
@@ -38,7 +39,9 @@ hi:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>दान करना!</b>
-    http://grf.xyz/paypal\n\n<b>एक नया आदेश भेजें</b>.
+    https://grf.xyz/donate
+
+    <b>एक नया आदेश भेजें</b>.
   btn1: फाइल भेज
   btn2: ई-मेल सेट करें
   btn3: जैसा है
@@ -53,7 +56,8 @@ hi:
     ई-मेल पता <code>@kindle.com</code> के साथ समाप्त होगा।
 
     <b>किस तरह की फाइलों का समर्थन किया जाता है?</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Images <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
@@ -68,20 +72,27 @@ hi:
     <b>किसी अन्य प्रश्न के लिए, यहां जाएं:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>सोर्स कोड:</b>
     https://github.com/GabrielRF/Send2KindleBot
-
+  fsize: |
+    <b>क्या कोई फ़ाइल साइज़ कि सीमा है?</b>लिंक द्वारा भेजे गए दस्तावेज़ 50 एमबी तक सीमित हैं (संपीड़न से पहले)।
+    सीधे बॉट पर भेजे गए दस्तावेज़ 20 एमबी तक सीमित हैं।
   info: |
     यह बॉट निरंतर विकास में है!
     यदि आपके पास कोई प्रश्न या सुझाव है, तो कृपया मुझसे बात करें!
 
     Twitter: @GabRF (http://twitter.com/GabRF)
     Telegram: @GabrielRF
-    Website: http://grf.xyz/telegram
+    Website: http://grf.xyz/
 
     Rate the bot:
     https://telegram.me/storebot?start=Send2Kindlebot
 
     Support the project:
-    http://grf.xyz/paypal
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

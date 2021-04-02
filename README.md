@@ -71,3 +71,30 @@ cp kindle.conf_sample kindle.conf
 ```
 python3 pdftokindlebot.py
 ```
+
+# Contribute
+
+To contribute install the development dependencies.
+
+```
+# pip3 install -r requirements.txt
+```
+
+Or use Pipenv to install.
+
+```
+# pip3 install pipenv
+# pipenv install -r requirements.txt
+```
+
+Before sending your pull request, make sure you ran the linter.
+
+```
+# make lint
+```
+
+And the auto format.
+
+```
+# make format
+```

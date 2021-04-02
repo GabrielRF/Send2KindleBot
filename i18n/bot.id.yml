@@ -4,6 +4,7 @@ id:
   askemail2: Ketik email yang anda gunakan untuk akun Amazon anda.
   askemail3: Ketik email yang ingin anda tuju.
   askconvert: Kirim dokumen dalam <b>bentuk semula</b> atau <b>terkonversi</b> dalam format Kindle?
+  slowmode: Please, wait 15 minutes to send another epub.
   success: |
     <b>Berhasil</b>.
     Untuk mengirimkan dokumen ke Kindle anda, klik <b>Kirim dokumen</b>.
@@ -38,7 +39,9 @@ id:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Donasi!</b>
-    http://grf.xyz/paypal\n\n<b>Kirimkan perintah baru</b>.
+    https://grf.xyz/donate
+
+    <b>Kirimkan perintah baru</b>.
   btn1: Kirim Dokumen
   btn2: Tetapkan email
   btn3: Seperti semula
@@ -52,7 +55,8 @@ id:
     Alamat email anda akan diakhiri dengan <code>@Kindle.com</code>.
 
     <b>Jenis file apa saja yang didukung?</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Gambar <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     <i>Microsoft Word</i> <code>.doc .docx</code>
@@ -68,20 +72,28 @@ id:
     <b>Jika ada pertanyaan, kunjungi:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>Kode sumber:</b>
     https://github.com/GabrielRF/Send2KindleBot
-
+  fsize: |
+    <b>Apakah ada batasan dokumen?</b>
+    Dokumen yang dikirimkan lewat tautan memiliki kuota hingga 50 MB (sebelum dikompresi).
+    Dokumen yang dikirimkan langsung ke bot akan dibatasi hingga 20 MB.
   info: |
     Bot ini dalam proses pengembangan!
     Jika anda memiliki pertanyaan atau saran, mohon hubungi saya!
 
     Twitter: @GabRF (http://twitter.com/GabRF)
     Telegram: @GabrielRF
-    Website: http://grf.xyz/telegram
+    Website: http://grf.xyz/
 
     Nilai botnya:
     https://telegram.me/storebot?start=Send2Kindlebot
 
     Dukung proyek ini:
-    http://grf.xyz/paypal
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

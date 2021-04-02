@@ -4,6 +4,7 @@ tr-tr:
   askemail2: Amazon hesabınızda kullanılan e-mailinizi yazın.
   askemail3: Kullanmak istediğiniz e-mailinizi yazın.
   askconvert: Dosyayı <b>olduğu gibi</b> veya <b>dönüştürülmüş</b> Kindle formatı ile mi göndereyim?
+  slowmode: Please, wait 15 minutes to send another epub.
   success: |
     <b>Başarılı</b>.
     Dosyayı Kindle'ınıza göndermek için <b>Dosyayı gönder</b>e tıklayın.
@@ -38,7 +39,9 @@ tr-tr:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Destek olun!</b>
-    http://grf.xyz/paypal\n\n<b>Send a new command</b>.
+    https://grf.xyz/donate
+
+    <b>Send a new command</b>.
   btn1: Dosya gönder
   btn2: E-mail ayarla
   btn3: Olduğu gibi
@@ -50,7 +53,8 @@ tr-tr:
     Amazon hesabınıza giriş yapın. <i>Kindle'ınızı Yönetin</i> sayfasındaki <i>Cihazlarınızı Yönetin</i> sayfasını ziyaret edin.
     E-mail adresi <code>@kindle.com</code> ile bitiyor olacak.
     <b>Hangi tip dosyalar destekleniyor?</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Resimler <code>.jpg .gif .bmp .png</code>
     Mobi kitap <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
@@ -63,17 +67,25 @@ tr-tr:
     Bota doğrudan gönderilen dosyaların limiti 20 MB'tır.
     <b>Daha fazla bilgi için, şurayı ziyaret edin:</b>
     http://www.amazon.com/kindlepersonaldocuments/
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
     <b>Kaynak kod:</b>
     https://github.com/GabrielRF/Send2KindleBot
+  fsize: |
+    <b>Bir dosya boyut limiti var mı?</b>
+    Link ile gönderilen dosyaların limiti 50 MB'tır(sıkıştırma öncesinde).
+    Bota doğrudan gönderilen dosyaların limiti 20 MB'tır.
   info: |
     This bot is under constant development!
     Bot geliştirme aşamasındadır!
     Soru ya da öneriniz olması halinde lütfen benimle iletişime geçin!
     Twitter: @GabRF (http://twitter.com/GabRF)
     Telegram: @GabrielRF
-    Website: http://grf.xyz/telegram
+    Website: http://grf.xyz/
     Botu derecelendirin:
     https://telegram.me/storebot?start=Send2Kindlebot
     Projeye destek olun:
-    http://grf.xyz/paypal
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

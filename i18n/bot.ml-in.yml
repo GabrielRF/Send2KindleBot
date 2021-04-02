@@ -4,6 +4,7 @@ ml-in:
   askemail2: നിങ്ങളുടെ ആമസോൺ അക്കൗണ്ടിൽ ഉപയോഗിച്ച ഇമെയിൽ ടൈപ്പ് ചെയ്യുക.
   askemail3: നിങ്ങൾ ഉപയോഗിക്കാൻ ആഗ്രഹിക്കുന്ന ഇമെയിൽ ടൈപ്പുചെയ്യുക.
   askconvert: ഫയൽ <b>കിൻഡിൽ ഫോർമാറ്റിലേക്ക് പരിവർത്തനം</b> ചെയ്യണോ?
+  slowmode: Please, wait 15 minutes to send another epub.
   success: |
     <b>പ്രവർത്തനം പൂർത്തിയായി</b>.
     നിങ്ങളുടെ കിൻഡലിലേക്ക് ഫയലുകൾ അയയ്ക്കാൻ <b>ഫയൽ അയയ്ക്കുക</b>എന്നു രേഖപ്പെടുത്തിയ ബട്ടണിൽ ക്ലിക്ക് ചെയുക.
@@ -38,7 +39,9 @@ ml-in:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>സംഭാവനചെയ്യുക</b>
-    http://grf.xyz/paypal\n\n<b>Send a new command</b>.
+    https://grf.xyz/donate
+
+    <b>Send a new command</b>.
   btn1: ഫയൽ അയയ്ക്കുക
   btn2: ഇമെയിൽ സജ്ജമാക്കുക
   btn3: യഥാർത്ഥ ഫോർമാറ്റിൽ അയയ്ക്കുക
@@ -53,7 +56,8 @@ ml-in:
     കിൻഡിൽ ഇമെയിലിന്റെ അവസാന ഭാഗം <b>@kindel.com</b>എന്നായിരിക്കും.  
 
     <b>കിൻഡിൽ പിന്തുണയ്ക്കുന്ന ഫയലുകൾ ഏതൊക്കെയാണ് ?</b>
-    PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     ചിത്രങ്ങൾ <code>.jpg .gif .bmp .png</code>
     Mobi പുസ്തകങ്ങൾ <code>.mobi</code>
     മൈക്രോസോഫ്റ്റ് വേർഡ് <code>.doc .docx</code>
@@ -69,19 +73,28 @@ ml-in:
     <b>മറ്റേതെങ്കിലും ചോദ്യത്തിന്, സന്ദർശിക്കുക:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>സോഴ്സ് കോഡ്:</b>
     https://github.com/GabrielRF/Send2KindleBot
 
+  fsize: |
+    <b>അയക്കാവുന്ന ഫയലിന്റെ വലുപ്പ പരിധി എത്രയാണ് ?</b>
+    ലിങ്ക് വഴി അയയ്ക്കുന്ന ഫയലുകൾ 50 MB (കംപ്രഷന് മുമ്പ്) ആയി പരിമിതപ്പെടുത്തിയിരിക്കുന്നു.
+    ബോട്ടിലേക് നേരിട്ട് അയയ്ക്കുന്ന ഫയലുകൾ 20 MB ആയി പരിമിതപ്പെടുത്തിയിരിക്കുന്നു.
   info: |
     ഈ ബോട്ട് നിരന്തരമായ വികാസത്തിലാണ്! നിങ്ങൾക്ക് എന്തെങ്കിലും ചോദ്യമോ നിർദ്ദേശമോ ഉണ്ടെങ്കിൽ എന്നെ ബന്ധപ്പെടുക
 
     ട്വിറ്റർ: @GabRF (http://twitter.com/GabRF)
     ടെലിഗ്രാം: @GabrielRF
-    വെബ്സൈറ്റ്: http://grf.xyz/telegram
+    വെബ്സൈറ്റ്: http://grf.xyz/
 
     ബോട്ടിനെ റേറ്റ് ചെയ്യുക:
     https://telegram.me/storebot?start=Send2Kindlebot
 
     നിങ്ങൾ ഈ പ്രോജക്റ്റ് ഇഷ്ടപ്പെട്ടുവെങ്കിൽ, ദയവായി പിന്തുണയ്ക്കുക:
-    http://grf.xyz/paypal
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

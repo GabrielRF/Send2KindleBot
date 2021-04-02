@@ -83,5 +83,4 @@ pl-PL:
     https://telegram.me/storebot?start=Send2Kindlebot
 
     Wspomóż projekt:
-    http://grf.xyz/paypal
     http://patreon.com/gabrielrf

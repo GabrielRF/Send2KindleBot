@@ -5,6 +5,7 @@ ur-en:
   askemail3: جو ای میل آپ سیٹ کرنا چاھتے ہین وہ لکھیں
   askconvert: فائل بہیجنے کیلئے
   ؟<b>جیسے کہ ہے</b> یا <b>تبدیل شدا </b>
+  slowmode: Please, wait 15 minutes to send another epub.
   success: |
     <b>کامیابی</b>.
     اپنے کنڈل پر فائل بھیجنہ کے لئے
@@ -50,7 +51,9 @@ ur-en:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>عطیہ دیں</b>
-    http://grf.xyz/paypal\n\n<b>نیا کمانڈ بھیجیں</b>.
+    https://grf.xyz/donate
+
+    <b>نیا کمانڈ بھیجیں</b>.
   btn1: فائل بھیجیے
   btn2: سیٹ ایمیل
   btn3: جیسے ہے
@@ -67,7 +70,8 @@ ur-en:
     کے ساتھ ختم ہو جائے گا
 
     <b>کونسی فائلون کی حمایت کی جاتی ہے؟</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Images <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
@@ -84,20 +88,29 @@ ur-en:
     <b> دیگر سوالات کے لئے، ملاحظہ کریں</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>اس کا کوڈ</b>
     https://github.com/GabrielRF/Send2KindleBot
-
+  fsize: |
+    <b> فائل سائز محدود یے؟</b>
+    لنکس کی طرف سے بھیجے گئی فائلیں ۵۰ مب تک محدود ہیں
+    (کمپریشن سے پہلے)
+    باٹ تک سیدی بہیجی ہوی فائل ۲۰ مب تک محدود ہیں
   info: |
     یہ بوٹ مسلسل ترقی کے تحت ہے
     اگر آپ کے پاس کوئی سوال یا مشورے ہیں تو، براہ کرم مجھ سے رابطہ کریں
 
     Twitter: @GabRF (http://twitter.com/GabRF)
     Telegram: @GabrielRF
-    Website: http://grf.xyz/telegram
+    Website: http://grf.xyz/
 
     Rate the bot:
     https://telegram.me/storebot?start=Send2Kindlebot
 
     Support the project:
-    http://grf.xyz/paypal
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

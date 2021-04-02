@@ -4,6 +4,7 @@ ar:
   askemail2: اكتب بريدك الإلكتروني المستخدم في أمازون
   askemail3: غيّر بريدك الإلكتروني
   askconvert: أرسل الملف <b>كما هو</b> أو <b>بعد تحويله</b> لصيغة مناسبة للكيندل?
+  slowmode: Please, wait 15 minutes to send another epub.
   success: |
     <b>تم بنجاح</b>.
     لإرسال ملف لجهاز الكيندل الخاص بك، اضغط <b>إرسال ملف</b>.
@@ -38,7 +39,7 @@ ar:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>!للتبرع</b>
-    http://grf.xyz/paypal
+    https://grf.xyz/donate
     
     <b>إرسال ملف جديد</b>.
   btn1: إرسال ملف
@@ -71,20 +72,30 @@ ar:
     <b>لمزيد من الإستفسارات قم بزيارة:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>مصدر الكود:</b>
     https://github.com/GabrielRF/Send2KindleBot
 
+  fsize: |
+    <b>هل هناك أي أحجام معينة للتحويل؟</b>
+    الملفات المرسلة عن طريق روابط، محدودة بحجم 50 ميغابايت
+    الملفات المرسلة مباشرة لل’بوت’، محدودة بحجم 20 ميغابايت
   info: |
     هذا ’البوت’ يتم تحديثه بشكل دوري
     إن كان لديك أي اقتراحات أو أسئلة، فضلاً، تواصل معي
 
     تويتر: @GabRF (http://twitter.com/GabRF)
     تيلقرام: @GabrielRF
-    الموقع: http://grf.xyz/telegram
+    الموقع: http://grf.xyz/
 
     لتقييم ’البوت’:
     https://telegram.me/storebot?start=Send2Kindlebot
 
     لدعم المشروع:
-    http://grf.xyz/paypal
     http://patreon.com/gabrielrf
+
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

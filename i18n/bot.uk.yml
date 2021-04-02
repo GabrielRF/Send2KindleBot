@@ -4,6 +4,7 @@
   askemail2: Введіть електронну пошту, яку ви використовуєте на вашому обліковому записі Amazon.
   askemail3: Введіть електронну пошту, яку ви хочете встановити.
   askconvert: Відправити файл <b>без змін</b> чи <b>конвертований</b> до формату Kindle?
+  slowmode: Please, wait 15 minutes to send another epub.
   success: |
     <b>Успішно.</b>.
     Щоб відправити файл до своєї Kindle, виберіть <b>Відправити файл</b>.
@@ -38,7 +39,9 @@
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Зробити благодійний внесок</b>
-    http://grf.xyz/paypal\n\n<b>Відправити нову команду</b>.
+    https://grf.xyz/donate
+
+    <b>Відправити нову команду</b>.
   btn1: Відправити файл
   btn2: Налаштувати е-мейл
   btn3: Без змін
@@ -69,20 +72,28 @@
     <b>Маєте інші запитання? Відвідайте:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>Вихідний код:</b>
     https://github.com/GabrielRF/Send2KindleBot
-
+  fsize: |
+    <b>Чи є якісь обмеження на розмір файлу?</b>
+    Документи, надіслані за посиланням, обмежені до 50 Мб (до стиснення).
+    Документи, відправлені до бота напряму, обмежені 20Мб.
   info: |
     Цей бот постійно знаходиться у стані розробки!
     Якщо маєте якісь запитання чи пропозиції, будь ласка, напишіть мені!
 
     Twitter: @GabRF (http://twitter.com/GabRF)
     Telegram: @GabrielRF
-    Веб: http://grf.xyz/telegram
+    Веб: http://grf.xyz/
 
     Оцінити бота:
     https://telegram.me/storebot?start=Send2Kindlebot
 
     Підтримати проект:
-    http://grf.xyz/paypal
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

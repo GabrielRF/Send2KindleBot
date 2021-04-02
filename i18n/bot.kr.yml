@@ -4,6 +4,7 @@ kr:
   askemail2: Amazon 계정에 사용한 이메일주소를 입력하세요.
   askemail3: 설정하고자 하는 이메일주소를 입력하세요.
   askconvert: 파일 전송시 현재 포맷을 <b>유지</b>할까요? 또는 킨들 포맷으로 <b>변환</b>할까요?
+  slowmode: Please, wait 15 minutes to send another epub.
   success: |
     <b>성공</b>.
     킨들로 파일을 보내려면 <b>파일전송</b>을 클릭하세요.
@@ -38,7 +39,9 @@ kr:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>기부하기!</b>
-    http://grf.xyz/paypal\n\n<b>명령 보내기</b>.
+    https://grf.xyz/donate
+
+    <b>명령 보내기</b>.
   btn1: 파일전송
   btn2: 이메일설정
   btn3: 유지
@@ -52,7 +55,8 @@ kr:
     킨들 이메일주소는 <code>@kindle.com</code>로 끝납니다.
 
     <b>지원되는 파일 종류는?</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     그림파일 <code>.jpg .gif .bmp .png</code>
     Mobi 책 <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
@@ -68,20 +72,29 @@ kr:
     <b>다른 질문이 있다면 링크를 방문하세요:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>소스코드:</b>
     https://github.com/GabrielRF/Send2KindleBot
 
+  fsize: |
+    <b>파일 크기에 제약이 있나요?</b>
+    링크로 지정된 파일은 최대 50 MB 까지 가능합니다.(압축하기 전).
+    직접 전송하는 파일은 최대 20 MB 까지 가능합니다.
   info: |
     이 봇은 지속적으로 개발중입니다.
     질문이나 제안이 있다면 알려주세요!
 
     Twitter: @GabRF (http://twitter.com/GabRF)
     Telegram: @GabrielRF
-    Website: http://grf.xyz/telegram
+    Website: http://grf.xyz/
 
     평가하기:
     https://telegram.me/storebot?start=Send2Kindlebot
 
     지원하기:
-    http://grf.xyz/paypal
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

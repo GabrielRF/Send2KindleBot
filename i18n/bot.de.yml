@@ -4,6 +4,7 @@ de:
   askemail2: Geben Sie Ihre E-Mail-Adresse ein, die in Ihrem Amazon-Konto verwendet wird.
   askemail3: Geben Sie die E-Mail-Adresse ein, die Sie festlegen möchten.
   askconvert: Datei senden <b>wie sie ist</b> oder <b>konvertieren</b> ins Kindle-Format?
+  slowmode: Please, wait 15 minutes to send another epub.
   success: |
     <b>Erfolgreich</b>.
     Um eine Datei an Ihr Kindle zu senden, klicken Sie auf <b>Datei senden</b>.
@@ -38,7 +39,9 @@ de:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Spenden Sie!</b>
-    http://grf.xyz/paypal\n\n<b>Send a new command</b>.
+    https://grf.xyz/donate
+
+    <b>Send a new command</b>.
   btn1: Datei senden
   btn2: E-Mail setzen
   btn3: wie sie ist
@@ -52,7 +55,8 @@ de:
     Die E-Mail-Adresse endet mit <code>@Kindle.com</code>.
 
     <b>Welche Arten von Dateien werden unterstützt? </b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Bilder <code>.jpg.gif.bmp.png</code>
     Mobi <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
@@ -68,8 +72,15 @@ de:
     <b>Für jede andere Frage besuchen Sie bitte:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>Quellcode:</b>
     https://github.com/GabrielRF/Send2KindleBot
+    fsize: |
+    <b>Gibt es eine Begrenzung der Dateigröße?</b>
+    Per Link gesendete Dokumente sind auf 50 MB (vor der Komprimierung) begrenzt.
+    Dokumente, die direkt an den Bot gesendet werden, sind auf 20 MB begrenzt.
 
     info: |
     Dieser Bot wird ständig weiterentwickelt!
@@ -77,11 +88,14 @@ de:
 
     Twitter: @GabRF (http://twitter.com/GabRF)
     Telegram: @GabrielRF
-    Website: http://grf.xyz/telegram
+    Website: http://grf.xyz/
 
     Bewerten Sie den Bot:
     https://telegram.me/storebot?start=Send2Kindlebot
 
     Unterstützen Sie dieses Projekt:
-    http://grf.xyz/paypal
     http://patreon.com/gabrielrf
+
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

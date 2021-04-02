@@ -4,6 +4,7 @@ fr:
   askemail2: Entrez l'adresse email utilisée sur votre compte Amazon.
   askemail3: Entrez l'email que vous souhaitez activer.
   askconvert: Envoyer le fichier <b>tel quel</b> ou <b>converti</b> au format Kindle ?
+  slowmode: Please, wait 15 minutes to send another epub.
   success: |
     <b>Succès</b>.
     Pour envoyer un fichier à votre Kindle, cliquez sur <b>Envoyer un fichier</b>
@@ -38,7 +39,7 @@ fr:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Faire un don !</b>
-    http://grf.xyz/paypal
+    https://grf.xyz/donate
     
     <b>Envoyer une nouvelle commande</b>.
   btn1: Envoyer un fichier
@@ -71,20 +72,28 @@ fr:
     <b>Pour toute autre question, rendez-vous sur :</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
     <b>Code source :</b>
     https://github.com/GabrielRF/Send2KindleBot
-
+  fsize: |
+    <b>Y a-t-il une taille limite de fichier ?</b>
+    Les documents envoyés par lien sont limités à 50Mo (avant la compression).
+    Les documents envoyés directement au bot sont limités à 20Mo.
   info: |
     Ce bot est en développement constant !
     Si vous avez des questions ou des suggestions, n'hésitez pas à me contacter !
 
-    Twitter : @GabRF (http://twitter.com/GabRF)
-    Telegram : @GabrielRF
-    Site web : http://grf.xyz/telegram
+    Twitter: @GabRF (http://twitter.com/GabRF)
+    Telegram: @GabrielRF
+    Site web: http://grf.xyz/
 
-    Noter le bot :
+    Noter le bot:
     https://telegram.me/storebot?start=Send2Kindlebot
 
-    Supporter le projet :
-    http://grf.xyz/paypal
+    Supporter le projet:
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

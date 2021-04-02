@@ -4,6 +4,7 @@ bm-ms:
   askemail2: Taipkan e-mel anda yang digunakan pada akaun Amazon anda.
   askemail3: Taipkan e-mel yang anda mahu tetapkan.
   askconvert: Hantar fail <b>seperti itu</b> atau <b>tukar</b> kepada format Kindle?
+  slowmode: Please, wait 15 minutes to send another epub.
   success: |
     <b>Berjaya</b>.
     Untuk menghantar fail ke Kindle anda, tekan <b>Hantar fail</b>.
@@ -38,7 +39,9 @@ bm-ms:
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
     <b>Derma!</b>
-    http://grf.xyz/paypal\n\n<b>Hantar arahan baru</b>.
+    https://grf.xyz/donate
+    
+    <b>Hantar arahan baru</b>.
   btn1: Hantar fail
   btn2: Tukar e-mel
   btn3: Seperti Itu
@@ -51,7 +54,8 @@ bm-ms:
     Log masuk ke akaun Amazon anda. Lawati halaman <i>Kerola Peranti anda</i> di <i>Uruskan Kinda Anda</i>.
     Alamat e-mel akan berakhir dengan <code>@Kindle.com</code>.
     <b>Apakah jenis fail yang disokong menghantar?</b>
-    Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
+    Adobe PDF <code>.pdf</code>
+    HTML <code>.htm .html</code>
     Gambar-gambar <code>.jpg .gif .bmp .png</code>
     Mobi book <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
@@ -64,16 +68,24 @@ bm-ms:
     Dokumen dihantar terus ke bot adalah terhad kepada 20 MB.
     <b>Untuk sebarang pertanyaan lain, lawati:</b>
     http://www.amazon.com/kindlepersonaldocuments/
+    <b>Terms of Service:</b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
     <b>Kod sumber:</b>
     https://github.com/GabrielRF/Send2KindleBot
+  fsize: |
+    <b>Adakah terdapat had saiz fail?</b>
+    Dokumen yang dihantar melalui pautan adalah terhad kepada 50 MB (sebelum pemampatan).
+    Dokumen dihantar terus ke bot adalah terhad kepada 20 MB.
   info: |
     Bot ini berada di bawah perkembangan beterusan!
     Jika anda mempunyai sebarang soalan atau cadangan, sila hubungi saya!
     Twitter: @GabRF (http://twitter.com/GabRF)
     Telegram: @GabrielRF
-    Website: http://grf.xyz/telegram
+    Website: http://grf.xyz/
     Rate bot:
     https://telegram.me/storebot?start=Send2Kindlebot
     Sokong projek ini:
-    http://grf.xyz/paypal
     http://patreon.com/gabrielrf
+  tos: |
+    Click on the link below to read the <b>Terms of Service</b>:
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
