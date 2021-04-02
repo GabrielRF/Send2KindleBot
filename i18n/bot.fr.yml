@@ -24,13 +24,13 @@ fr:
   error: |
     <b>Erreur</b>.
     Cliquez sur /start et vérifiez vos emails.
-  filenotfound: Fichier introuvable. Annulé.
+  filenotfound: Fichier introuvable. Opération annulé.
   sendingfile: |
     <b>Fichier en cours d'envoi</b>.
     Merci de patienter.
   checkemail: |
     <b>Erreur</b>.
-    Merci de vérifier votre email, puis réessayez.
+    Merci de vérifier votre email, puis de réessayer.
   filesent: |
     <b>Fichier envoyé</b>.
     Attendez quelques minutes et vérifiez sur votre appareil.
@@ -45,7 +45,7 @@ fr:
   btn1: Envoyer un fichier
   btn2: Configurer mon email
   btn3: Tel quel
-  btn4: Converti
+  btn4: Convertir
   help: |
     <b>Que fait ce bot ?</b>
     Ce bot permet d'envoyer des fichiers à votre Kindle comme si vous les envoyiez par email.
