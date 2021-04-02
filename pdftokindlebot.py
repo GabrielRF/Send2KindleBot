@@ -74,7 +74,7 @@ def open_file(file_url, chatid):
         if ".pdf" in file_url:
             fname = document_dict[str(chatid)]
             file_name, headers = urllib.request.urlretrieve(
-                file_url, fname.name
+                file_url, fname
             )
         else:
             file_name, headers = urllib.request.urlretrieve(
@@ -103,7 +103,6 @@ def send_mail(
             datetime.datetime.now()
             - datetime.datetime.strptime(last_usage, "%Y-%m-%d %H:%M:%S.%f")
         ).total_seconds()
-        print(interval)
     except ValueError:
         interval = 901
 
@@ -185,7 +184,6 @@ def send_mail(
     try:
         smtp.sendmail(send_from, send_to, msg.as_string())
     except smtplib.SMTPSenderRefused:
-        print("Erro")
         msg = bot.send_message(
             chatid,
             str(u"\U000026A0") + i18n.t("bot.fsize", locale=user_lang),
@@ -561,7 +559,7 @@ if __name__ == "__main__":
             message.from_user.id, i18n.t("bot.askfile", locale=user_lang)
         )
 
-    @timeout_decorator.timeout(120, use_signals=False)
+    @timeout_decorator.timeout(240, use_signals=False)
     def get_file(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
 
@@ -597,7 +595,7 @@ if __name__ == "__main__":
                 "ASCII", "ignore"
             ).decode("ASCII")
             document = Document(file_name)
-            document_dict[str(message.from_user.id)] = document
+            document_dict[str(message.from_user.id)] = document.name
             bot.send_chat_action(message.from_user.id, "upload_document")
 
             if file_size > 20000000:
@@ -661,7 +659,7 @@ if __name__ == "__main__":
         )
 
         upd_user_file(db, table, message.from_user.id, file_url)
-
+        set_buttons(user_lang)
         if ".pdf" in file_url.lower():
             msg = bot.send_message(
                 message.from_user.id,
