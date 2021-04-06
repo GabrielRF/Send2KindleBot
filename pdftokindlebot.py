@@ -3,6 +3,7 @@ import datetime
 import logging
 import logging.handlers
 import os
+import redis
 import smtplib
 import sqlite3
 import subprocess
@@ -23,8 +24,6 @@ from validate_email import validate_email
 
 i18n.load_path.append("i18n")
 i18n.set("fallback", "en-us")
-
-document_dict = {}
 
 
 class Document:
@@ -72,7 +71,9 @@ def open_file(file_url, chatid):
 
     try:
         if ".pdf" in file_url:
-            fname = document_dict[str(chatid)]
+            r = redis.Redis(host='localhost', port=6379, db=0)
+            fname = r.get(chatid).decode('utf-8')
+            r.delete(chatid)
             file_name, headers = urllib.request.urlretrieve(
                 file_url, fname
             )
@@ -595,7 +596,8 @@ if __name__ == "__main__":
                 "ASCII", "ignore"
             ).decode("ASCII")
             document = Document(file_name)
-            document_dict[str(message.from_user.id)] = document.name
+            r = redis.Redis(host='localhost', port=6379, db=0)
+            r.set(message.chat.id, document.name)
             bot.send_chat_action(message.from_user.id, "upload_document")
 
             if file_size > 20000000:
