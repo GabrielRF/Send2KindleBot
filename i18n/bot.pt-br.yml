@@ -1,13 +1,13 @@
 pt-br:
   askfile: Me envie um arquivo (de ate 20MB) ou o link de um site.
   askemail: Digite o e-mail do seu Kindle.
-  askemail2: Digite o e-mail usado em sua conta da Amazon.
+  askemail2: Digite o e-mail usado em sua conta da Amazon (geralmente @gmail ou @hotmail).
   askemail3: Digite o e-mail que deseja adicionar ou atualizar no bot.
   askconvert: Enviar o arquivo <b>sem conversão</b> ou <b>convertido</b> para o formato do Kindle (.mobi)?
   slowmode: Aguarde 15 minutos para enviar outro epub.
   slowmodesec: Aguarde 30 segundos entre envios.
   success: |
-    <b>Sucesso</b>.
+    <b>Configuração concluída</b>!
     Para enviar um arquivo ao seu Kindle, aperte em <b>Enviar arquivo</b>.
     Para ajustar seu e-mail, clique em <b>Ajustar e-mail</b>.
   startnewuser: |
@@ -16,7 +16,7 @@ pt-br:
     Primeiro, envie o e-mail do seu Kindle.
     Deve terminar em <code>@kindle.com</code>
     Se precisar de ajuda ou tiver dúvidas, acesse
-    https://blog.gabrf.com/posts/Send2KindleBot/
+    <a href="https://blog.gabrf.com/posts/Send2KindleBot?utm_source=telegram&utm_medium=telegrammessage&utm_campaign=send2kindlebot">https://blog.gabrf.com</a>
   startolduser: |
     <b>@Send2KindleBot</b>
     Seus e-mails cadastrados são:
@@ -39,13 +39,13 @@ pt-br:
   filesent: |
     <b>Arquivo enviado</b>.
     Aguarde alguns minutos e verifique em seu dispositivo.
-    Caso tenha dúvidas, <a href="https://blog.gabrf.com/posts/Send2KindleBot/">clique aqui</a>.
+    Caso tenha dúvidas, <a href="https://blog.gabrf.com/posts/Send2KindleBot/?utm_source=telegram&utm_medium=telegrammessage&utm_campaign=send2kindlebot">clique aqui</a>.
   rate: |
     <b>Avalie o bot:</b>
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
-    <b>Colabore!</b>
-    PIX send2kindlebot@gabrf.com
+    <b>Me ajude a manter o projeto vivo!</b>
+    Chave PIX send2kindlebot@gabrf.com
     PICPAY https://picpay.me/GabrielRF
   btn1: Enviar arquivo
   btn2: Ajustar e-mail
@@ -75,7 +75,7 @@ pt-br:
     Documentos enviados diretamente ao bot são limitados a 20MB.
 
     <b>Informações e resoluções de problemas:</b>
-    https://blog.gabrf.com/posts/Send2KindleBot/
+    <a href="https://blog.gabrf.com/posts/Send2KindleBot?utm_source=telegram&utm_medium=telegrammessage&utm_campaign=send2kindlebot">https://blog.gabrf.com</a>
 
     <b>Para quaisquer outras perguntas, visite:</b>
     http://www.amazon.com/kindlepersonaldocuments/
@@ -102,5 +102,5 @@ pt-br:
     PIX send2kindlebot@gabrf.com
 
   tos: |
-    Click on the link below to read the <b>Terms of Service</b>:
+    Clique no link abaixo e leia os <b>Termos de Serviço</b>:
     https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md

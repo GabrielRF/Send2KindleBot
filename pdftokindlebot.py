@@ -16,7 +16,7 @@ from email.mime.text import MIMEText
 from email.utils import formatdate
 
 import i18n
-import sentry_sdk
+# import sentry_sdk
 import telebot
 import weasyprint
 from telebot import types
@@ -70,14 +70,16 @@ def open_file(file_url, chatid):
         return file_url
 
     try:
-        if ".pdf" in file_url:
+        #if ".pdf" in file_url:
+        try:
             r = redis.Redis(host='localhost', port=6379, db=0)
             fname = r.get(chatid).decode('utf-8')
             r.delete(chatid)
             file_name, headers = urllib.request.urlretrieve(
                 file_url, fname
             )
-        else:
+        #else:
+        except:
             file_name, headers = urllib.request.urlretrieve(
                 file_url, file_url.split("/")[-1]
             )
@@ -125,7 +127,7 @@ def send_mail(
     msg.attach(MIMEText(text.format(chatid)))
 
     try:
-        if interval < 1:
+        if interval < 5:
             return 0
         elif interval < 30:
             try:
@@ -793,9 +795,9 @@ if __name__ == "__main__":
                 message.chat.id, i18n.t("bot.filenotfound", locale=user_lang)
             )
 
-    sentry_url = config["SENTRY"]["url"]
+    #sentry_url = config["SENTRY"]["url"]
 
-    if sentry_url:
-        sentry_sdk.init(sentry_url)
+    #if sentry_url:
+    #    sentry_sdk.init(sentry_url)
 
-    bot.polling(timeout=60)
+    bot.polling(timeout=60, interval=2)
