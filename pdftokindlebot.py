@@ -31,7 +31,6 @@ BOT_CONFIG_FILE = "/usr/local/bin/Send2KindleBot/kindle.conf"
 config.read(BOT_CONFIG_FILE)
 log_file = config["DEFAULT"]["logfile"]
 TOKEN = config["DEFAULT"]["TOKEN"]
-#TOKEN = '144703550:AAEZ4l4Rw__ND-2gHNTwUHgIP4GaQbzlFVM'
 BLOCKED = config["DEFAULT"]["BLOCKED"]
 db = config["SQLITE3"]["data_base"]
 table = config["SQLITE3"]["table"]
