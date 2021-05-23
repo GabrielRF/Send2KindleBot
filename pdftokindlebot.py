@@ -7,7 +7,7 @@ import redis
 import smtplib
 import sqlite3
 import subprocess
-import timeout_decorator
+import time
 import urllib.request
 from email import encoders
 from email.mime.base import MIMEBase
@@ -16,7 +16,7 @@ from email.mime.text import MIMEText
 from email.utils import formatdate
 
 import i18n
-# import sentry_sdk
+import sentry_sdk
 import telebot
 import weasyprint
 from telebot import types
@@ -25,11 +25,37 @@ from validate_email import validate_email
 i18n.load_path.append("i18n")
 i18n.set("fallback", "en-us")
 
+config = configparser.ConfigParser()
+config.sections()
+BOT_CONFIG_FILE = "/usr/local/bin/Send2KindleBot/kindle.conf"
+config.read(BOT_CONFIG_FILE)
+log_file = config["DEFAULT"]["logfile"]
+TOKEN = config["DEFAULT"]["TOKEN"]
+#TOKEN = '144703550:AAEZ4l4Rw__ND-2gHNTwUHgIP4GaQbzlFVM'
+BLOCKED = config["DEFAULT"]["BLOCKED"]
+db = config["SQLITE3"]["data_base"]
+table = config["SQLITE3"]["table"]
+bot = telebot.TeleBot(TOKEN)
 
 class Document:
     def __init__(self, name):
         self.name = name[:20] + name[-5:]
 
+def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True, reply_markup=None):
+    try:
+        msg = bot.send_message(chatid, text, parse_mode=parse_mode,
+            disable_web_page_preview=disable_web_page_preview,
+            reply_markup=reply_markup
+        )
+    except SSLError:
+        time.sleep(3)
+        msg = bot.send_message(chatid, text, parse_mode=parse_mode,
+            disable_web_page_preview=disable_web_page_preview,
+            reply_markup=reply_markup
+        )
+    except:
+        pass
+    return msg
 
 def epub2mobi(file_name_epub, chatid):
     logger_info.info(
@@ -110,7 +136,7 @@ def send_mail(
         interval = 901
 
     if len(send_from) < 5 or len(send_to) < 5:
-        bot.send_message(
+        send_message(
             chatid, i18n.t("bot.error", locale=user_lang), parse_mode="HTML"
         )
 
@@ -131,11 +157,11 @@ def send_mail(
             return 0
         elif interval < 30:
             try:
-                bot.send_message(
+                send_message(
                     chatid, i18n.t("bot.slowmodesec", locale=user_lang)
                 )
             except:
-                bot.send_message(chatid, "Wait 30 seconds")
+                send_message(chatid, "Wait 30 seconds")
             return 0
 
         files = open_file(file_url, chatid)
@@ -148,21 +174,21 @@ def send_mail(
         ):
             if interval < 900:
                 try:
-                    bot.send_message(
+                    send_message(
                         chatid, i18n.t("bot.slowmode", locale=user_lang)
                     )
                 except:
-                    bot.send_message(chatid, "Wait 15 minutes")
+                    send_message(chatid, "Wait 15 minutes")
                 os.remove(files)
                 return 0
             else:
                 upd_user_last(db, table, chatid)
                 files = epub2mobi(files, chatid)
     except:
-        bot.send_message(chatid, i18n.t("bot.filenotfound", locale=user_lang))
+        send_message(chatid, i18n.t("bot.filenotfound", locale=user_lang))
         return 0
 
-    msg_sent = bot.send_message(
+    msg_sent = send_message(
         chatid,
         str(u"\U0001F5DE") + i18n.t("bot.sendingfile", locale=user_lang),
         parse_mode="HTML",
@@ -173,7 +199,7 @@ def send_mail(
         part.set_payload(open(files, "rb").read())
         encoders.encode_base64(part)
     except (FileNotFoundError, OSError) as e:
-        bot.send_message(chatid, i18n.t("bot.filenotfound", locale=user_lang))
+        send_message(chatid, i18n.t("bot.filenotfound", locale=user_lang))
         return 0
 
     part.add_header(
@@ -187,7 +213,7 @@ def send_mail(
     try:
         smtp.sendmail(send_from, send_to, msg.as_string())
     except smtplib.SMTPSenderRefused:
-        msg = bot.send_message(
+        msg = send_message(
             chatid,
             str(u"\U000026A0") + i18n.t("bot.fsize", locale=user_lang),
             parse_mode="HTML",
@@ -210,7 +236,7 @@ def send_mail(
 
         return 0
     except smtplib.SMTPRecipientsRefused:
-        msg = bot.send_message(
+        msg = send_message(
             chatid,
             str(u"\U000026A0") + i18n.t("bot.checkemail", locale=user_lang),
             parse_mode="HTML",
@@ -379,17 +405,6 @@ def set_buttons(lang="en-us"):
 
 
 if __name__ == "__main__":
-    config = configparser.ConfigParser()
-    config.sections()
-    BOT_CONFIG_FILE = "/usr/local/bin/Send2KindleBot/kindle.conf"
-    config.read(BOT_CONFIG_FILE)
-    log_file = config["DEFAULT"]["logfile"]
-    TOKEN = config["DEFAULT"]["TOKEN"]
-    BLOCKED = config["DEFAULT"]["BLOCKED"]
-    db = config["SQLITE3"]["data_base"]
-    table = config["SQLITE3"]["table"]
-
-    bot = telebot.TeleBot(TOKEN)
     cmds = ["/start", "/send", "/info", "/help", "/email"]
     LOG_INFO_FILE = log_file
     logger_info = logging.getLogger("InfoLogger")
@@ -406,7 +421,7 @@ if __name__ == "__main__":
     @bot.message_handler(commands=["help"])
     def help(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
-        bot.send_message(
+        send_message(
             message.from_user.id,
             i18n.t("bot.help", locale=user_lang),
             parse_mode="HTML",
@@ -416,7 +431,7 @@ if __name__ == "__main__":
     @bot.message_handler(commands=["tos"])
     def tos(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
-        bot.send_message(
+        send_message(
             message.from_user.id,
             i18n.t("bot.tos", locale=user_lang),
             parse_mode="HTML",
@@ -426,7 +441,7 @@ if __name__ == "__main__":
     @bot.message_handler(commands=["info"])
     def info(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
-        bot.send_message(
+        send_message(
             message.from_user.id,
             i18n.t("bot.info", locale=user_lang),
             parse_mode="HTML",
@@ -455,7 +470,7 @@ if __name__ == "__main__":
             aux2 = " "
 
         if len(aux1) < 3 or len(aux2) < 3:
-            msg = bot.send_message(
+            msg = send_message(
                 message.from_user.id,
                 i18n.t("bot.startnewuser", locale=user_lang),
                 parse_mode="HTML",
@@ -463,7 +478,7 @@ if __name__ == "__main__":
             )
             bot.register_next_step_handler(msg, add_email)
         else:
-            bot.send_message(
+            send_message(
                 message.from_user.id,
                 i18n.t("bot.startolduser", locale=user_lang).format(
                     str(u"\U0001F4E4"), data[2], str(u"\U0001F4E5"), data[3]
@@ -475,7 +490,7 @@ if __name__ == "__main__":
     @bot.message_handler(commands=["email"])
     def ask_email(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
-        msg = bot.send_message(
+        msg = send_message(
             message.from_user.id, i18n.t("bot.askemail3", locale=user_lang)
         )
         bot.register_next_step_handler(msg, add_email)
@@ -485,7 +500,7 @@ if __name__ == "__main__":
         set_buttons(user_lang)
 
         if message.content_type != "text":
-            msg = bot.send_message(
+            msg = send_message(
                 message.from_user.id,
                 i18n.t("bot.askemail", locale=user_lang),
                 parse_mode="HTML",
@@ -500,7 +515,7 @@ if __name__ == "__main__":
             text = None
 
         if text in cmds:
-            msg = bot.send_message(
+            msg = send_message(
                 message.from_user.id, i18n.t("bot.askemail", locale=user_lang)
             )
             bot.register_next_step_handler(msg, add_email)
@@ -517,30 +532,30 @@ if __name__ == "__main__":
                 data = select_user(db, table, message.from_user.id, "*")
 
                 if "@" not in str(data[3]):
-                    msg = bot.reply_to(
-                        message, i18n.t("bot.askemail", locale=user_lang)
+                    msg = send_message(
+                        message.chat.id, i18n.t("bot.askemail", locale=user_lang)
                     )
                     bot.register_next_step_handler(msg, add_email)
 
                     return 0
 
                 if "@" not in str(data[2]):
-                    msg = bot.reply_to(
-                        message, i18n.t("bot.askemail2", locale=user_lang)
+                    msg = send_message(
+                        message.chat.id, i18n.t("bot.askemail2", locale=user_lang)
                     )
                     bot.register_next_step_handler(msg, add_email)
 
                     return 0
 
-                msg = bot.reply_to(
-                    message,
+                msg = send_message(
+                    message.chat.id,
                     str(u"\U00002705")
                     + i18n.t("bot.success", locale=user_lang),
                     parse_mode="HTML",
                     reply_markup=button,
                 )
             else:
-                msg = bot.send_message(
+                msg = send_message(
                     message.from_user.id,
                     str(u"\U000026A0")
                     + i18n.t("bot.askemail", locale=user_lang),
@@ -548,7 +563,7 @@ if __name__ == "__main__":
                 )
                 bot.register_next_step_handler(msg, add_email)
         else:
-            msg = bot.send_message(
+            msg = send_message(
                 message.from_user.id,
                 i18n.t("bot.askemail", locale=user_lang),
                 parse_mode="HTML",
@@ -558,11 +573,10 @@ if __name__ == "__main__":
     @bot.message_handler(commands=["send"])
     def ask_file_msg(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
-        bot.send_message(
+        send_message(
             message.from_user.id, i18n.t("bot.askfile", locale=user_lang)
         )
 
-    @timeout_decorator.timeout(240, use_signals=False)
     def get_file(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
 
@@ -603,7 +617,7 @@ if __name__ == "__main__":
             bot.send_chat_action(message.from_user.id, "upload_document")
 
             if file_size > 20000000:
-                bot.send_message(
+                send_message(
                     message.from_user.id,
                     i18n.t("bot.fsize", locale=user_lang),
                     parse_mode="HTML",
@@ -621,7 +635,7 @@ if __name__ == "__main__":
             )
         elif message.content_type == "text":
             if message.text.lower() in cmds:
-                bot.send_message(
+                send_message(
                     message.from_user.id,
                     i18n.t("bot.askfile", locale=user_lang),
                 )
@@ -645,7 +659,7 @@ if __name__ == "__main__":
                 pdf = file_name
             file_url = file_name
         else:
-            msg = bot.send_message(
+            msg = send_message(
                 message.from_user.id, i18n.t("bot.askfile", locale=user_lang)
             )
             bot.register_next_step_handler(msg, get_file)
@@ -665,7 +679,7 @@ if __name__ == "__main__":
         upd_user_file(db, table, message.from_user.id, file_url)
         set_buttons(user_lang)
         if ".pdf" in file_url.lower():
-            msg = bot.send_message(
+            msg = send_message(
                 message.from_user.id,
                 i18n.t("bot.askconvert", locale=user_lang),
                 parse_mode="HTML",
@@ -708,7 +722,7 @@ if __name__ == "__main__":
                 user_lang,
             )
         except IndexError:
-            msg = bot.send_message(
+            msg = send_message(
                 call.from_user.id,
                 i18n.t("bot.error", locale=user_lang),
                 parse_mode="HTML",
@@ -747,7 +761,7 @@ if __name__ == "__main__":
         except:
             pass
 
-        msg = bot.send_message(
+        msg = send_message(
             call.from_user.id, i18n.t("bot.askemail3", locale=user_lang)
         )
         bot.register_next_step_handler(msg, add_email)
@@ -761,7 +775,7 @@ if __name__ == "__main__":
         except:
             pass
 
-        bot.send_message(
+        send_message(
             call.from_user.id, i18n.t("bot.askfile", locale=user_lang)
         )
 
@@ -778,7 +792,7 @@ if __name__ == "__main__":
             try:
                 get_file(message)
             except:
-                bot.send_message(
+                send_message(
                     message.chat.id,
                     i18n.t("bot.filenotfound", locale=user_lang),
                 )
@@ -791,13 +805,13 @@ if __name__ == "__main__":
         try:
             get_file(message)
         except:
-            bot.send_message(
+            send_message(
                 message.chat.id, i18n.t("bot.filenotfound", locale=user_lang)
             )
 
-    #sentry_url = config["SENTRY"]["url"]
+    sentry_url = config["SENTRY"]["url"]
 
-    #if sentry_url:
-    #    sentry_sdk.init(sentry_url)
+    if sentry_url:
+        sentry_sdk.init(sentry_url)
 
     bot.polling(timeout=60, interval=2)
