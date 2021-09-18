@@ -1,3 +1,4 @@
+import anuncieaqui
 import configparser
 import datetime
 import logging
@@ -46,14 +47,12 @@ def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True,
             disable_web_page_preview=disable_web_page_preview,
             reply_markup=reply_markup
         )
-    except SSLError:
+    except:
         time.sleep(3)
         msg = bot.send_message(chatid, text, parse_mode=parse_mode,
             disable_web_page_preview=disable_web_page_preview,
             reply_markup=reply_markup
         )
-    except:
-        pass
     return msg
 
 def epub2mobi(file_name_epub, chatid):
@@ -147,7 +146,7 @@ def send_mail(
     msg["Date"] = formatdate(localtime=True)
     msg["Subject"] = subject
 
-    text = 'Send2KindleBot - Document from user {}'
+    text = 'Send2KindleBot - Document sent from Telegram user {}'
 
     msg.attach(MIMEText(text.format(chatid)))
 
@@ -280,20 +279,45 @@ def send_mail(
         pass
 
     set_buttons(user_lang)
-    msg = ("{icon_x} {msg_a}\n\n" "{icon_z} {msg_c}").format(
+    msg = ("{icon_x} {msg_a}").format(
         icon_x=u"\U0001F4EE",
-        icon_z=u"\U0001F4B5",
+        #icon_z=u"\U0001F4B5",
         msg_a=i18n.t("bot.filesent", locale=user_lang),
-        msg_c=i18n.t("bot.donate", locale=user_lang),
+        #msg_c=i18n.t("bot.donate", locale=user_lang),
     )
-    bot.edit_message_text(
-        msg,
-        chatid,
-        msg_sent.message_id,
-        parse_mode="HTML",
-        reply_markup=button,
-        disable_web_page_preview=True,
-    )
+    #bot.edit_message_text(
+    #    msg,
+    #    chatid,
+    #    msg_sent.message_id,
+    #    parse_mode="HTML",
+    #    reply_markup=button,
+    #    disable_web_page_preview=True,
+    #)
+
+    if 'pt-br' in user_lang:
+        try:
+            anuncieaqui.send_message(TOKEN, chatid, msg)
+        except:
+            bot.send_message(
+                chatid,
+                msg,
+                parse_mode="HTML",
+                reply_markup=button,
+                disable_web_page_preview=True,
+            )
+    else:
+        bot.send_message(
+            chatid,
+            msg,
+            parse_mode="HTML",
+            reply_markup=button,
+            disable_web_page_preview=True,
+        )
+
+    try:
+        bot.delete_message(chatid, msg_sent.message_id)
+    except:
+        pass
 
 
 # Add user to database
@@ -450,6 +474,7 @@ if __name__ == "__main__":
     @bot.message_handler(commands=["start"])
     def start(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
+        print(user_lang)
         set_buttons(user_lang)
         data = select_user(db, table, message.from_user.id, "*")
 
@@ -703,6 +728,11 @@ if __name__ == "__main__":
         user_lang = (call.from_user.language_code or "en-us").lower()
 
         try:
+            bot.delete_message(call.from_user.id, call.message.id)
+        except:
+            pass
+
+        try:
             bot.answer_callback_query(call.id)
         except:
             pass
@@ -727,12 +757,24 @@ if __name__ == "__main__":
                 parse_mode="HTML",
             )
             bot.register_next_step_handler(msg, add_email)
-
+            return 0
+        except UnicodeEncodeError:
+            msg = send_message(
+                call.from_user.id,
+                i18n.t("bot.error", locale=user_lang),
+                parse_mode="HTML",
+            )
+            bot.register_next_step_handler(msg, add_email)
             return 0
 
     @bot.callback_query_handler(lambda q: q.data == "/as_is")
     def ask_not_conv(call):
         user_lang = (call.from_user.language_code or "en-us").lower()
+
+        try:
+            bot.delete_message(call.from_user.id, call.message.id)
+        except:
+            pass
 
         try:
             bot.answer_callback_query(call.id)
@@ -786,7 +828,7 @@ if __name__ == "__main__":
         if (
             "@" not in message.text or "/" in message.text
         ) and message.text not in cmds:
-            #bot.send_chat_action(message.chat.id, "typing")
+            bot.send_chat_action(message.chat.id, "typing")
 
             try:
                 get_file(message)
@@ -799,7 +841,7 @@ if __name__ == "__main__":
     @bot.message_handler(content_types=["document"])
     def generic_file(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
-        #bot.send_chat_action(message.chat.id, "typing")
+        bot.send_chat_action(message.chat.id, "typing")
 
         try:
             get_file(message)
