@@ -5,6 +5,7 @@ ar:
   askemail3: غيّر بريدك الإلكتروني
   askconvert: أرسل الملف <b>كما هو</b> أو <b>بعد تحويله</b> لصيغة مناسبة للكيندل?
   slowmode: Please, wait 15 minutes to send another epub.
+  slowmodesec: Please, wait 30 seconds before sending another file.
   success: |
     <b>تم بنجاح</b>.
     لإرسال ملف لجهاز الكيندل الخاص بك، اضغط <b>إرسال ملف</b>.

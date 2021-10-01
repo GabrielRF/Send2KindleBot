@@ -5,6 +5,7 @@ sv-se:
   askemail3: Skriv e-mailen du vill ändra till.
   askconvert: Skicka filen <b>som den är</b> eller <b>konvertera</b> till Kindle format?
   slowmode: Please, wait 15 minutes to send another epub.
+  slowmodesec: Please, wait 30 seconds before sending another file.
   success: |
     <b>Operationen lyckades</b>.
     För att skicka en fil till din Kindle, klicka på <b>Skicka fil</b>.

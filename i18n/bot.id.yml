@@ -5,6 +5,7 @@ id:
   askemail3: Ketik email yang ingin anda tuju.
   askconvert: Kirim dokumen dalam <b>bentuk semula</b> atau <b>terkonversi</b> dalam format Kindle?
   slowmode: Please, wait 15 minutes to send another epub.
+  slowmodesec: Please, wait 30 seconds before sending another file.
   success: |
     <b>Berhasil</b>.
     Untuk mengirimkan dokumen ke Kindle anda, klik <b>Kirim dokumen</b>.
