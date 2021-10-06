@@ -5,7 +5,7 @@
   askemail3: Введіть електронну пошту, яку ви хочете встановити.
   askconvert: Відправити файл <b>без змін</b> чи <b>конвертований</b> до формату Kindle?
   slowmode: Please, wait 15 minutes to send another epub.
-  slowmodesec: Please, wait 30 seconds before sending another file.
+  slowmodesec: Будь ласка, зачекайте 30 секунд, перш ніж надсилати інший файл.
   success: |
     <b>Успішно.</b>.
     Щоб відправити файл до своєї Kindle, виберіть <b>Відправити файл</b>.
