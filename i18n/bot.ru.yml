@@ -4,7 +4,7 @@ ru:
   askemail2: Введи e-mail, используемый в аккаунте Amazon.
   askemail3: Введи e-mail для настройки.
   askconvert: Отправить файл <b>как есть</b>, или <b>конвертировать</b> в формат Kindle?
-  slowmode: Please, wait 15 minutes to send another epub.
+  slowmode: Пожалуйста, подождите 15 минут, чтобы отправить еще один epub.
   slowmodesec: Пожалуйста, подождите 30 секунд перед отправкой следующего файла.
   success: |
     <b>Успешно</b>.
