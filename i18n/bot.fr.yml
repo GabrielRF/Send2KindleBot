@@ -4,7 +4,7 @@ fr:
   askemail2: Entrez l'adresse email utilisée sur votre compte Amazon.
   askemail3: Entrez l'email que vous souhaitez activer.
   askconvert: Envoyer le fichier <b>tel quel</b> ou <b>converti</b> au format Kindle ?
-  slowmode: Please, wait 15 minutes to send another epub.
+  slowmode: S'il vous plaît, attendez 15 minutes pour envoyer un autre epub.
   slowmodesec: Please, wait 30 seconds before sending another file.
   success: |
     <b>Succès</b>.
