@@ -1,11 +1,11 @@
 sv-se:
   askfile: Skicka mig filen (upp till 20MB) eller länken till filen.
-  askemail: SKriv in din Kindle e-mail.
+  askemail: Skriv in din Kindle e-mail.
   askemail2: Skriv in din e-mail som används till ditt Amazon konto.
   askemail3: Skriv e-mailen du vill ändra till.
   askconvert: Skicka filen <b>som den är</b> eller <b>konvertera</b> till Kindle format?
-  slowmode: Please, wait 15 minutes to send another epub.
-  slowmodesec: Please, wait 30 seconds before sending another file.
+  slowmode: Var vänlig och vänta 15 minuter innan du skickar en annan epub.
+  slowmodesec: Var vänlig och vänta 30 sekunder innan du skickar en annan fil.
   success: |
     <b>Operationen lyckades</b>.
     För att skicka en fil till din Kindle, klicka på <b>Skicka fil</b>.
@@ -17,7 +17,7 @@ sv-se:
     Den måste sluta på <code>kindle.com</code>
   startolduser: |
     <b>Välkommen tillbaka</b>!
-    Your registered e-mails are:
+    Dina registrerade e-mailen är:
     {} {}
     {} {}
     För att skicka en fil till din Kindle, klicka på <b>Skicka fil</b>.
@@ -34,7 +34,7 @@ sv-se:
     Var vänlig och kontrollera angiven e-mail och försök igen.
   filesent: |
     <b>Filen skickad</b>.
-    vänta ett par minuter och kolla din enhet.
+    Vänta ett par minuter och kolla din enhet.
   rate: |
     <b>Betygsätt bot'en:</b>
     https://telegram.me/storebot?start=Send2Kindlebot
@@ -46,7 +46,7 @@ sv-se:
   btn1: Skicka fil
   btn2: Ändra e-mail
   btn3: Som den är
-  btn4: KOnverterad
+  btn4: Konverterad
   help: |
     <b>Vad gör den här bot'en?</b>
     Den här bot'en kan skicka filer till din Kindle som om du skickade dom via e-mail.
@@ -67,13 +67,13 @@ sv-se:
     <i>* Konverteringen till Kindle format är en experimentell tjänst gjord av Amazon.</i>
 
     <b>Finns det någon gräns på filens storlek?</b>
-    Filer som skickas via länk har en gräns på 50 MB (innan komrimering).
+    Filer som skickas via länk har en gräns på 50 MB (innan komprimering).
     Filer som skickas direkt till bot'en har en gräns på 20 MB.
 
     <b>Om du har fler frågor besök:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
-    <b>Terms of Service:</b>
+    <b>Användarvillkor:</b>
     https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
 
     <b>Källkod:</b>
@@ -84,17 +84,17 @@ sv-se:
     Filer som skickas direkt till bot'en har en gräns på 20 MB.
   info: |
     Den här bot'en är under konstant utveckling!
-    Om du har några förslag på förbättringar eller frågor så tveka inte att kontakt mig!
+    Om du har några förslag på förbättringar eller frågor så tveka inte att kontakta mig!
 
     Twitter: @GabRF (http://twitter.com/GabRF)
     Telegram: @GabrielRF
     Website: http://grf.xyz/
 
-    Rate the bot:
+    Betygsätt boten:
     https://telegram.me/storebot?start=Send2Kindlebot
 
-    Support the project:
+    Stöd projektet:
     http://patreon.com/gabrielrf
-  tos: |
-    Click on the link below to read the <b>Terms of Service</b>:
+  tos: | 
+    Klicka på länken nedan för att läsa <b>användarvillkoren</b>:
     https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
