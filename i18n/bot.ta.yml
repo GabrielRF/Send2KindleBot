@@ -1,102 +1,102 @@
 en-us:
-  askfile: Send me the file (up to 20MB) or the link to the file.
-  askemail: Type your Kindle e-mail.
-  askemail2: Type your email used on your Amazon account.
-  askemail3: Type the e-mail you want to set.
-  askconvert: Send file <b>as is</b> or <b>converted</b> to Kindle format?
+  askfile: கோப்பை (20MB வரை) அல்லது கோப்பிற்கான இணைப்பை எனக்கு அனுப்பவும்.
+  askemail: உங்கள் கின்டெல் மின்னஞ்சலைத் தட்டச்சு செய்யவும்.
+  askemail2: உங்கள் அமேசான் கணக்கில் பயன்படுத்தப்பட்ட மின்னஞ்சலைத் தட்டச்சு செய்யவும்.
+  askemail3: நீங்கள் அமைக்க விரும்பும் மின்னஞ்சலைத் தட்டச்சு செய்யவும்.
+  askconvert: கோப்பை <b>அப்படியே</b> அல்லது <b>மாற்றப்பட்ட</b> கோப்பை Kindle வடிவத்திற்கு அனுப்பவா?
   slowmode: Please, wait 15 minutes to send another epub.
   slowmodesec: Please, wait 30 seconds before sending another file.
   success: |
-    <b>Success</b>.
-    To send a file to your Kindle, click <b>Send file</b>.
-    To change your e-mail, click <b>Set e-mail</b>.
+    <b>வெற்றி</b>.
+    உங்கள் Kindle க்கு கோப்பை அனுப்ப, <b>கோப்பை அனுப்பு</b> என்பதைக் கிளிக் செய்யவும்.
+    உங்கள் மின்னஞ்சலை மாற்ற, <b>மின்னஞ்சலை அமை</b> என்பதைக் கிளிக் செய்யவும்.
   startnewuser: |
-    Hi!
-    This bot sends files to your Kindle.
-    First, type your Kindle e-mail.
-    It must end with <code>kindle.com</code>
+    வணக்கம்!
+    இந்த போட் உங்கள் Kindle க்கு கோப்புகளை அனுப்புகிறது.
+    முதலில், உங்கள் Kindle மின்னஞ்சலை தட்டச்சு செய்யவும்.
+    இது <code>kindle.com</code> உடன் முடிவடைய வேண்டும்
   startolduser: |
-    <b>Welcome back</b>!
-    Your registered e-mails are:
+    <b>மீண்டும் வருக</b>!
+    உங்கள் பதிவு செய்யப்பட்ட மின்னஞ்சல்கள்:
     {} {}
     {} {}
-    To send a file to your Kindle, click <b>Send file</b>.
-    To change an e-mail, click <b>Set e-mail</b>
+    உங்கள் Kindle க்கு கோப்பை அனுப்ப, <b>கோப்பை அனுப்பு</b> என்பதைக் கிளிக் செய்யவும்.
+    மின்னஞ்சலை மாற்ற, <b>மின்னஞ்சலை அமை</b> என்பதைக் கிளிக் செய்யவும்
   error: |
-    <b>Error</b>.
-    Click /start and check your e-mails.
+    <b>பிழை</b>.
+    /தொடங்கு என்பதைக் கிளிக் செய்து உங்கள் மின்னஞ்சல்களைச் சரிபார்க்கவும்.
   filenotfound: |
-    File not found. Aborted.
-    Try again in a few minutes.
+    கோப்பு கிடைக்கவில்லை. கைவிடப்பட்டது.
+    சில நிமிடங்களில் மீண்டும் முயற்சிக்கவும்.
   sendingfile: |
-    <b>Sending file</b>.
-    Please, wait a moment.
+    <b>கோப்பை அனுப்புகிறது</b>.
+    தயவு செய்து சற்று பொறுங்கள்.
   checkemail: |
-    <b>Error</b>.
-    Please, check your e-mail and try again.
+    <b>பிழை</b>.
+    தயவுசெய்து, உங்கள் மின்னஞ்சலைச் சரிபார்த்து, மீண்டும் முயற்சிக்கவும்.
   filesent: |
-    <b>File sent</b>.
-    Wait a few minutes and check on your device.
+    <b>கோப்பு அனுப்பப்பட்டது</b>.
+    சில நிமிடங்கள் காத்திருந்து உங்கள் சாதனத்தை சரிபார்க்கவும்.
   rate: |
-    <b>Rate the bot:</b>
+    <b>போட்டை மதிப்பிடுக:</b>
     https://telegram.me/storebot?start=Send2Kindlebot
   donate: |
-    <b>Donate!</b>
+   <b>தானம் செய்!</b>
     https://grf.xyz/donate
     
-    <b>Send a new command</b>.
-  btn1: Send File
-  btn2: Set e-mail
-  btn3: As is
-  btn4: Converted
+    <b>புதிய கட்டளையை அனுப்பு</b>.
+  btn1: கோப்பு அனுப்பவும்
+  btn2: மின்னஞ்சலை அமைக்கவும்
+  btn3: அப்படியே
+  btn4: மாற்றப்பட்டது
   help: |
-    <b>What does this bot do?</b>
-    This bot is able to send files to your Kindle as if you were sending them by e-mail.
+    <b>இந்த பாட் என்ன செய்கிறது?</b>
+    நீங்கள் மின்னஞ்சல் மூலம் கோப்புகளை அனுப்புவது போல் இந்த போட் உங்கள் Kindle க்கு கோப்புகளை அனுப்ப முடியும்.
 
-    <b>Where is my Kindle's e-mail?</b>
-    Log into your Amazon account. Visit <i>Manage your Devices</i> page at <i>Manage Your Kindle</i>.
-    The e-mail address will end with <code>@kindle.com</code>.
+    <b>எனது கின்டிலின் மின்னஞ்சல் எங்கே?</b>
+    உங்கள் அமேசான் கணக்கில் உள்நுழையவும். <i>உங்கள் கின்டிலை நிர்வகி</i> இல் <i>உங்கள் சாதனங்களை நிர்வகித்தல்</i> பக்கத்தைப் பார்வையிடவும்.
+    மின்னஞ்சல் முகவரி <code>@kindle.com</code> என முடிவடையும்.
 
-    <b>What kind of files are supported?</b>
+    <b>எந்த வகையான கோப்புகள் ஆதரிக்கப்படுகின்றன?</b>
     Adobe PDF <code>.pdf</code>
     HTML <code>.htm .html</code>
-    Images <code>.jpg .gif .bmp .png</code>
-    Mobi book <code>.mobi</code>
+    படங்கள் <code>.jpg .gif .bmp .png</code>
+    மொபி புத்தகம் <code>.mobi</code>
     Microsoft Word <code>.doc .docx</code>
-    Rich Text Format <code>.rtf</code>
-    Text files <code>.txt</code>
-    Zipped files <code>.zip .xzip</code>
-    <i>* The file conversion to Kindle format is an experimental service done by Amazon.</i>
+    பணக்கார உரை வடிவம் <code>.rtf</code>
+    உரை கோப்புகள் <code>.txt</code>
+    ஜிப் செய்யப்பட்ட கோப்புகள் <code>.zip .xzip</code>
+    <i>* Kindle வடிவத்திற்கு கோப்பை மாற்றுவது Amazon ஆல் செய்யப்படும் சோதனைச் சேவையாகும்.</i>
 
-    <b>Is there any file size limit?</b>
-    Documents sent by link are limited to 50 MB (before compression).
-    Documents sent directly to the bot are limited to 20 MB.
+    <b>கோப்பின் அளவு வரம்பு ஏதேனும் உள்ளதா?</b>
+    இணைப்பு மூலம் அனுப்பப்படும் ஆவணங்கள் 50 MB (சுருக்கத்திற்கு முன்) வரம்பிடப்படும்.
+    நேரடியாக bot க்கு அனுப்பப்படும் ஆவணங்கள் 20 MB வரை மட்டுமே.
 
-    <b>For any other question, visit:</b>
+    <b>வேறு ஏதேனும் கேள்விகளுக்கு, இங்கு செல்க:</b>
     http://www.amazon.com/kindlepersonaldocuments/
 
-    <b>Terms of Service:</b>
+    <b>சேவை விதிமுறைகள்:</b>
     https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
 
-    <b>Source code:</b>
+    <b>மூலக் குறியீடு:</b>
     https://github.com/GabrielRF/Send2KindleBot
   fsize: |
-    <b>Is there any file size limit?</b>
-    Documents sent by link are limited to 50 MB (before compression).
-    Documents sent directly to the bot are limited to 20 MB.
+    <b>கோப்பின் அளவு வரம்பு ஏதேனும் உள்ளதா?</b>
+    இணைப்பு மூலம் அனுப்பப்படும் ஆவணங்கள் 50 MB (சுருக்கத்திற்கு முன்) வரம்பிடப்படும்.
+    நேரடியாக bot க்கு அனுப்பப்படும் ஆவணங்கள் 20 MB வரை மட்டுமே.
   info: |
-    This bot is under constant development!
-    If you have any question or suggestion, please, talk to me!
+    இந்த போட் நிலையான வளர்ச்சியில் உள்ளது!
+    உங்களிடம் ஏதேனும் கேள்விகள் அல்லது பரிந்துரைகள் இருந்தால், தயவுசெய்து என்னிடம் பேசுங்கள்!
 
-    Twitter: @GabRF (http://twitter.com/GabRF)
-    Telegram: @GabrielRF
-    Website: http://grf.xyz/
+    ட்விட்டர்: @GabRF (http://twitter.com/GabRF)
+    தந்தி: @GabrielRF
+    இணையதளம்: http://grf.xyz/
 
-    Rate the bot:
+    போட் மதிப்பிடவும்:
     https://telegram.me/storebot?start=Send2Kindlebot
 
-    Support the project:
+    திட்டத்தை ஆதரிக்கவும்:
     http://patreon.com/gabrielrf
   tos: |
-    Click on the link below to read the <b>Terms of Service</b>:
+    <b>சேவை விதிமுறைகளைப்</b> படிக்க கீழே உள்ள இணைப்பைக் கிளிக் செய்யவும்:
     https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
