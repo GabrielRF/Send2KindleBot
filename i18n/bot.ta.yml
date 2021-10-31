@@ -4,7 +4,7 @@ en-us:
   askemail2: உங்கள் அமேசான் கணக்கில் பயன்படுத்தப்பட்ட மின்னஞ்சலைத் தட்டச்சு செய்யவும்.
   askemail3: நீங்கள் அமைக்க விரும்பும் மின்னஞ்சலைத் தட்டச்சு செய்யவும்.
   askconvert: கோப்பை <b>அப்படியே</b> அல்லது <b>மாற்றப்பட்ட</b> கோப்பை Kindle வடிவத்திற்கு அனுப்பவா?
-  slowmode: Please, wait 15 minutes to send another epub.
+  slowmode: மற்றொரு epub அனுப்ப 15 நிமிடங்கள் காத்திருக்கவும்.
   slowmodesec: Please, wait 30 seconds before sending another file.
   success: |
     <b>வெற்றி</b>.
