@@ -4,7 +4,7 @@ tr-tr:
   askemail2: Amazon hesabınızda kullanılan e-mailinizi yazın.
   askemail3: Kullanmak istediğiniz e-mailinizi yazın.
   askconvert: Dosyayı <b>olduğu gibi</b> veya <b>dönüştürülmüş</b> Kindle formatı ile mi göndereyim?
-  slowmode: Please, wait 15 minutes to send another epub.
+  slowmode: Lütfen başka bir epub göndermek için 15 dakika bekleyin.
   slowmodesec: Lütfen başka bir dosya göndermeden önce 30 saniye bekleyin.
   success: |
     <b>Başarılı</b>.
