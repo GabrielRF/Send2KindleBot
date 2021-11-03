@@ -4,8 +4,8 @@ zh-hant-tw:
   askemail2: 輸入您在 Amazon 帳戶中使用的電子郵件。
   askemail3: 輸入要設定的電子郵件。
   askconvert: 按<b>保持原樣</b>傳送檔案或<b>轉換</b>為 Kindle 格式？
+  slowmodesec: 請等待 30 秒，然後再發送另一個文件。
   slowmode: 請等待 15 分鐘再發送一個 epub。
-  slowmodesec: Please, wait 30 seconds before sending another file.
   success: |
     <b>成功</b>。
     要將檔案傳送到 Kindle，請單擊<b>傳送檔案</b>。
