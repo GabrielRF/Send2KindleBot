@@ -4,8 +4,8 @@ nl:
   askemail2: Typ uw e-mailadres dat u gebruikt voor uw Amazon-account.
   askemail3: Typ het e-mailadres dat u wilt instellen.
   askconvert: Bestand verzenden <b>zoals het is</b> of <b>geconverteerd</b> naar Kindle-formaat?
-  slowmode: Please, wait 15 minutes to send another epub.
   slowmodesec: Wacht alstublieft 30 seconden voordat u een ander bestand verzendt.
+  slowmode: Wacht 15 minuten om nog een epub te verzenden.
   success: |
     <b>Success</b>.
     Als je een bestand naar je Kindle wilt verzenden, klik je op <b>Bestand verzenden</b>.
