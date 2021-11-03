@@ -4,8 +4,8 @@ kr:
   askemail2: Amazon 계정에 사용한 이메일주소를 입력하세요.
   askemail3: 설정하고자 하는 이메일주소를 입력하세요.
   askconvert: 파일 전송시 현재 포맷을 <b>유지</b>할까요? 또는 킨들 포맷으로 <b>변환</b>할까요?
-  slowmode: Please, wait 15 minutes to send another epub.
   slowmodesec: 다른 파일을 보내기 전에 30초 동안 기다리십시오.
+  slowmode: 다른 epub를 보내려면 15분 정도 기다리십시오.
   success: |
     <b>성공</b>.
     킨들로 파일을 보내려면 <b>파일전송</b>을 클릭하세요.
