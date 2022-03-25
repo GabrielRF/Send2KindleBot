@@ -2,7 +2,7 @@
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7Q29T7QE6A948)
 
-![Send2KindleBot](https://github.com/GabrielRF/Send2KindleBot/blob/master/icon.jpg?raw=true)
+![Send2KindleBot](https://github.com/GabrielRF/Send2KindleBot/blob/master/icon.png?raw=true)
 
 ## About
 
@@ -98,3 +98,9 @@ And the auto format.
 ```
 # make format
 ```
+
+# Thanks
+
+Bot icon made by Ariyasu. Thank you!
+
+Contact: Discord `ariyasu#9690`
