@@ -1,8 +1,8 @@
+<img align="right" alt="Send2KindleBot Logo" width="30%" height="auto" src="https://github.com/GabrielRF/Send2KindleBot/blob/master/icon.png?raw=true">
+
 # [Send2KindleBot](http://telegram.me/Send2Kindle)
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7Q29T7QE6A948)
-
-![Send2KindleBot](https://github.com/GabrielRF/Send2KindleBot/blob/master/icon.png?raw=true)
 
 ## About
 
