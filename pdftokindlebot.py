@@ -1,6 +1,7 @@
 import anuncieaqui
 import configparser
 import datetime
+import epub_meta
 import logging
 import logging.handlers
 import os
@@ -42,18 +43,15 @@ class Document:
         self.name = name[:20] + name[-5:]
 
 def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True, reply_markup=None):
-    try:
-        msg = bot.send_message(chatid, text, parse_mode=parse_mode,
-            disable_web_page_preview=disable_web_page_preview,
-            reply_markup=reply_markup
-        )
-    except:
-        time.sleep(3)
-        msg = bot.send_message(chatid, text, parse_mode=parse_mode,
-            disable_web_page_preview=disable_web_page_preview,
-            reply_markup=reply_markup
-        )
+    msg = bot.send_message(chatid, text, parse_mode=parse_mode,
+        disable_web_page_preview=disable_web_page_preview,
+        reply_markup=reply_markup
+    )
     return msg
+
+def epubauthors(file_path):
+    authors = epub_meta.get_epub_metadata(file_path).authors
+    return authors
 
 def epub2mobi(file_name_epub, chatid):
     logger_info.info(
@@ -151,7 +149,7 @@ def send_mail(
     msg.attach(MIMEText(text.format(chatid)))
 
     try:
-        if interval < 5:
+        if interval < 8:
             return 0
         elif interval < 30:
             try:
@@ -165,6 +163,7 @@ def send_mail(
         files = open_file(file_url, chatid)
 
         if (
+            # (".epub" in files and not epubauthors(files))
             ".epub" in files
             or ".cbr" in files
             or ".cbz" in files
@@ -855,4 +854,4 @@ if __name__ == "__main__":
     if sentry_url:
         sentry_sdk.init(sentry_url)
 
-    bot.polling(timeout=60, interval=2)
+    bot.polling()
