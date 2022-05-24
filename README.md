@@ -3,6 +3,7 @@
 # [Send2KindleBot](http://telegram.me/Send2Kindle)
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7Q29T7QE6A948)
+[![Deploy](https://github.com/GabrielRF/Send2KindleBot/actions/workflows/deploy.yml/badge.svg)](https://github.com/GabrielRF/Send2KindleBot/actions/workflows/deploy.yml)
 
 ## About
 
