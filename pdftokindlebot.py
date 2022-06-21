@@ -163,8 +163,8 @@ def send_mail(
         files = open_file(file_url, chatid)
 
         if (
-            # (".epub" in files and not epubauthors(files))
-            ".epub" in files
+            (".epub" in files and not epubauthors(files))
+            # ".epub" in files
             or ".cbr" in files
             or ".cbz" in files
             or ".azw3" in files
