@@ -165,9 +165,12 @@ def send_mail(
         files = open_file(file_url, chatid)
 
         if '.epub' in files:
-            doc = epub.read_epub(files)
-            doc.set_identifier(chatid)
-            epub.write_epub(files, doc)
+            try:
+                doc = epub.read_epub(files)
+                doc.set_identifier(chatid)
+                epub.write_epub(files, doc)
+            except:
+                pass
 
         elif (
             # (".epub" in files and not epubauthors(files))
