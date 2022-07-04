@@ -1,6 +1,7 @@
 import anuncieaqui
 import configparser
 import datetime
+import ebooklib
 import epub_meta
 import logging
 import logging.handlers
@@ -11,6 +12,7 @@ import sqlite3
 import subprocess
 import time
 import urllib.request
+from ebooklib import epub
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
@@ -162,10 +164,15 @@ def send_mail(
 
         files = open_file(file_url, chatid)
 
-        if (
-            (".epub" in files and not epubauthors(files))
+        if '.epub' in files:
+            doc = epub.read_epub(files)
+            doc.set_identifier(chatid)
+            epub.write_epub(files, doc)
+
+        elif (
+            # (".epub" in files and not epubauthors(files))
             # ".epub" in files
-            or ".cbr" in files
+            ".cbr" in files
             or ".cbz" in files
             or ".azw3" in files
         ):
