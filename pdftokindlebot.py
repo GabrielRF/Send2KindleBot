@@ -440,7 +440,7 @@ if __name__ == "__main__":
     cmds = ["/start", "/send", "/info", "/help", "/email"]
     LOG_INFO_FILE = log_file
     logger_info = logging.getLogger("InfoLogger")
-    logger_info.setLevel(logging.DEBUG)
+    logger_info.setLevel(logging.INFO)
     handler_info = logging.handlers.TimedRotatingFileHandler(
         LOG_INFO_FILE,
         when="midnight",
