@@ -52,7 +52,7 @@ zh-hant-tw:
     <b>支援哪種檔案?</b>
     Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
     圖片 <code>.jpg .gif .bmp .png</code>
-    Mobi book <code>.mobi</code>
+    Epub book <code>.epub</code>
     Microsoft Word <code>.doc .docx</code>
     Rich Text Format <code>.rtf</code>
     文字檔 <code>.txt</code>

@@ -54,7 +54,7 @@ pl-PL:
     <b>Jakie typy plików obsługuje?</b>
     Adobe PDF <code>.pdf</code>\nHTML <code>.htm .html</code>
     Obrazy <code>.jpg .gif .bmp .png</code>
-    Książki mobi <code>.mobi</code>
+    Książki epub <code>.epub</code>
     Microsoft Word <code>.doc .docx</code>
     Rich Text Format <code>.rtf</code>
     Pliki tekstowe <code>.txt</code>
