@@ -55,7 +55,7 @@ def epubauthors(file_path):
     authors = epub_meta.get_epub_metadata(file_path).authors
     return authors
 
-def epub2mobi(file_name_epub, chatid):
+def convert_format(file_name_original, chatid):
     logger_info.info(
         str(datetime.datetime.now())
         + " CONVERT: "
@@ -64,23 +64,23 @@ def epub2mobi(file_name_epub, chatid):
         + file_name_epub
     )
     bot.send_chat_action(chatid, "upload_document")
-    file_name_mobi = file_name_epub.replace(
-        file_name_epub.split(".")[-1], ".mobi"
+    file_name_converted = file_name_original.replace(
+        file_name_original.split(".")[-1], ".epub"
     )
 
-    if ".cbr" in file_name_epub or ".cbz" in file_name_epub:
+    if ".cbr" in file_name_original or ".cbz" in file_name_epub:
         subprocess.Popen(
             [
                 "ebook-convert",
-                file_name_epub,
-                file_name_mobi,
+                file_name_original,
+                file_name_converted,
                 "--output-profile",
                 "tablet",
             ]
         ).wait()
     else:
         subprocess.Popen(
-            ["ebook-convert", file_name_epub, file_name_mobi]
+            ["ebook-convert", file_name_original, file_name_converted]
         ).wait()
 
     os.remove(file_name_epub)
@@ -174,8 +174,8 @@ def send_mail(
 
         elif (
             # (".epub" in files and not epubauthors(files))
-            # ".epub" in files
-            ".cbr" in files
+            ".mobi" in files
+            or ".cbr" in files
             or ".cbz" in files
             or ".azw3" in files
         ):
@@ -190,7 +190,7 @@ def send_mail(
                 return 0
             else:
                 upd_user_last(db, table, chatid)
-                files = epub2mobi(files, chatid)
+                files = convert_format(files, chatid)
     except:
         send_message(chatid, i18n.t("bot.filenotfound", locale=user_lang))
         return 0
