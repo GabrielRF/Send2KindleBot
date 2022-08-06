@@ -61,14 +61,14 @@ def convert_format(file_name_original, chatid):
         + " CONVERT: "
         + str(chatid)
         + " "
-        + file_name_epub
+        + file_name_original
     )
     bot.send_chat_action(chatid, "upload_document")
     file_name_converted = file_name_original.replace(
         file_name_original.split(".")[-1], ".epub"
     )
 
-    if ".cbr" in file_name_original or ".cbz" in file_name_epub:
+    if ".cbr" in file_name_original or ".cbz" in file_name_original:
         subprocess.Popen(
             [
                 "ebook-convert",
@@ -83,7 +83,7 @@ def convert_format(file_name_original, chatid):
             ["ebook-convert", file_name_original, file_name_converted]
         ).wait()
 
-    os.remove(file_name_epub)
+    os.remove(file_name_original)
 
     return file_name_mobi
 
