@@ -85,7 +85,7 @@ def convert_format(file_name_original, chatid):
 
     os.remove(file_name_original)
 
-    return file_name_mobi
+    return file_name_converted
 
 
 # Get file from URL
