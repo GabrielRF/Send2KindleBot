@@ -4,7 +4,7 @@ sv-se:
   askemail2: Skriv in din e-mail som används till ditt Amazon konto.
   askemail3: Skriv e-mailen du vill ändra till.
   askconvert: Skicka filen <b>som den är</b> eller <b>konvertera</b> till Kindle format?
-  slowmode: Var vänlig och vänta 15 minuter innan du skickar en annan epub.
+  slowmode: Var vänlig och vänta 15 minuter innan du skickar en annan mobi.
   slowmodesec: Var vänlig och vänta 30 sekunder innan du skickar en annan fil.
   success: |
     <b>Operationen lyckades</b>.

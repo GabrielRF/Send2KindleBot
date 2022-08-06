@@ -5,7 +5,7 @@ bm-ms:
   askemail3: Taipkan e-mel yang anda mahu tetapkan.
   askconvert: Hantar fail <b>seperti itu</b> atau <b>tukar</b> kepada format Kindle?
   slowmodesec: Sila tunggu 30 saat sebelum menghantar fail lain.
-  slowmode: Sila tunggu 15 minit untuk menghantar epub lain.
+  slowmode: Sila tunggu 15 minit untuk menghantar mobi lain.
   success: |
     <b>Berjaya</b>.
     Untuk menghantar fail ke Kindle anda, tekan <b>Hantar fail</b>.
