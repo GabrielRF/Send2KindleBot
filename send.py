@@ -1,4 +1,5 @@
 import configparser
+import i18n
 import pika
 import json
 import os
@@ -13,6 +14,7 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import formatdate
+from telebot import types
 
 def open_file(file_url, user_id):
     if "api.telegram.org/file" not in file_url:
@@ -77,17 +79,27 @@ def process_file(files, user_id):
             pass
     else:
         files = convert_format(files, user_id)
+    return files
 
-def should_convert(files):
-    if (
-        ".mobi" in files
-        or ".cbr" in files
-        or ".cbz" in files
-        or ".azw3" in files
-    ):
-        return random.randint(0,10)
-    else:
-        return True
+def set_buttons(lang="en-us"):
+    global button
+    global button2
+    button = types.InlineKeyboardMarkup()
+    btn1 = types.InlineKeyboardButton(
+        i18n.t("bot.btn1", locale=lang), callback_data="/send"
+    )
+    btn2 = types.InlineKeyboardButton(
+        i18n.t("bot.btn2", locale=lang), callback_data="/email"
+    )
+    button.row(btn1, btn2)
+    button2 = types.InlineKeyboardMarkup()
+    btn3 = types.InlineKeyboardButton(
+        i18n.t("bot.btn3", locale=lang), callback_data="/as_is"
+    )
+    btn4 = types.InlineKeyboardButton(
+        i18n.t("bot.btn4", locale=lang), callback_data="/converted"
+    )
+    button2.row(btn3, btn4)
 
 def send_file(rbt, method, properties, data):
     data=data
@@ -103,9 +115,7 @@ def send_file(rbt, method, properties, data):
     msg.attach(MIMEText(text.format(data['user_id'])))
 
     files = open_file(data['file_url'], data['user_id'])
-    if not should_convert(files):
-        exit()
-    process_file(files, data['user_id'])
+    files = process_file(files, data['user_id'])
     rbt.basic_ack(delivery_tag=method.delivery_tag)
 
     # Definir files
@@ -119,17 +129,17 @@ def send_file(rbt, method, properties, data):
     msg.attach(part)
     smtp = smtplib.SMTP("127.0.0.1")
     try:
-        smtp.sendmail(send_from, send_to, msg.as_string())
+        smtp.sendmail(data['from'], data['to'], msg.as_string())
     except smtplib.SMTPSenderRefused:
         msg = send_message(
             data['user_id'],
-            str(u"\U000026A0") + i18n.t("bot.fsize", locale=lang),
+            str(u"\U000026A0") + i18n.t("bot.fsize", locale=data['lang']),
             parse_mode="HTML",
         )
     except smtplib.SMTPRecipientsRefused:
         msg = send_message(
             data['user_id'],
-            str(u"\U000026A0") + i18n.t("bot.checkemail", locale=user_lang),
+            str(u"\U000026A0") + i18n.t("bot.checkemail", locale=data['lang']),
             parse_mode="HTML",
         )
     smtp.close()
@@ -144,13 +154,13 @@ def send_file(rbt, method, properties, data):
     except:
         pass
 
-    set_buttons(lang)
+    set_buttons(data['lang'])
     msg = ("{icon_x} {msg_a}").format(
         icon_x=u"\U0001F4EE",
-        msg_a=i18n.t("bot.filesent", locale=lang),
+        msg_a=i18n.t("bot.filesent", locale=data['lang']),
     )
     bot.send_message(
-        user_id,
+        data['user_id'],
         msg,
         parse_mode="HTML",
         reply_markup=button,
@@ -158,6 +168,8 @@ def send_file(rbt, method, properties, data):
     )
 
 if __name__ == "__main__":
+    i18n.load_path.append("i18n")
+    i18n.set("fallback", "en-us")
     config = configparser.ConfigParser()
     config.sections()
     BOT_CONFIG_FILE = "kindle.conf"

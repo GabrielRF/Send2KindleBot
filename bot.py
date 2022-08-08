@@ -31,7 +31,9 @@ TOKEN = config["DEFAULT"]["TOKEN"]
 BLOCKED = config["DEFAULT"]["BLOCKED"]
 db = config["SQLITE3"]["data_base"]
 table = config["SQLITE3"]["table"]
+
 bot = telebot.TeleBot(TOKEN)
+
 rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 rabbit = rabbitmq_con.channel()
 rabbit.queue_declare(queue='Send2KindleBot', durable=True)
@@ -40,19 +42,54 @@ class Document:
     def __init__(self, name):
         self.name = name[:20] + name[-5:]
 
+def check_interval(data, user_lang):
+    user_id = data[1]
+    file_url = data[7]
+    last_usage = data[5]
+    try:
+        interval = (
+            datetime.datetime.now()
+            - datetime.datetime.strptime(last_usage, "%Y-%m-%d %H:%M:%S.%f")
+        ).total_seconds()
+    except ValueError:
+        interval = 901
+    if interval < 8:
+        return False
+    elif interval < 30:
+        try:
+            send_message(user_id, i18n.t("bot.slowmodesec", locale=user_lang))
+        except:
+            send_message(user_id, "Wait 30 seconds")
+        return False
+    elif (
+        ".mobi" in file_url
+        or ".cbr" in file_url
+        or ".cbz" in file_url
+        or ".azw3" in file_url
+    ):
+        if interval < 900:
+            try:
+                send_message(
+                    user_id, i18n.t("bot.slowmode", locale=user_lang)
+                )
+            except:
+                send_message(user_id, "Wait 15 minutes")
+            return False
+    return True
+
 def send_mail(data, subject, lang):
+    if not check_interval(data, lang):
+        return 0
     msg_sent = send_message(
         data[1], str(u"\U0001F5DE") + i18n.t("bot.sendingfile",
         locale=lang), parse_mode="HTML",
     )
-    print(subject)
     rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     rabbit = rabbitmq_con.channel()
     rabbit.queue_declare(queue='Send2KindleBot', durable=True)
     msg = (f'{{"from":"{data[2]}", "to":"{data[3]}", "subject":"{subject}", ' 
         f'"user_id":"{data[1]}", "file_url":"{data[7]}", "lang":"{lang}", '
         f'"message_id":"{msg_sent.message_id}"}}')
-    print(msg)
     rabbit.basic_publish(
         exchange='',
         routing_key='Send2KindleBot', 
@@ -62,6 +99,7 @@ def send_mail(data, subject, lang):
         )
     )
     rabbitmq_con.close()
+    upd_user_last(db, table, data[1])
 
 def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True, reply_markup=None):
     msg = bot.send_message(chatid, text, parse_mode=parse_mode,
@@ -290,7 +328,6 @@ if __name__ == "__main__":
     @bot.message_handler(commands=["start"])
     def start(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
-        print(user_lang)
         set_buttons(user_lang)
         data = select_user(db, table, message.from_user.id, "*")
 
@@ -421,7 +458,6 @@ if __name__ == "__main__":
         user_lang = (message.from_user.language_code or "en-us").lower()
 
         if str(message.from_user.id) in BLOCKED:
-            print(message)
 
             try:
                 logger_info.info(
@@ -547,16 +583,7 @@ if __name__ == "__main__":
         data = select_user(db, table, call.from_user.id, "*")
 
         try:
-            send_mail(
-                str(call.from_user.id),
-                data[2],
-                data[3],
-                "Convert",
-                str(call.from_user.id),
-                data[7],
-                data[5],
-                user_lang,
-            )
+            send_mail(data, 'Convert', user_lang)
         except IndexError:
             msg = send_message(
                 call.from_user.id,
@@ -589,16 +616,8 @@ if __name__ == "__main__":
             pass
 
         data = select_user(db, table, call.from_user.id, "*")
-        send_mail(
-            str(call.from_user.id),
-            data[2],
-            data[3],
-            " ",
-            str(call.from_user.id),
-            data[7],
-            data[5],
-            user_lang,
-        )
+        send_mail(data, '', user_lang)
+
 
     @bot.callback_query_handler(lambda q: q.data == "/email")
     def email(call):
