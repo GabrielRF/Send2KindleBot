@@ -34,21 +34,24 @@ table = config["SQLITE3"]["table"]
 bot = telebot.TeleBot(TOKEN)
 rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 rabbit = rabbitmq_con.channel()
-#rabbit.queue_declare(queue='Send2KindleBot', durable=True)
+rabbit.queue_declare(queue='Send2KindleBot', durable=True)
 
 class Document:
     def __init__(self, name):
         self.name = name[:20] + name[-5:]
 
 def send_mail(data, subject, lang):
-# chatid, send_from, send_to, subject, text, file_url, last_usage, user_lang
-# send_mail(str(message.from_user.id), data[2], data[3], " ", str(message.from_user.id), data[7], data[5], lang,)
+    msg_sent = send_message(
+        data[1], str(u"\U0001F5DE") + i18n.t("bot.sendingfile",
+        locale=lang), parse_mode="HTML",
+    )
     print(subject)
     rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     rabbit = rabbitmq_con.channel()
     rabbit.queue_declare(queue='Send2KindleBot', durable=True)
-    msg = (f'{{"from":"{data[2]}", "to":"{data[3]}", "subject":"{subject}",' 
-        f'"user_id":"{data[1]}", "file_url":"{data[7]}", "lang":"{lang}"}}')
+    msg = (f'{{"from":"{data[2]}", "to":"{data[3]}", "subject":"{subject}", ' 
+        f'"user_id":"{data[1]}", "file_url":"{data[7]}", "lang":"{lang}", '
+        f'"message_id":"{msg_sent.message_id}"}}')
     print(msg)
     rabbit.basic_publish(
         exchange='',
