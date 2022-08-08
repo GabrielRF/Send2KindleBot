@@ -1,26 +1,19 @@
 import anuncieaqui
 import configparser
 import datetime
-import ebooklib
 import epub_meta
+import json
 import logging
 import logging.handlers
 import os
+import pika
 import redis
-import smtplib
 import sqlite3
 import subprocess
 import time
 import urllib.request
-from ebooklib import epub
-from email import encoders
-from email.mime.base import MIMEBase
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.utils import formatdate
 
 import i18n
-import sentry_sdk
 import telebot
 import weasyprint
 from telebot import types
@@ -31,7 +24,7 @@ i18n.set("fallback", "en-us")
 
 config = configparser.ConfigParser()
 config.sections()
-BOT_CONFIG_FILE = "/usr/local/bin/Send2KindleBot/kindle.conf"
+BOT_CONFIG_FILE = "kindle.conf"
 config.read(BOT_CONFIG_FILE)
 log_file = config["DEFAULT"]["logfile"]
 TOKEN = config["DEFAULT"]["TOKEN"]
@@ -39,10 +32,33 @@ BLOCKED = config["DEFAULT"]["BLOCKED"]
 db = config["SQLITE3"]["data_base"]
 table = config["SQLITE3"]["table"]
 bot = telebot.TeleBot(TOKEN)
+rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+rabbit = rabbitmq_con.channel()
+#rabbit.queue_declare(queue='Send2KindleBot', durable=True)
 
 class Document:
     def __init__(self, name):
         self.name = name[:20] + name[-5:]
+
+def send_mail(data, subject, lang):
+# chatid, send_from, send_to, subject, text, file_url, last_usage, user_lang
+# send_mail(str(message.from_user.id), data[2], data[3], " ", str(message.from_user.id), data[7], data[5], lang,)
+    print(subject)
+    rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+    rabbit = rabbitmq_con.channel()
+    rabbit.queue_declare(queue='Send2KindleBot', durable=True)
+    msg = (f'{{"from":"{data[2]}", "to":"{data[3]}", "subject":"{subject}",' 
+        f'"user_id":"{data[1]}", "file_url":"{data[7]}", "lang":"{lang}"}}')
+    print(msg)
+    rabbit.basic_publish(
+        exchange='',
+        routing_key='Send2KindleBot', 
+        body=msg,
+        properties=pika.BasicProperties(
+            delivery_mode = pika.spec.PERSISTENT_DELIVERY_MODE
+        )
+    )
+    rabbitmq_con.close()
 
 def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True, reply_markup=None):
     msg = bot.send_message(chatid, text, parse_mode=parse_mode,
@@ -94,7 +110,6 @@ def open_file(file_url, chatid):
         return file_url
 
     try:
-        #if ".pdf" in file_url:
         try:
             r = redis.Redis(host='localhost', port=6379, db=0)
             fname = r.get(chatid).decode('utf-8')
@@ -102,7 +117,6 @@ def open_file(file_url, chatid):
             file_name, headers = urllib.request.urlretrieve(
                 file_url, fname
             )
-        #else:
         except:
             file_name, headers = urllib.request.urlretrieve(
                 file_url, file_url.split("/")[-1]
@@ -118,216 +132,6 @@ def open_file(file_url, chatid):
     os.rename(file_name, new_file_name)
 
     return new_file_name
-
-
-# Send e-mail function
-def send_mail(
-    chatid, send_from, send_to, subject, text, file_url, last_usage, user_lang
-):
-
-    try:
-        interval = (
-            datetime.datetime.now()
-            - datetime.datetime.strptime(last_usage, "%Y-%m-%d %H:%M:%S.%f")
-        ).total_seconds()
-    except ValueError:
-        interval = 901
-
-    if len(send_from) < 5 or len(send_to) < 5:
-        send_message(
-            chatid, i18n.t("bot.error", locale=user_lang), parse_mode="HTML"
-        )
-
-        return 0
-
-    msg = MIMEMultipart()
-    msg["From"] = send_from
-    msg["To"] = send_to
-    msg["Date"] = formatdate(localtime=True)
-    msg["Subject"] = subject
-
-    text = 'Send2KindleBot - Document sent from Telegram user {}'
-
-    msg.attach(MIMEText(text.format(chatid)))
-
-    try:
-        if interval < 8:
-            return 0
-        elif interval < 30:
-            try:
-                send_message(
-                    chatid, i18n.t("bot.slowmodesec", locale=user_lang)
-                )
-            except:
-                send_message(chatid, "Wait 30 seconds")
-            return 0
-
-        files = open_file(file_url, chatid)
-
-        if '.epub' in files:
-            try:
-                doc = epub.read_epub(files)
-                doc.set_identifier(chatid)
-                epub.write_epub(files, doc)
-            except:
-                pass
-
-        elif (
-            # (".epub" in files and not epubauthors(files))
-            ".mobi" in files
-            or ".cbr" in files
-            or ".cbz" in files
-            or ".azw3" in files
-        ):
-            if interval < 900:
-                try:
-                    send_message(
-                        chatid, i18n.t("bot.slowmode", locale=user_lang)
-                    )
-                except:
-                    send_message(chatid, "Wait 15 minutes")
-                os.remove(files)
-                return 0
-            else:
-                upd_user_last(db, table, chatid)
-                files = convert_format(files, chatid)
-    except:
-        send_message(chatid, i18n.t("bot.filenotfound", locale=user_lang))
-        return 0
-
-    msg_sent = send_message(
-        chatid,
-        str(u"\U0001F5DE") + i18n.t("bot.sendingfile", locale=user_lang),
-        parse_mode="HTML",
-    )
-
-    try:
-        part = MIMEBase("application", "octet-stream")
-        part.set_payload(open(files, "rb").read())
-        encoders.encode_base64(part)
-    except (FileNotFoundError, OSError) as e:
-        send_message(chatid, i18n.t("bot.filenotfound", locale=user_lang))
-        return 0
-
-    part.add_header(
-        "Content-Disposition",
-        'attachment; filename="{0}"'.format(os.path.basename(files)),
-    )
-    msg.attach(part)
-
-    smtp = smtplib.SMTP("127.0.0.1")
-
-    try:
-        smtp.sendmail(send_from, send_to, msg.as_string())
-    except smtplib.SMTPSenderRefused:
-        msg = send_message(
-            chatid,
-            str(u"\U000026A0") + i18n.t("bot.fsize", locale=user_lang),
-            parse_mode="HTML",
-        )
-        smtp.close()
-        logger_info.info(
-            str(datetime.datetime.now())
-            + "\tError:\t"
-            + str(chatid)
-            + "\t"
-            + send_from
-            + "\t"
-            + send_to
-        )
-
-        try:
-            os.remove(files)
-        except FileNotFoundError:
-            pass
-
-        return 0
-    except smtplib.SMTPRecipientsRefused:
-        msg = send_message(
-            chatid,
-            str(u"\U000026A0") + i18n.t("bot.checkemail", locale=user_lang),
-            parse_mode="HTML",
-        )
-        smtp.close()
-        logger_info.info(
-            str(datetime.datetime.now())
-            + "\tError:\t"
-            + str(chatid)
-            + "\t"
-            + send_from
-            + "\t"
-            + send_to
-        )
-
-        try:
-            os.remove(files)
-        except FileNotFoundError:
-            pass
-
-        return 0
-
-    smtp.close()
-
-    upd_user_last(db, table, chatid)
-
-    logger_info.info(
-        str(datetime.datetime.now())
-        + " SENT: "
-        + str(chatid)
-        + "\t"
-        + send_from
-        + "\t"
-        + send_to
-        + "\t "
-        + files
-    )
-
-    try:
-        os.remove(files)
-    except FileNotFoundError:
-        pass
-
-    set_buttons(user_lang)
-    msg = ("{icon_x} {msg_a}").format(
-        icon_x=u"\U0001F4EE",
-        #icon_z=u"\U0001F4B5",
-        msg_a=i18n.t("bot.filesent", locale=user_lang),
-        #msg_c=i18n.t("bot.donate", locale=user_lang),
-    )
-    #bot.edit_message_text(
-    #    msg,
-    #    chatid,
-    #    msg_sent.message_id,
-    #    parse_mode="HTML",
-    #    reply_markup=button,
-    #    disable_web_page_preview=True,
-    #)
-
-    if 'pt-br' in user_lang:
-        try:
-            anuncieaqui.send_message(TOKEN, chatid, msg)
-        except:
-            bot.send_message(
-                chatid,
-                msg,
-                parse_mode="HTML",
-                reply_markup=button,
-                disable_web_page_preview=True,
-            )
-    else:
-        bot.send_message(
-            chatid,
-            msg,
-            parse_mode="HTML",
-            reply_markup=button,
-            disable_web_page_preview=True,
-        )
-
-    try:
-        bot.delete_message(chatid, msg_sent.message_id)
-    except:
-        pass
-
 
 # Add user to database
 def add_user(db, table, chatid):
@@ -721,16 +525,7 @@ if __name__ == "__main__":
         else:
             data = select_user(db, table, message.from_user.id, "*")
             lang = (message.from_user.language_code or "en-us").lower()
-            send_mail(
-                str(message.from_user.id),
-                data[2],
-                data[3],
-                " ",
-                str(message.from_user.id),
-                data[7],
-                data[5],
-                lang,
-            )
+            send_mail(data, '', lang)
 
     @bot.callback_query_handler(lambda q: q.data == "/converted")
     def ask_conv(call):
@@ -858,10 +653,5 @@ if __name__ == "__main__":
             send_message(
                 message.chat.id, i18n.t("bot.filenotfound", locale=user_lang)
             )
-
-    sentry_url = config["SENTRY"]["url"]
-
-    if sentry_url:
-        sentry_sdk.init(sentry_url)
 
     bot.polling()
