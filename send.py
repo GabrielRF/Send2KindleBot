@@ -125,9 +125,8 @@ def set_buttons(lang="en-us"):
     button2.row(btn3, btn4)
 
 def send_file(rbt, method, properties, data):
-    bot.send_chat_action(data['user_id'], 'upload_document')
-    data=data
     data = json.loads(data)
+    bot.send_chat_action(data['user_id'], 'upload_document')
 
     msg = MIMEMultipart()
     msg["From"] = f"{data['from']}"
