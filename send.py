@@ -125,6 +125,7 @@ def set_buttons(lang="en-us"):
     button2.row(btn3, btn4)
 
 def send_file(rbt, method, properties, data):
+    bot.send_chat_action(data['user_id'], 'upload_document')
     data=data
     data = json.loads(data)
 
@@ -148,8 +149,6 @@ def send_file(rbt, method, properties, data):
             i18n.t("bot.filenotfound", locale=data['lang']),
         )
 
-
-    # Definir files
     part = MIMEBase("application", "octet-stream")
     part.set_payload(open(files, "rb").read())
     encoders.encode_base64(part)

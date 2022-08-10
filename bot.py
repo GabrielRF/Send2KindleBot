@@ -56,12 +56,12 @@ def check_interval(data, user_lang):
         interval = 901
     if interval < 8:
         return False
-    elif interval < 30:
-        try:
-            send_message(user_id, i18n.t("bot.slowmodesec", locale=user_lang))
-        except:
-            send_message(user_id, "Wait 30 seconds")
-        return False
+    #elif interval < 30:
+    #    try:
+    #        send_message(user_id, i18n.t("bot.slowmodesec", locale=user_lang))
+    #    except:
+    #        send_message(user_id, "Wait 30 seconds")
+    #    return False
     elif (
         ".mobi" in file_url
         or ".cbr" in file_url
@@ -79,8 +79,8 @@ def check_interval(data, user_lang):
     return True
 
 def send_mail(data, subject, lang):
-    if not check_interval(data, lang):
-        return 0
+    #if not check_interval(data, lang):
+    #    return 0
     msg_sent = send_message(
         data[1], str(u"\U0001F5DE") + i18n.t("bot.sendingfile",
         locale=lang), parse_mode="HTML",
