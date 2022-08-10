@@ -8,3 +8,4 @@ services:
       # - 15672:15672
     volumes:
       - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+    restart: always
