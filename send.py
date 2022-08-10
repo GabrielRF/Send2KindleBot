@@ -7,6 +7,7 @@ import random
 import smtplib
 import subprocess
 import sqlite3
+import sys
 import telebot
 import urllib.request
 from email import encoders
@@ -15,6 +16,16 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.utils import formatdate
 from telebot import types
+
+def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True, reply_markup=None):
+    try:
+        msg = bot.send_message(chatid, text, parse_mode=parse_mode,
+            disable_web_page_preview=disable_web_page_preview,
+            reply_markup=reply_markup
+        )
+    except:
+        pass
+    return msg
 
 def open_file(file_url, user_id):
     if "api.telegram.org/file" not in file_url:
@@ -50,7 +61,7 @@ def convert_format(file_name_original, user_id):
     )
 
     if ".cbr" in file_name_original or ".cbz" in file_name_original:
-        subprocess.Popen(
+        proc = subprocess.Popen(
             [
                 "ebook-convert",
                 file_name_original,
@@ -59,6 +70,13 @@ def convert_format(file_name_original, user_id):
                 "tablet",
             ]
         ).wait()
+        try:
+            outs, errs = proc.communicate(timeout=60)
+        except TimeoutExpired:
+            proc.kill()
+            outs, errs = proc.communicate()
+
+
     else:
         subprocess.Popen(
             ["ebook-convert", file_name_original, file_name_converted]
@@ -77,7 +95,12 @@ def process_file(files, user_id):
             epub.write_epub(files, doc)
         except:
             pass
-    else:
+    elif (
+            ".mobi" in files
+            or ".cbr" in files
+            or ".cbz" in files
+            or ".azw3" in files
+        ):
         files = convert_format(files, user_id)
     return files
 
@@ -114,9 +137,17 @@ def send_file(rbt, method, properties, data):
 
     msg.attach(MIMEText(text.format(data['user_id'])))
 
-    files = open_file(data['file_url'], data['user_id'])
-    files = process_file(files, data['user_id'])
     rbt.basic_ack(delivery_tag=method.delivery_tag)
+
+    try:
+        files = open_file(data['file_url'], data['user_id'])
+        files = process_file(files, data['user_id'])
+    except:
+        send_message(
+            data['user_id'],
+            i18n.t("bot.filenotfound", locale=data['lang']),
+        )
+
 
     # Definir files
     part = MIMEBase("application", "octet-stream")
@@ -159,7 +190,7 @@ def send_file(rbt, method, properties, data):
         icon_x=u"\U0001F4EE",
         msg_a=i18n.t("bot.filesent", locale=data['lang']),
     )
-    bot.send_message(
+    send_message(
         data['user_id'],
         msg,
         parse_mode="HTML",
@@ -179,5 +210,5 @@ if __name__ == "__main__":
     rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     rabbit = rabbitmq_con.channel()
     rabbit.basic_qos(prefetch_count=1)
-    rabbit.basic_consume(queue='Send2KindleBot', on_message_callback=send_file)
+    rabbit.basic_consume(queue=sys.argv[1], on_message_callback=send_file)
     rabbit.start_consuming()

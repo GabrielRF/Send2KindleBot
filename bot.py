@@ -36,7 +36,8 @@ bot = telebot.TeleBot(TOKEN)
 
 rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 rabbit = rabbitmq_con.channel()
-rabbit.queue_declare(queue='Send2KindleBot', durable=True)
+rabbit.queue_declare(queue='Send2KindleBotFast', durable=True)
+rabbit.queue_declare(queue='Send2KindleBotSlow', durable=True)
 
 class Document:
     def __init__(self, name):
@@ -86,13 +87,21 @@ def send_mail(data, subject, lang):
     )
     rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     rabbit = rabbitmq_con.channel()
-    rabbit.queue_declare(queue='Send2KindleBot', durable=True)
+    if (
+        ".mobi" in data[7]
+        or ".cbr" in data[7]
+        or ".cbz" in data[7]
+        or ".azw3" in data[7]
+    ):
+        queue = 'Send2KindleBotSlow'
+    else:
+        queue = 'Send2KindleBotFast'
     msg = (f'{{"from":"{data[2]}", "to":"{data[3]}", "subject":"{subject}", ' 
         f'"user_id":"{data[1]}", "file_url":"{data[7]}", "lang":"{lang}", '
         f'"message_id":"{msg_sent.message_id}"}}')
     rabbit.basic_publish(
         exchange='',
-        routing_key='Send2KindleBot', 
+        routing_key=queue,
         body=msg,
         properties=pika.BasicProperties(
             delivery_mode = pika.spec.PERSISTENT_DELIVERY_MODE
