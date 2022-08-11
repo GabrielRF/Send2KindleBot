@@ -39,10 +39,6 @@ rabbit = rabbitmq_con.channel()
 rabbit.queue_declare(queue='Send2KindleBotFast', durable=True)
 rabbit.queue_declare(queue='Send2KindleBotSlow', durable=True)
 
-class Document:
-    def __init__(self, name):
-        self.name = name[:20] + name[-5:]
-
 def check_interval(data, user_lang):
     user_id = data[1]
     file_url = data[7]
@@ -56,12 +52,12 @@ def check_interval(data, user_lang):
         interval = 901
     if interval < 8:
         return False
-    #elif interval < 30:
-    #    try:
-    #        send_message(user_id, i18n.t("bot.slowmodesec", locale=user_lang))
-    #    except:
-    #        send_message(user_id, "Wait 30 seconds")
-    #    return False
+    elif interval < 30:
+        try:
+            send_message(user_id, i18n.t("bot.slowmodesec", locale=user_lang))
+        except:
+            send_message(user_id, "Wait 30 seconds")
+        return False
     elif (
         ".mobi" in file_url
         or ".cbr" in file_url
@@ -78,7 +74,7 @@ def check_interval(data, user_lang):
             return False
     return True
 
-def send_mail(data, subject, lang):
+def send_mail(data, subject, lang, file_name):
     #if not check_interval(data, lang):
     #    return 0
     msg_sent = send_message(
@@ -98,7 +94,7 @@ def send_mail(data, subject, lang):
         queue = 'Send2KindleBotFast'
     msg = (f'{{"from":"{data[2]}", "to":"{data[3]}", "subject":"{subject}", ' 
         f'"user_id":"{data[1]}", "file_url":"{data[7]}", "lang":"{lang}", '
-        f'"message_id":"{msg_sent.message_id}"}}')
+        f'"message_id":"{msg_sent.message_id}", "file_name":"{file_name}"}}')
     rabbit.basic_publish(
         exchange='',
         routing_key=queue,
@@ -121,68 +117,6 @@ def epubauthors(file_path):
     authors = epub_meta.get_epub_metadata(file_path).authors
     return authors
 
-def convert_format(file_name_original, chatid):
-    logger_info.info(
-        str(datetime.datetime.now())
-        + " CONVERT: "
-        + str(chatid)
-        + " "
-        + file_name_original
-    )
-    bot.send_chat_action(chatid, "upload_document")
-    file_name_converted = file_name_original.replace(
-        file_name_original.split(".")[-1], ".epub"
-    )
-
-    if ".cbr" in file_name_original or ".cbz" in file_name_original:
-        subprocess.Popen(
-            [
-                "ebook-convert",
-                file_name_original,
-                file_name_converted,
-                "--output-profile",
-                "tablet",
-            ]
-        ).wait()
-    else:
-        subprocess.Popen(
-            ["ebook-convert", file_name_original, file_name_converted]
-        ).wait()
-
-    os.remove(file_name_original)
-
-    return file_name_converted
-
-
-# Get file from URL
-def open_file(file_url, chatid):
-    if "api.telegram.org/file" not in file_url:
-        return file_url
-
-    try:
-        try:
-            r = redis.Redis(host='localhost', port=6379, db=0)
-            fname = r.get(chatid).decode('utf-8')
-            r.delete(chatid)
-            file_name, headers = urllib.request.urlretrieve(
-                file_url, fname
-            )
-        except:
-            file_name, headers = urllib.request.urlretrieve(
-                file_url, file_url.split("/")[-1]
-            )
-    except KeyError:
-        file_name, headers = urllib.request.urlretrieve(
-            file_url, file_url.split("/")[-1]
-        )
-
-    new_file_name = (
-        os.path.splitext(file_name)[0][:15] + "." + file_name.split(".")[-1]
-    )
-    os.rename(file_name, new_file_name)
-
-    return new_file_name
-
 # Add user to database
 def add_user(db, table, chatid):
     conn = sqlite3.connect(db)
@@ -202,7 +136,6 @@ def add_user(db, table, chatid):
     conn.commit()
     conn.close()
 
-
 # Update user last usage
 def upd_user_last(db, table, chatid):
     conn = sqlite3.connect(db)
@@ -215,7 +148,6 @@ def upd_user_last(db, table, chatid):
     conn.commit()
     conn.close()
 
-
 def upd_user_file(db, table, chatid, file_url):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
@@ -226,7 +158,6 @@ def upd_user_file(db, table, chatid, file_url):
     cursor.execute(aux)
     conn.commit()
     conn.close()
-
 
 # Update user e-mail
 def upd_user_email(db, table, chatid, email):
@@ -249,7 +180,6 @@ def upd_user_email(db, table, chatid, email):
     conn.commit()
     conn.close()
 
-
 # Select user on database
 def select_user(db, table, chatid, field):
     conn = sqlite3.connect(db)
@@ -267,7 +197,6 @@ def select_user(db, table, chatid, field):
         data = ""
     conn.close()
     return data
-
 
 def set_buttons(lang="en-us"):
     global button
@@ -288,7 +217,6 @@ def set_buttons(lang="en-us"):
         i18n.t("bot.btn4", locale=lang), callback_data="/converted"
     )
     button2.row(btn3, btn4)
-
 
 if __name__ == "__main__":
     cmds = ["/start", "/send", "/info", "/help", "/email"]
@@ -392,7 +320,6 @@ if __name__ == "__main__":
                 parse_mode="HTML",
             )
             bot.register_next_step_handler(msg, add_email)
-
             return 0
 
         try:
@@ -405,7 +332,6 @@ if __name__ == "__main__":
                 message.from_user.id, i18n.t("bot.askemail", locale=user_lang)
             )
             bot.register_next_step_handler(msg, add_email)
-
             return 0
         elif "/" not in message.text:
             if validate_email(message.text.lower()):
@@ -467,28 +393,7 @@ if __name__ == "__main__":
         user_lang = (message.from_user.language_code or "en-us").lower()
 
         if str(message.from_user.id) in BLOCKED:
-
-            try:
-                logger_info.info(
-                    str(datetime.datetime.now())
-                    + " BLOCKED: "
-                    + str(message.from_user.id)
-                    + " "
-                    + str(message.message_id)
-                    + " "
-                    + message.text
-                )
-            except:
-                logger_info.info(
-                    str(datetime.datetime.now())
-                    + " BLOCKED: "
-                    + str(message.from_user.id)
-                    + " "
-                    + str(message.message_id)
-                )
-
             bot.delete_message(message.from_user.id, message.message_id)
-
             return 0
 
         if message.content_type == "document":
@@ -496,9 +401,7 @@ if __name__ == "__main__":
             file_name = message.document.file_name.encode(
                 "ASCII", "ignore"
             ).decode("ASCII")
-            document = Document(file_name)
-            r = redis.Redis(host='localhost', port=6379, db=0)
-            r.set(message.chat.id, document.name)
+
             bot.send_chat_action(message.from_user.id, "upload_document")
 
             if file_size > 20000000:
@@ -564,6 +467,8 @@ if __name__ == "__main__":
         upd_user_file(db, table, message.from_user.id, file_url)
         set_buttons(user_lang)
         if ".pdf" in file_url.lower():
+            r = redis.Redis(host='localhost', port=6379, db=0)
+            r.set(message.chat.id, file_name)
             msg = send_message(
                 message.from_user.id,
                 i18n.t("bot.askconvert", locale=user_lang),
@@ -573,11 +478,14 @@ if __name__ == "__main__":
         else:
             data = select_user(db, table, message.from_user.id, "*")
             lang = (message.from_user.language_code or "en-us").lower()
-            send_mail(data, '', lang)
+            send_mail(data, '', lang, file_name)
 
     @bot.callback_query_handler(lambda q: q.data == "/converted")
     def ask_conv(call):
         user_lang = (call.from_user.language_code or "en-us").lower()
+
+        r = redis.Redis(host='localhost', port=6379, db=0)
+        file_name = r.get(call.from_user.id).decode('utf-8')
 
         try:
             bot.delete_message(call.from_user.id, call.message.id)
@@ -592,7 +500,7 @@ if __name__ == "__main__":
         data = select_user(db, table, call.from_user.id, "*")
 
         try:
-            send_mail(data, 'Convert', user_lang)
+            send_mail(data, 'Convert', user_lang, file_name)
         except IndexError:
             msg = send_message(
                 call.from_user.id,
@@ -613,6 +521,9 @@ if __name__ == "__main__":
     @bot.callback_query_handler(lambda q: q.data == "/as_is")
     def ask_not_conv(call):
         user_lang = (call.from_user.language_code or "en-us").lower()
+        
+        r = redis.Redis(host='localhost', port=6379, db=0)
+        file_name = r.get(call.from_user.id).decode('utf-8')
 
         try:
             bot.delete_message(call.from_user.id, call.message.id)
@@ -625,7 +536,7 @@ if __name__ == "__main__":
             pass
 
         data = select_user(db, table, call.from_user.id, "*")
-        send_mail(data, '', user_lang)
+        send_mail(data, '', user_lang, file_name)
 
 
     @bot.callback_query_handler(lambda q: q.data == "/email")

@@ -1,3 +1,4 @@
+import anuncieaqui
 import configparser
 import i18n
 import pika
@@ -17,6 +18,12 @@ from email.mime.text import MIMEText
 from email.utils import formatdate
 from telebot import types
 
+BOT_CONFIG_FILE = "kindle.conf"
+config = configparser.ConfigParser()
+config.sections()
+config.read(BOT_CONFIG_FILE)
+TOKEN = config["DEFAULT"]["TOKEN"]
+
 def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True, reply_markup=None):
     try:
         msg = bot.send_message(chatid, text, parse_mode=parse_mode,
@@ -25,37 +32,26 @@ def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True,
         )
     except:
         pass
-    return msg
 
-def open_file(file_url, user_id):
+def open_file(file_url, user_id, original_file_name):
     if "api.telegram.org/file" not in file_url:
         return file_url
-    try:
-        try:
-            r = redis.Redis(host='localhost', port=6379, db=0)
-            fname = r.get(user_id).decode('utf-8')
-            r.delete(user_id)
-            file_name, headers = urllib.request.urlretrieve(
-                file_url, fname
-            )
-        except:
-            file_name, headers = urllib.request.urlretrieve(
-                file_url, file_url.split("/")[-1]
-            )
-    except KeyError:
-        file_name, headers = urllib.request.urlretrieve(
-            file_url, file_url.split("/")[-1]
-        )
+    file_name, headers = urllib.request.urlretrieve(
+        file_url, file_url.split("/")[-1]
+    )
 
     new_file_name = (
-        os.path.splitext(file_name)[0] + "." + file_name.split(".")[-1]
+        os.path.splitext(original_file_name)[0] + "." + file_name.split(".")[-1]
     )
     os.rename(file_name, new_file_name)
 
     return new_file_name
 
 def convert_format(file_name_original, user_id):
-    bot.send_chat_action(user_id, "upload_document")
+    try:
+        bot.send_chat_action(user_id, "upload_document")
+    except:
+        pass
     file_name_converted = file_name_original.replace(
         file_name_original.split(".")[-1], ".epub"
     )
@@ -126,7 +122,10 @@ def set_buttons(lang="en-us"):
 
 def send_file(rbt, method, properties, data):
     data = json.loads(data)
-    bot.send_chat_action(data['user_id'], 'upload_document')
+    try:
+        bot.send_chat_action(data['user_id'], 'upload_document')
+    except:
+        pass
 
     msg = MIMEMultipart()
     msg["From"] = f"{data['from']}"
@@ -140,7 +139,7 @@ def send_file(rbt, method, properties, data):
     rbt.basic_ack(delivery_tag=method.delivery_tag)
 
     try:
-        files = open_file(data['file_url'], data['user_id'])
+        files = open_file(data['file_url'], data['user_id'], data['file_name'])
         files = process_file(files, data['user_id'])
     except:
         send_message(
@@ -188,22 +187,30 @@ def send_file(rbt, method, properties, data):
         icon_x=u"\U0001F4EE",
         msg_a=i18n.t("bot.filesent", locale=data['lang']),
     )
-    send_message(
-        data['user_id'],
-        msg,
-        parse_mode="HTML",
-        reply_markup=button,
-        disable_web_page_preview=True,
-    )
+    if 'pt-br' in data['lang']:
+        try:
+            anuncieaqui.send_message(TOKEN, data['user_id'], msg)
+            print('AD')
+        except:
+            send_message(
+                data['user_id'],
+                msg,
+                parse_mode="HTML",
+                reply_markup=button,
+                disable_web_page_preview=True,
+            )
+    else:
+        send_message(
+            data['user_id'],
+            msg,
+            parse_mode="HTML",
+            reply_markup=button,
+            disable_web_page_preview=True,
+        )
 
 if __name__ == "__main__":
     i18n.load_path.append("i18n")
     i18n.set("fallback", "en-us")
-    config = configparser.ConfigParser()
-    config.sections()
-    BOT_CONFIG_FILE = "kindle.conf"
-    config.read(BOT_CONFIG_FILE)
-    TOKEN = config["DEFAULT"]["TOKEN"]
     bot = telebot.TeleBot(TOKEN)
     rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     rabbit = rabbitmq_con.channel()
