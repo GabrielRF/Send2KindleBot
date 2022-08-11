@@ -67,16 +67,21 @@ def convert_format(file_name_original, user_id):
             ]
         ).wait()
         try:
-            outs, errs = proc.communicate(timeout=60)
+            outs, errs = proc.communicate(timeout=120)
         except TimeoutExpired:
             proc.kill()
             outs, errs = proc.communicate()
 
 
     else:
-        subprocess.Popen(
+        proc = subprocess.Popen(
             ["ebook-convert", file_name_original, file_name_converted]
         ).wait()
+        try:
+            outs, errs = proc.communicate(timeout=120)
+        except TimeoutExpired:
+            proc.kill()
+            outs, errs = proc.communicate()
 
     os.remove(file_name_original)
 
@@ -122,6 +127,7 @@ def set_buttons(lang="en-us"):
 
 def send_file(rbt, method, properties, data):
     data = json.loads(data)
+
     try:
         bot.send_chat_action(data['user_id'], 'upload_document')
     except:
@@ -190,7 +196,6 @@ def send_file(rbt, method, properties, data):
     if 'pt-br' in data['lang']:
         try:
             anuncieaqui.send_message(TOKEN, data['user_id'], msg)
-            print('AD')
         except:
             send_message(
                 data['user_id'],

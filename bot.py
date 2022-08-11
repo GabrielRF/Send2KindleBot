@@ -92,6 +92,7 @@ def send_mail(data, subject, lang, file_name):
         queue = 'Send2KindleBotSlow'
     else:
         queue = 'Send2KindleBotFast'
+    file_name = file_name.replace('\n', '')
     msg = (f'{{"from":"{data[2]}", "to":"{data[3]}", "subject":"{subject}", ' 
         f'"user_id":"{data[1]}", "file_url":"{data[7]}", "lang":"{lang}", '
         f'"message_id":"{msg_sent.message_id}", "file_name":"{file_name}"}}')
