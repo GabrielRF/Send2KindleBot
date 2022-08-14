@@ -39,44 +39,7 @@ rabbit = rabbitmq_con.channel()
 rabbit.queue_declare(queue='Send2KindleBotFast', durable=True)
 rabbit.queue_declare(queue='Send2KindleBotSlow', durable=True)
 
-def check_interval(data, user_lang):
-    user_id = data[1]
-    file_url = data[7]
-    last_usage = data[5]
-    try:
-        interval = (
-            datetime.datetime.now()
-            - datetime.datetime.strptime(last_usage, "%Y-%m-%d %H:%M:%S.%f")
-        ).total_seconds()
-    except ValueError:
-        interval = 901
-    if interval < 8:
-        return False
-    elif interval < 30:
-        try:
-            send_message(user_id, i18n.t("bot.slowmodesec", locale=user_lang))
-        except:
-            send_message(user_id, "Wait 30 seconds")
-        return False
-    elif (
-        ".mobi" in file_url
-        or ".cbr" in file_url
-        or ".cbz" in file_url
-        or ".azw3" in file_url
-    ):
-        if interval < 900:
-            try:
-                send_message(
-                    user_id, i18n.t("bot.slowmode", locale=user_lang)
-                )
-            except:
-                send_message(user_id, "Wait 15 minutes")
-            return False
-    return True
-
 def send_mail(data, subject, lang, file_name):
-    #if not check_interval(data, lang):
-    #    return 0
     msg_sent = send_message(
         data[1], str(u"\U0001F5DE") + i18n.t("bot.sendingfile",
         locale=lang), parse_mode="HTML",
@@ -199,7 +162,13 @@ def select_user(db, table, chatid, field):
     conn.close()
     return data
 
-def set_buttons(lang="en-us"):
+#def set_menus(lang='en-us'):
+#    bot.set_my_commands([
+
+#    ])
+
+
+def set_buttons(lang='en-us'):
     global button
     global button2
     button = types.InlineKeyboardMarkup()
@@ -443,7 +412,7 @@ if __name__ == "__main__":
 
             try:
                 pdf = weasyprint.HTML(file_url).write_pdf()
-                open(file_name, "wb").write(pdf)
+                open(file_name, 'wb').write(pdf)
             except AssertionError:
                 pdf = file_name
             file_url = file_name

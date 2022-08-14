@@ -126,6 +126,7 @@ def set_buttons(lang="en-us"):
     button2.row(btn3, btn4)
 
 def send_file(rbt, method, properties, data):
+    rbt.basic_ack(delivery_tag=method.delivery_tag)
     data = json.loads(data)
 
     try:
@@ -141,8 +142,6 @@ def send_file(rbt, method, properties, data):
     text = f"Send2KindleBot - Document sent from Telegram user {data['user_id']}"
 
     msg.attach(MIMEText(text.format(data['user_id'])))
-
-    rbt.basic_ack(delivery_tag=method.delivery_tag)
 
     try:
         files = open_file(data['file_url'], data['user_id'], data['file_name'])
