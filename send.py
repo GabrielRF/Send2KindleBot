@@ -140,6 +140,7 @@ def send_file(rbt, method, properties, data):
         send_message(
             data['user_id'],
             i18n.t("bot.filenotfound", locale=data['lang']),
+            exit()
         )
 
     part = MIMEBase("application", "octet-stream")
