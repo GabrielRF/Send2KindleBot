@@ -5,6 +5,7 @@ import pika
 import json
 import os
 import random
+import signal
 import smtplib
 import subprocess
 import sqlite3
@@ -35,13 +36,13 @@ def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True,
 
 def open_file(file_url, user_id, original_file_name):
     if "api.telegram.org/file" not in file_url:
-        return file_url
+        return f'files/{file_url}'
     file_name, headers = urllib.request.urlretrieve(
-        file_url, file_url.split("/")[-1]
+        file_url, f'files/{file_url.split("/")[-1]}'
     )
 
     new_file_name = (
-        os.path.splitext(original_file_name)[0] + "." + file_name.split(".")[-1]
+        f'files/{os.path.splitext(original_file_name)[0]}.{file_name.split(".")[-1]}'
     )
     os.rename(file_name, new_file_name)
 
@@ -53,11 +54,11 @@ def convert_format(file_name_original, user_id):
     except:
         pass
     file_name_converted = file_name_original.replace(
-        file_name_original.split(".")[-1], ".epub"
+        file_name_original.split(".")[-1], "epub"
     )
 
     if ".cbr" in file_name_original or ".cbz" in file_name_original:
-        proc = subprocess.Popen(
+        subprocess.Popen(
             [
                 "ebook-convert",
                 file_name_original,
@@ -66,22 +67,11 @@ def convert_format(file_name_original, user_id):
                 "tablet",
             ]
         ).wait()
-        try:
-            outs, errs = proc.communicate(timeout=120)
-        except TimeoutExpired:
-            proc.kill()
-            outs, errs = proc.communicate()
-
 
     else:
-        proc = subprocess.Popen(
+        subprocess.Popen(
             ["ebook-convert", file_name_original, file_name_converted]
         ).wait()
-        try:
-            outs, errs = proc.communicate(timeout=120)
-        except TimeoutExpired:
-            proc.kill()
-            outs, errs = proc.communicate()
 
     os.remove(file_name_original)
 
