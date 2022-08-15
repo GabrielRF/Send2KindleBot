@@ -1,6 +1,7 @@
 import anuncieaqui
 import configparser
 import datetime
+import dns.resolver
 import epub_meta
 import json
 import logging
@@ -69,6 +70,14 @@ def send_mail(data, subject, lang, file_name):
     )
     rabbitmq_con.close()
     upd_user_last(db, table, data[1])
+
+def check_domain(email):
+    domain = email.split('@')[-1]
+    try:
+        dns.resolver.resolve(domain, 'NS')
+    except:
+        return False
+    return True
 
 def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True, reply_markup=None):
     msg = bot.send_message(chatid, text, parse_mode=parse_mode,
@@ -304,7 +313,7 @@ if __name__ == "__main__":
             bot.register_next_step_handler(msg, add_email)
             return 0
         elif "/" not in message.text:
-            if validate_email(message.text.lower()):
+            if validate_email(message.text.lower()) and check_domain(message.text.lower()):
                 upd_user_email(
                     db,
                     table,

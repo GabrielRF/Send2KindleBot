@@ -1,5 +1,6 @@
 import anuncieaqui
 import configparser
+import dns.resolver
 import i18n
 import pika
 import json
@@ -115,6 +116,14 @@ def set_buttons(lang="en-us"):
     )
     button2.row(btn3, btn4)
 
+def check_domain(email):
+    domain = email.split('@')[-1]
+    try:
+        dns.resolver.resolve(domain, 'NS')
+    except:
+        return False
+    return True
+
 def send_file(rbt, method, properties, data):
     rbt.basic_ack(delivery_tag=method.delivery_tag)
     data = json.loads(data)
@@ -132,6 +141,13 @@ def send_file(rbt, method, properties, data):
     text = f"Send2KindleBot - Document sent from Telegram user {data['user_id']}"
 
     msg.attach(MIMEText(text.format(data['user_id'])))
+
+    if not check_domain(data['to']) or not check_domain(data['from']):
+        send_message(
+            data['user_id'],
+            i18n.t("bot.checkemail", locale=data['lang']),
+        )
+        return
 
     try:
         files = open_file(data['file_url'], data['user_id'], data['file_name'])
