@@ -79,7 +79,7 @@ def convert_format(file_name_original, user_id):
 
 
 def process_file(files, user_id):
-    if '.epub' in files:
+    if '.epub' in files[-5:]:
         try:
             doc = epub.read_epub(files)
             doc.set_identifier(user_id)
@@ -87,10 +87,10 @@ def process_file(files, user_id):
         except:
             pass
     elif (
-            ".mobi" in files
-            or ".cbr" in files
-            or ".cbz" in files
-            or ".azw3" in files
+            ".mobi" in files[-5:]
+            or ".cbr" in files[-5:]
+            or ".cbz" in files[-5:]
+            or ".azw3" in files[-5:]
         ):
         files = convert_format(files, user_id)
     return files
@@ -140,8 +140,8 @@ def send_file(rbt, method, properties, data):
         send_message(
             data['user_id'],
             i18n.t("bot.filenotfound", locale=data['lang']),
-            exit()
         )
+        return
 
     part = MIMEBase("application", "octet-stream")
     part.set_payload(open(files, "rb").read())
