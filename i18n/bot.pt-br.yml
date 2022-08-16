@@ -102,7 +102,7 @@ pt-br:
   tos: |
     Clique no link abaixo e leia os <b>Termos de Serviço</b>:
     https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
-  btn_start: Iniciar e Verificar emails
+  btn_start: Iniciar e Ver emails
   btn_send: Enviar arquivos
   btn_tos: Termos de Uso
   btn_help: Ajuda e FAQ
