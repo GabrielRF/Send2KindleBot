@@ -171,11 +171,16 @@ def select_user(db, table, chatid, field):
     conn.close()
     return data
 
-#def set_menus(lang='en-us'):
-#    bot.set_my_commands([
-
-#    ])
-
+def set_menus(user_id, lang='en-us'):
+    bot.delete_my_commands(scope=types.BotCommandScopeChat(user_id), language_code=None)
+    btn_start = i18n.t("bot.btn_start", locale=lang)
+    bot.set_my_commands([
+        telebot.types.BotCommand("/start", btn_start),
+        telebot.types.BotCommand("/send", i18n.t("bot.btn_send", locale=lang)),
+        telebot.types.BotCommand("/tos", i18n.t("bot.btn_tos", locale=lang)),
+        telebot.types.BotCommand("/help", i18n.t("bot.btn_help", locale=lang)),
+        telebot.types.BotCommand("/info", i18n.t("bot.btn_info", locale=lang)),
+    ], scope=types.BotCommandScopeChat(user_id))
 
 def set_buttons(lang='en-us'):
     global button
@@ -245,6 +250,7 @@ if __name__ == "__main__":
     def start(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
         set_buttons(user_lang)
+        set_menus(message.from_user.id, user_lang)
         data = select_user(db, table, message.from_user.id, "*")
 
         logger_info.info(
@@ -291,6 +297,7 @@ if __name__ == "__main__":
     def add_email(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
         set_buttons(user_lang)
+        set_menus(message.from_user.id, user_lang)
 
         if message.content_type != "text":
             msg = send_message(
@@ -445,6 +452,7 @@ if __name__ == "__main__":
 
         upd_user_file(db, table, message.from_user.id, file_url)
         set_buttons(user_lang)
+        set_menus(message.from_user.id, user_lang)
         if ".pdf" in file_url.lower():
             r = redis.Redis(host='localhost', port=6379, db=0)
             r.set(message.chat.id, file_name)

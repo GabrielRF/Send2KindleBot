@@ -98,3 +98,8 @@ sv-se:
   tos: | 
     Klicka på länken nedan för att läsa <b>användarvillkoren</b>:
     https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+  btn_start: Start, Restart or Check Emails
+  btn_send: Send a book to your Kindle
+  btn_tos: Terms of Service
+  btn_help: Help and FAQ
+  btn_info: More info

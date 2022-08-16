@@ -115,3 +115,8 @@ ur-en:
   tos: |
     Click on the link below to read the <b>Terms of Service</b>:
     https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+  btn_start: Start, Restart or Check Emails
+  btn_send: Send a book to your Kindle
+  btn_tos: Terms of Service
+  btn_help: Help and FAQ
+  btn_info: More info

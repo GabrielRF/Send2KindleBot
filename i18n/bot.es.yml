@@ -98,3 +98,8 @@ es:
   tos: |
     Click on the link below to read the <b>Terms of Service</b>:
     https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+  btn_start: Inicia, reinicia o comprueba tus direcciones
+  btn_send: Envía un libro a tu kindle
+  btn_tos: Términos de servicio
+  btn_help: Ayuda y Faq
+  btn_info: Más información

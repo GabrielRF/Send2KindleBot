@@ -84,3 +84,8 @@ pl-PL:
 
     Wspomóż projekt:
     http://patreon.com/gabrielrf
+  btn_start: Start, Restart or Check Emails
+  btn_send: Send a book to your Kindle
+  btn_tos: Terms of Service
+  btn_help: Help and FAQ
+  btn_info: More info
