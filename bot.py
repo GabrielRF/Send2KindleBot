@@ -425,6 +425,7 @@ if __name__ == "__main__":
                     file_name = message.text.split("/")[-1] + ".pdf"
             except:
                 file_name = message.text
+            file_name = f'files/{file_name}'
 
             try:
                 pdf = weasyprint.HTML(file_url).write_pdf()
