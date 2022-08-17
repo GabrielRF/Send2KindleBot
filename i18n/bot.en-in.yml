@@ -38,11 +38,10 @@ hi:
   rate: |
     <b>बॉट रेट करें:</b>
     https://telegram.me/storebot?start=Send2Kindlebot
+  donate_image: AgACAgEAAxkBAAGb359i_Vf1pqPmjPwMj8mtM9VapsQ53wACs6wxG0ZH8UeIwdIvT8q2FQEAAwIAA20AAykE
   donate: |
     <b>दान करना!</b>
-    https://grf.xyz/donate
-
-    <b>एक नया आदेश भेजें</b>.
+    https://www.paypal.com/donate/?hosted_button_id=GFPPS8QRW3QE2
   btn1: फाइल भेज
   btn2: ई-मेल सेट करें
   btn3: जैसा है
@@ -102,3 +101,4 @@ hi:
   btn_tos: Terms of Service
   btn_help: Help and FAQ
   btn_info: More info
+  btn_donate: Donate

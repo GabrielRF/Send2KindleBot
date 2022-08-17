@@ -36,9 +36,10 @@ zh-hant-tw:
   rate: |
     <b>為機器人評分:</b>
     https://telegram.me/storebot?start=Send2Kindlebot
+  donate_image: AgACAgEAAxkBAAGb359i_Vf1pqPmjPwMj8mtM9VapsQ53wACs6wxG0ZH8UeIwdIvT8q2FQEAAwIAA20AAykE
   donate: |
     <b>贊助!</b>
-    https://grf.xyz/donate\n\n<b>發送新指令</b>。
+    https://www.paypal.com/donate/?hosted_button_id=GFPPS8QRW3QE2
   btn1: 傳送檔案
   btn2: 設定電子郵件
   btn3: 保持原樣
@@ -85,3 +86,4 @@ zh-hant-tw:
   btn_tos: Terms of Service
   btn_help: Help and FAQ
   btn_info: More info
+  btn_donate: Donate

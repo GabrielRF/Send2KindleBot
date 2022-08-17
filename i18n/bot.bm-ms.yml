@@ -38,11 +38,10 @@ bm-ms:
   rate: |
     <b>Rate bot:</b>
     https://telegram.me/storebot?start=Send2Kindlebot
+  donate_image: AgACAgEAAxkBAAGb359i_Vf1pqPmjPwMj8mtM9VapsQ53wACs6wxG0ZH8UeIwdIvT8q2FQEAAwIAA20AAykE
   donate: |
     <b>Derma!</b>
-    https://grf.xyz/donate
-    
-    <b>Hantar arahan baru</b>.
+    https://www.paypal.com/donate/?hosted_button_id=GFPPS8QRW3QE2
   btn1: Hantar fail
   btn2: Tukar e-mel
   btn3: Seperti Itu
@@ -95,3 +94,4 @@ bm-ms:
   btn_tos: Terms of Service
   btn_help: Help and FAQ
   btn_info: More info
+  btn_donate: Donate

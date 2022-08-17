@@ -50,11 +50,10 @@ ur-en:
   rate: |
     <b>باٹ کو ریٹ دیں</b>
     https://telegram.me/storebot?start=Send2Kindlebot
+  donate_image: AgACAgEAAxkBAAGb359i_Vf1pqPmjPwMj8mtM9VapsQ53wACs6wxG0ZH8UeIwdIvT8q2FQEAAwIAA20AAykE
   donate: |
     <b>عطیہ دیں</b>
-    https://grf.xyz/donate
-
-    <b>نیا کمانڈ بھیجیں</b>.
+    https://www.paypal.com/donate/?hosted_button_id=GFPPS8QRW3QE2
   btn1: فائل بھیجیے
   btn2: سیٹ ایمیل
   btn3: جیسے ہے
@@ -120,3 +119,4 @@ ur-en:
   btn_tos: Terms of Service
   btn_help: Help and FAQ
   btn_info: More info
+  btn_donate: Donate

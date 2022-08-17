@@ -38,11 +38,10 @@
   rate: |
     <b>Оцініть бота:</b>
     https://telegram.me/storebot?start=Send2Kindlebot
+  donate_image: AgACAgEAAxkBAAGb359i_Vf1pqPmjPwMj8mtM9VapsQ53wACs6wxG0ZH8UeIwdIvT8q2FQEAAwIAA20AAykE
   donate: |
     <b>Зробити благодійний внесок</b>
-    https://grf.xyz/donate
-
-    <b>Відправити нову команду</b>.
+    https://www.paypal.com/donate/?hosted_button_id=GFPPS8QRW3QE2
   btn1: Відправити файл
   btn2: Налаштувати е-мейл
   btn3: Без змін
@@ -103,3 +102,4 @@
   btn_tos: Terms of Service
   btn_help: Help and FAQ
   btn_info: More info
+  btn_donate: Donate

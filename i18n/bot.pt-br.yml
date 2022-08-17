@@ -43,9 +43,10 @@ pt-br:
   rate: |
     <b>Avalie o bot:</b>
     https://telegram.me/storebot?start=Send2Kindlebot
+  donate_image: AgACAgEAAxkBAAGb38Ji_Vh1CTxGJ3tsX7uzgrvItPTd4gACtKwxG0ZH8UcoBEuZjBZYHQEAAwIAA20AAykE
   donate: |
     <b>Me ajude a manter o projeto vivo!</b>
-    Chave PIX send2kindlebot@gabrf.com
+    Chave PIX <code>send2kindlebot@gabrf.com</code>
   btn1: Enviar arquivo
   btn2: Ajustar e-mail
   btn3: Sem conversão
@@ -107,3 +108,4 @@ pt-br:
   btn_tos: Termos de Uso
   btn_help: Ajuda e FAQ
   btn_info: Informações
+  btn_donate: Envie um PIX

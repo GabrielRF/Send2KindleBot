@@ -172,12 +172,11 @@ def select_user(db, table, chatid, field):
     return data
 
 def set_menus(user_id, lang='en-us'):
-    bot.delete_my_commands(scope=types.BotCommandScopeChat(user_id), language_code=None)
-    btn_start = i18n.t("bot.btn_start", locale=lang)
     bot.set_my_commands([
-        telebot.types.BotCommand("/start", btn_start),
+        telebot.types.BotCommand("/start", i18n.t("bot.btn_start", locale=lang)),
         telebot.types.BotCommand("/send", i18n.t("bot.btn_send", locale=lang)),
         telebot.types.BotCommand("/tos", i18n.t("bot.btn_tos", locale=lang)),
+        telebot.types.BotCommand("/donate", i18n.t("bot.btn_donate", locale=lang)),
         telebot.types.BotCommand("/help", i18n.t("bot.btn_help", locale=lang)),
         telebot.types.BotCommand("/info", i18n.t("bot.btn_info", locale=lang)),
     ], scope=types.BotCommandScopeChat(user_id))
@@ -234,6 +233,16 @@ if __name__ == "__main__":
             i18n.t("bot.tos", locale=user_lang),
             parse_mode="HTML",
             disable_web_page_preview=True,
+        )
+
+    @bot.message_handler(commands=["donate"])
+    def tos(message):
+        user_lang = (message.from_user.language_code or "en-us").lower()
+        bot.send_photo(
+            message.from_user.id,
+            i18n.t("bot.donate_image", locale=user_lang),
+            caption=i18n.t("bot.donate", locale=user_lang),
+            parse_mode="HTML",
         )
 
     @bot.message_handler(commands=["info"])

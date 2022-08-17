@@ -36,9 +36,10 @@ pl-PL:
   rate: |
     <b>Oceń bota:</b>
     https://telegram.me/storebot?start=Send2Kindlebot
+  donate_image: AgACAgEAAxkBAAGb359i_Vf1pqPmjPwMj8mtM9VapsQ53wACs6wxG0ZH8UeIwdIvT8q2FQEAAwIAA20AAykE
   donate: |
     <b>Wspomóż mnie finansowo!</b>
-    http://grf.xyz/paypal\n\n<b>Wyślij nowe polecenie</b>.
+    https://www.paypal.com/donate/?hosted_button_id=GFPPS8QRW3QE2
   btn1: Wyślij plik
   btn2: Ustaw e-mail
   btn3: Oryginalny format
@@ -89,3 +90,4 @@ pl-PL:
   btn_tos: Terms of Service
   btn_help: Help and FAQ
   btn_info: More info
+  btn_donate: Donate
