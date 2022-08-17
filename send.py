@@ -1,6 +1,7 @@
 import anuncieaqui
 import configparser
 import dns.resolver
+import ebooklib
 import i18n
 import pika
 import json
@@ -13,6 +14,7 @@ import sqlite3
 import sys
 import telebot
 import urllib.request
+from ebooklib import epub
 from email import encoders
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
