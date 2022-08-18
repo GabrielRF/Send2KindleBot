@@ -202,7 +202,7 @@ def set_buttons(lang='en-us'):
     button2.row(btn3, btn4)
 
 if __name__ == "__main__":
-    cmds = ["/start", "/send", "/info", "/help", "/email"]
+    cmds = ["/start", "/send", "/info", "/help", "/email", "/donate"]
     LOG_INFO_FILE = log_file
     logger_info = logging.getLogger("InfoLogger")
     logger_info.setLevel(logging.INFO)
@@ -585,6 +585,7 @@ if __name__ == "__main__":
     def generic_file(message):
         user_lang = (message.from_user.language_code or "en-us").lower()
         bot.send_chat_action(message.chat.id, "typing")
+        set_menus(message.from_user.id, user_lang)
 
         try:
             get_file(message)
