@@ -39,7 +39,7 @@ def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True,
 
 def open_file(file_url, user_id, original_file_name):
     if "api.telegram.org/file" not in file_url:
-        return f'files/{file_url}'
+        return f'{file_url}'
     file_name, headers = urllib.request.urlretrieve(
         file_url, f'files/{file_url.split("/")[-1]}'
     )

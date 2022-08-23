@@ -17,6 +17,7 @@ import urllib.request
 import i18n
 import telebot
 import weasyprint
+from weasyprint import CSS
 from telebot import types
 from validate_email import validate_email
 
@@ -434,13 +435,23 @@ if __name__ == "__main__":
                     file_name = message.text.split("/")[-1] + ".pdf"
             except:
                 file_name = message.text
-            file_name = f'files/{file_name}'
+            file_name = f'files/{message.from_user.id} {file_name}'
 
+            pid = subprocess.Popen([
+                'python3', 'loop_upload_action.py', str(message.from_user.id)
+            ])
             try:
                 pdf = weasyprint.HTML(file_url).write_pdf()
                 open(file_name, 'wb').write(pdf)
+            except AttributeError:
+                css = CSS(string='@page { size: A5; margin: 1cm }')
+                pdf = weasyprint.HTML(file_url).write_pdf(stylesheets=[css])
+                open(file_name, 'wb').write(pdf)
             except AssertionError:
                 pdf = file_name
+            subprocess.Popen([
+                'kill', str(pid.pid)
+            ])
             file_url = file_name
         else:
             msg = send_message(
@@ -463,7 +474,12 @@ if __name__ == "__main__":
         upd_user_file(db, table, message.from_user.id, file_url)
         set_buttons(user_lang)
         set_menus(message.from_user.id, user_lang)
-        if ".pdf" in file_url.lower():
+        if '.' not in file_name:
+            send_message(
+                message.chat.id,
+                i18n.t("bot.filenotfound", locale=user_lang),
+            )
+        elif ".pdf" in file_url.lower():
             r = redis.Redis(host='localhost', port=6379, db=0)
             r.set(message.chat.id, file_name)
             msg = send_message(
