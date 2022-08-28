@@ -9,6 +9,7 @@ import logging.handlers
 import os
 import pika
 import redis
+import requests
 import sqlite3
 import subprocess
 import time
@@ -17,7 +18,9 @@ import urllib.request
 import i18n
 import telebot
 import weasyprint
+from bs4 import BeautifulSoup
 from weasyprint import CSS
+from weasyprint import HTML
 from telebot import types
 from validate_email import validate_email
 
@@ -428,24 +431,25 @@ if __name__ == "__main__":
 
             file_url = message.text
 
+            response = requests.get(file_url, headers = {'User-agent': 'Mozilla/5.1'})
+            file_html = BeautifulSoup(response.content, 'html.parser')
             try:
-                if message.text[-1] == "/":
-                    file_name = message.text.split("/")[-2] + ".pdf"
-                else:
-                    file_name = message.text.split("/")[-1] + ".pdf"
+                title = file_html.find('meta', {'property': 'og:title'})
             except:
-                file_name = message.text
-            file_name = f'files/{message.from_user.id} {file_name}'
-
+                title = file_html.find('title')
+            try:
+                file_name = f'files/{title["content"]} {message.from_user.id}.pdf'
+            except:
+                file_name = f'files/{message.from_user.id}.pdf'
             pid = subprocess.Popen([
                 'python3', 'loop_upload_action.py', str(message.from_user.id)
             ])
             try:
-                pdf = weasyprint.HTML(file_url).write_pdf()
+                pdf = HTML(string=str(file_html)).write_pdf()
                 open(file_name, 'wb').write(pdf)
             except AttributeError:
                 css = CSS(string='@page { size: A5; margin: 1cm }')
-                pdf = weasyprint.HTML(file_url).write_pdf(stylesheets=[css])
+                pdf = HTML(string=str(file_html)).write_pdf(stylesheets=[css])
                 open(file_name, 'wb').write(pdf)
             except AssertionError:
                 pdf = file_name
