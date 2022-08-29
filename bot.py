@@ -441,6 +441,7 @@ if __name__ == "__main__":
                 file_name = f'files/{title["content"]} {message.from_user.id}.pdf'
             except:
                 file_name = f'files/{message.from_user.id}.pdf'
+            file_name = file_name.encode("ASCII", "ignore").decode("ASCII")
             pid = subprocess.Popen([
                 'python3', 'loop_upload_action.py', str(message.from_user.id)
             ])
