@@ -431,7 +431,13 @@ if __name__ == "__main__":
 
             file_url = message.text
 
-            response = requests.get(file_url, headers = {'User-agent': 'Mozilla/5.1'})
+            try:
+                response = requests.get(file_url, headers = {'User-agent': 'Mozilla/5.1'}, timeout=300)
+            except:
+                send_message(
+                    message.chat.id,
+                    i18n.t("bot.filenotfound", locale=user_lang),
+                )
             file_html = BeautifulSoup(response.content, 'html.parser')
             try:
                 title = file_html.find('meta', {'property': 'og:title'})
