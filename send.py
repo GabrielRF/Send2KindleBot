@@ -213,6 +213,8 @@ def send_file(rbt, method, properties, data):
                 disable_web_page_preview=True,
             )
     else:
+        if not random.randint(0,7):
+            msg = f'{msg}\n\n/donate'
         send_message(
             data['user_id'],
             msg,
