@@ -397,9 +397,12 @@ if __name__ == "__main__":
 
         if message.content_type == "document":
             file_size = message.document.file_size
-            file_name = message.document.file_name.encode(
-                "ASCII", "ignore"
-            ).decode("ASCII")
+            try:
+                file_name = message.document.file_name.encode(
+                    "ASCII", "ignore"
+                ).decode("ASCII")
+            except Exception as e:
+                raise(e)
 
             bot.send_chat_action(message.from_user.id, "upload_document")
 
@@ -433,11 +436,8 @@ if __name__ == "__main__":
 
             try:
                 response = requests.get(file_url, headers = {'User-agent': 'Mozilla/5.1'}, timeout=300)
-            except:
-                send_message(
-                    message.chat.id,
-                    i18n.t("bot.filenotfound", locale=user_lang),
-                )
+            except Exception as e:
+                raise(e)
             file_html = BeautifulSoup(response.content, 'html.parser')
             try:
                 title = file_html.find('meta', {'property': 'og:title'})
@@ -447,7 +447,10 @@ if __name__ == "__main__":
                 file_name = f'files/{title["content"]} {message.from_user.id}.pdf'
             except:
                 file_name = f'files/{message.from_user.id}.pdf'
-            file_name = file_name.encode("ASCII", "ignore").decode("ASCII")
+            try:
+                file_name = file_name.encode("ASCII", "ignore").decode("ASCII")
+            except Exception as e:
+                raise(e)
             pid = subprocess.Popen([
                 'python3', 'loop_upload_action.py', str(message.from_user.id)
             ])
@@ -502,7 +505,15 @@ if __name__ == "__main__":
         else:
             data = select_user(db, table, message.from_user.id, "*")
             lang = (message.from_user.language_code or "en-us").lower()
-            send_mail(data, '', lang, file_name)
+            interval = (
+                datetime.datetime.now()
+                - datetime.datetime.strptime(
+                    data[5], "%Y-%m-%d %H:%M:%S.%f"
+                )
+            ).total_seconds()
+            print(interval)
+            if interval > 5:
+                send_mail(data, '', lang, file_name)
 
     @bot.callback_query_handler(lambda q: q.data == "/converted")
     def ask_conv(call):
