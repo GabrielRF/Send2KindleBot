@@ -511,7 +511,6 @@ if __name__ == "__main__":
                     data[5], "%Y-%m-%d %H:%M:%S.%f"
                 )
             ).total_seconds()
-            print(interval)
             if interval > 5:
                 send_mail(data, '', lang, file_name)
 

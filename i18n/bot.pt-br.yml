@@ -3,7 +3,7 @@ pt-br:
   askemail: Digite o e-mail do seu Kindle.
   askemail2: Digite o e-mail usado em sua conta da Amazon (geralmente @gmail ou @hotmail).
   askemail3: Digite o e-mail que deseja adicionar ou atualizar no bot.
-  askconvert: Enviar o arquivo <b>sem conversão</b> ou <b>convertido</b> para o formato do Kindle (.mobi)?
+  askconvert: Enviar o arquivo <b>sem conversão</b> ou <b>convertido</b> para o formato do Kindle (.epub)?
   slowmode: Aguarde 15 minutos para enviar outro mobi.
   slowmodesec: Aguarde 30 segundos entre envios.
   success: |
