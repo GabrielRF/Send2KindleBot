@@ -10,13 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Deploy using ssh
-      uses: appleboy/ssh-action@master
+      uses: garygrossgarten/github-action-ssh@release
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: 22
-        script: |
+        privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+        command: |
           cd /usr/local/bin/Send2KindleBot/
           git pull origin master
           docker-compose up -d
