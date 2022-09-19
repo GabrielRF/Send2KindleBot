@@ -437,7 +437,7 @@ def get_file(message):
             response = requests.get(file_url, headers = {'User-agent': 'Mozilla/5.1'}, timeout=300)
         except Exception as e:
             raise(e)
-        file_html = BeautifulSoup(response.content, 'html.parser')
+        file_html = BeautifulSoup(response.content, 'html.parser', from_encoding="iso-8859-1")
         try:
             title = file_html.find('meta', {'property': 'og:title'})
         except:
@@ -606,7 +606,6 @@ def generic_msg(message):
     if (
         "@" not in message.text or "/" in message.text
     ) and message.text not in cmds:
-        bot.send_chat_action(message.chat.id, "typing")
 
         try:
             get_file(message)
@@ -619,7 +618,6 @@ def generic_msg(message):
 @bot.message_handler(content_types=["document"])
 def generic_file(message):
     user_lang = (message.from_user.language_code or "en-us").lower()
-    bot.send_chat_action(message.chat.id, "typing")
     set_menus(message.from_user.id, user_lang)
 
     try:
@@ -630,4 +628,5 @@ def generic_file(message):
         )
 
 if __name__ == "__main__":
-    bot.polling()
+    #bot.polling()
+    bot.infinity_polling()
