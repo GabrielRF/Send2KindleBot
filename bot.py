@@ -309,7 +309,6 @@ def ask_email(message):
 def add_email(message):
     user_lang = (message.from_user.language_code or "en-us").lower()
     set_buttons(user_lang)
-    set_menus(message.from_user.id, user_lang)
 
     if message.content_type != "text":
         msg = send_message(
@@ -403,8 +402,6 @@ def get_file(message):
         except Exception as e:
             raise(e)
 
-        bot.send_chat_action(message.from_user.id, "upload_document")
-
         if file_size > 20000000:
             send_message(
                 message.from_user.id,
@@ -486,7 +483,6 @@ def get_file(message):
 
     upd_user_file(db, table, message.from_user.id, file_url)
     set_buttons(user_lang)
-    set_menus(message.from_user.id, user_lang)
     if '.' not in file_name:
         send_message(
             message.chat.id,
@@ -628,5 +624,4 @@ def generic_file(message):
         )
 
 if __name__ == "__main__":
-    #bot.polling()
     bot.infinity_polling()
