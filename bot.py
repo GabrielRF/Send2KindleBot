@@ -507,7 +507,7 @@ def get_file(message):
             )
         ).total_seconds()
         #if interval > 5:
-        #    send_mail(data, '', lang, file_name)
+        send_mail(data, '', lang, file_name)
 
 @bot.callback_query_handler(lambda q: q.data == "/converted")
 def ask_conv(call):
