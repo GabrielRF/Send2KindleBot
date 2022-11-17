@@ -189,14 +189,17 @@ def select_user(db, table, chatid, field):
     return data
 
 def set_menus(user_id, lang='en-us'):
-    bot.set_my_commands([
-        telebot.types.BotCommand("/start", i18n.t("bot.btn_start", locale=lang)),
-        telebot.types.BotCommand("/send", i18n.t("bot.btn_send", locale=lang)),
-        telebot.types.BotCommand("/tos", i18n.t("bot.btn_tos", locale=lang)),
-        telebot.types.BotCommand("/donate", i18n.t("bot.btn_donate", locale=lang)),
-        telebot.types.BotCommand("/help", i18n.t("bot.btn_help", locale=lang)),
-        telebot.types.BotCommand("/info", i18n.t("bot.btn_info", locale=lang)),
-    ], scope=types.BotCommandScopeChat(user_id))
+    try:
+        bot.set_my_commands([
+            telebot.types.BotCommand("/start", i18n.t("bot.btn_start", locale=lang)),
+            telebot.types.BotCommand("/send", i18n.t("bot.btn_send", locale=lang)),
+            telebot.types.BotCommand("/tos", i18n.t("bot.btn_tos", locale=lang)),
+            telebot.types.BotCommand("/donate", i18n.t("bot.btn_donate", locale=lang)),
+            telebot.types.BotCommand("/help", i18n.t("bot.btn_help", locale=lang)),
+            telebot.types.BotCommand("/info", i18n.t("bot.btn_info", locale=lang)),
+        ], scope=types.BotCommandScopeChat(user_id))
+    except:
+        pass
 
 def set_buttons(lang='en-us'):
     global button

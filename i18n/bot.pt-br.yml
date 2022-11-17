@@ -39,6 +39,7 @@ pt-br:
   filesent: |
     <b>Arquivo enviado</b>.
     Aguarde alguns minutos e verifique em seu dispositivo.
+    Se o arquivo não foi entregue, verifique seu e-mail.
     Caso tenha dúvidas, <a href="https://blog.gabrf.com/posts/Send2KindleBot/?utm_source=telegram&utm_medium=telegrammessage&utm_campaign=send2kindlebot">clique aqui</a>.
   rate: |
     <b>Avalie o bot:</b>

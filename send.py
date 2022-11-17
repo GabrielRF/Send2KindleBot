@@ -82,14 +82,7 @@ def convert_format(file_name_original, user_id):
 
 
 def process_file(files, user_id):
-    if '.epub' in files[-5:]:
-        try:
-            doc = epub.read_epub(files)
-            doc.set_identifier(user_id)
-            epub.write_epub(files, doc)
-        except:
-            pass
-    elif (
+    if (
             ".mobi" in files[-5:]
             or ".cbr" in files[-5:]
             or ".cbz" in files[-5:]
