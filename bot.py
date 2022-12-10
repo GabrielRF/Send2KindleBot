@@ -36,10 +36,11 @@ TOKEN = config["DEFAULT"]["TOKEN"]
 BLOCKED = config["DEFAULT"]["BLOCKED"]
 db = config["SQLITE3"]["data_base"]
 table = config["SQLITE3"]["table"]
+rabbitmqcon = config["RABBITMQ"]["CONNECTION_STRING"]
 
 bot = telebot.TeleBot(TOKEN)
 
-rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+rabbitmq_con = pika.BlockingConnection(pika.URLParameters(rabbitmqcon))
 rabbit = rabbitmq_con.channel()
 rabbit.queue_declare(queue='Send2KindleBotFast', durable=True)
 rabbit.queue_declare(queue='Send2KindleBotSlow', durable=True)
@@ -62,7 +63,7 @@ def send_mail(data, subject, lang, file_name):
         data[1], str(u"\U0001F5DE") + i18n.t("bot.sendingfile",
         locale=lang), parse_mode="HTML",
     )
-    rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+    rabbitmq_con = pika.BlockingConnection(pika.URLParameters(rabbitmqcon))
     rabbit = rabbitmq_con.channel()
     if (
         ".mobi" in data[7]
@@ -97,11 +98,14 @@ def check_domain(email):
     return True
 
 def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True, reply_markup=None):
-    msg = bot.send_message(chatid, text, parse_mode=parse_mode,
-        disable_web_page_preview=disable_web_page_preview,
-        reply_markup=reply_markup
-    )
-    return msg
+    try:
+        msg = bot.send_message(chatid, text, parse_mode=parse_mode,
+            disable_web_page_preview=disable_web_page_preview,
+            reply_markup=reply_markup
+        )
+        return msg
+    except Exception as e:
+        raise(e)
 
 def epubauthors(file_path):
     authors = epub_meta.get_epub_metadata(file_path).authors
@@ -437,7 +441,7 @@ def get_file(message):
             response = requests.get(file_url, headers = {'User-agent': 'Mozilla/5.1'}, timeout=300)
         except Exception as e:
             raise(e)
-        file_html = BeautifulSoup(response.content, 'html.parser', from_encoding="iso-8859-1")
+        file_html = BeautifulSoup(response.content, 'html.parser', from_encoding="utf-8")
         try:
             title = file_html.find('meta', {'property': 'og:title'})
         except:

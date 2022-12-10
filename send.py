@@ -27,6 +27,7 @@ config = configparser.ConfigParser()
 config.sections()
 config.read(BOT_CONFIG_FILE)
 TOKEN = config["DEFAULT"]["TOKEN"]
+rabbitmqcon = config["RABBITMQ"]["CONNECTION_STRING"]
 
 def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True, reply_markup=None):
     try:
@@ -220,7 +221,7 @@ if __name__ == "__main__":
     i18n.load_path.append("i18n")
     i18n.set("fallback", "en-us")
     bot = telebot.TeleBot(TOKEN)
-    rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+    rabbitmq_con = pika.BlockingConnection(pika.URLParameters(rabbitmqcon))
     rabbit = rabbitmq_con.channel()
     rabbit.basic_qos(prefetch_count=1)
     rabbit.basic_consume(queue=sys.argv[1], on_message_callback=send_file)
