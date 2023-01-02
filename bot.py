@@ -19,6 +19,7 @@ import i18n
 import telebot
 import weasyprint
 from bs4 import BeautifulSoup
+from flask import Flask, request
 from weasyprint import CSS
 from weasyprint import HTML
 from telebot import types
@@ -33,12 +34,16 @@ BOT_CONFIG_FILE = "kindle.conf"
 config.read(BOT_CONFIG_FILE)
 log_file = config["DEFAULT"]["logfile"]
 TOKEN = config["DEFAULT"]["TOKEN"]
+WEBHOOK_URL = config["DEFAULT"]["WEBHOOK_URL"]
+CERT = config["DEFAULT"]["CERT"]
+PRIVKEY = config["DEFAULT"]["PRIVKEY"]
 BLOCKED = config["DEFAULT"]["BLOCKED"]
 db = config["SQLITE3"]["data_base"]
 table = config["SQLITE3"]["table"]
 rabbitmqcon = config["RABBITMQ"]["CONNECTION_STRING"]
 
 bot = telebot.TeleBot(TOKEN)
+server = Flask(__name__)
 
 rabbitmq_con = pika.BlockingConnection(pika.URLParameters(rabbitmqcon))
 rabbit = rabbitmq_con.channel()
@@ -630,5 +635,12 @@ def generic_file(message):
             message.chat.id, i18n.t("bot.filenotfound", locale=user_lang)
         )
 
+@server.route(f'/{TOKEN}', methods=['POST'])
+def getMessage():
+    json_string = request.get_data().decode('utf-8')
+    update = telebot.types.Update.de_json(json_string)
+    bot.process_new_updates([update])
+    return "!", 200
+
 if __name__ == "__main__":
-    bot.infinity_polling()
+    server.run(host="0.0.0.0", port=443, ssl_context=(f'{CERT}', f'{PRIVKEY}'))
