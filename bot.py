@@ -46,6 +46,7 @@ bot = telebot.TeleBot(TOKEN)
 server = Flask(__name__)
 
 rabbitmq_con = pika.BlockingConnection(pika.URLParameters(rabbitmqcon))
+#rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 rabbit = rabbitmq_con.channel()
 rabbit.queue_declare(queue='Send2KindleBotFast', durable=True)
 rabbit.queue_declare(queue='Send2KindleBotSlow', durable=True)
@@ -69,6 +70,7 @@ def send_mail(data, subject, lang, file_name):
         locale=lang), parse_mode="HTML",
     )
     rabbitmq_con = pika.BlockingConnection(pika.URLParameters(rabbitmqcon))
+    #rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     rabbit = rabbitmq_con.channel()
     if (
         ".mobi" in data[7]
@@ -437,7 +439,9 @@ def get_file(message):
                 message.from_user.id,
                 i18n.t("bot.askfile", locale=user_lang),
             )
-
+            return 0
+        elif '.onion' in message.text.lower():
+            bot.delete_message(message.from_user.id, message.message_id)
             return 0
 
         file_url = message.text
@@ -622,6 +626,8 @@ def generic_msg(message):
                 message.chat.id,
                 i18n.t("bot.filenotfound", locale=user_lang),
             )
+    elif '@' in message.text:
+        add_email(message)
 
 @bot.message_handler(content_types=["document"])
 def generic_file(message):

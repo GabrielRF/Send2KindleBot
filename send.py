@@ -87,6 +87,8 @@ def process_file(files, user_id):
             ".mobi" in files[-5:]
             or ".cbr" in files[-5:]
             or ".cbz" in files[-5:]
+            or ".azw" in files[-5:]
+            or ".prc" in files[-5:]
             or ".azw3" in files[-5:]
         ):
         files = convert_format(files, user_id)
@@ -222,6 +224,7 @@ if __name__ == "__main__":
     i18n.set("fallback", "en-us")
     bot = telebot.TeleBot(TOKEN)
     rabbitmq_con = pika.BlockingConnection(pika.URLParameters(rabbitmqcon))
+    #rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     rabbit = rabbitmq_con.channel()
     rabbit.basic_qos(prefetch_count=1)
     rabbit.basic_consume(queue=sys.argv[1], on_message_callback=send_file)
