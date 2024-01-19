@@ -1,0 +1,102 @@
+en-us:
+  askfile: ファイル（最大20MB）またはファイルへのリンクを送ってください。
+  askemail: Kindleの電子メールを入力します。
+  askemail2: Amazonアカウントで使用するメールアドレスを入力します。
+  askemail3: 設定したいメールアドレスを入力してください。
+  askconvert: ファイルを<b>そのまま</ b>または<b>変換</ b>してKindle形式に送信しますか？
+  slowmode: Please, wait 15 minutes to send another epub.
+  slowmodesec: Please, wait 30 seconds before sending another file.
+  success: |
+    <b>成功</ b>。
+    Kindleにファイルを送信するには、[<b>ファイルを送信</ b>]をクリックします。
+    メールを変更するには、[<b>メールを設定</ b>]をクリックします。
+  startnewuser: |
+    やあ！
+    このボットはファイルをKindleに送信します。
+    まず、Kindleの電子メールを入力します。
+    <code> kindle.com </ code>で終わる必要があります
+  startolduser: |
+    <b>おかえりなさい</ b>！
+    登録されている電子メールは次のとおりです。
+    {} {}
+    {} {}
+    Kindleにファイルを送信するには、[<b>ファイルを送信</ b>]をクリックします。
+    メールを変更するには、[<b>メールを設定</ b>]をクリックします
+  error: |
+    <b>エラー</ b>。
+    / startをクリックして、電子メールを確認してください。
+  filenotfound: |
+    ファイルが見つかりません。中止されました。
+    数分後に再試行してください。
+  sendingfile: |
+    <b>ファイルの送信</ b>。
+    しばらくお待ちください。
+  checkemail: |
+    <b>エラー</ b>。
+    メールを確認して、もう一度お試しください。
+  filesent: |
+    <b>送信されたファイル</ b>。
+    数分待って、デバイスを確認してください。
+  rate: |
+    <b>ボットを評価する：</ b>
+    https://telegram.me/storebot?start=Send2Kindlebot
+  donate: |
+    <b>寄付してください！</ b>
+    https://grf.xyz/donate
+    
+    <b>新しいコマンドを送信します</ b>。
+  btn1: ファイルを送信
+  btn2: メールを設定する
+  btn3: そのまま
+  btn4: 変換された
+  help: |
+    <b>このボットは何をしますか？</ b>
+    このボットは、ファイルを電子メールで送信しているかのように、Kindleにファイルを送信できます。
+
+    <b> Kindleのメールはどこにありますか？</ b>
+    Amazonアカウントにログインします。 <i> Kindleの管理</ i>の<i>デバイスの管理</ i>ページにアクセスします。
+    電子メールアドレスは<code> @ kindle.com </ code>で終わります。
+
+    <b>どのような種類のファイルがサポートされていますか？</ b>
+    Adobe PDF <code> .pdf </ code>
+    HTML <code> .htm .html </ code>
+    画像<code> .jpg .gif .bmp .png </ code>
+    Mobiブック<code> .mobi </ code>
+    Microsoft Word <code> .doc .docx </ code>
+    リッチテキスト形式<code> .rtf </ code>
+    テキストファイル<code> .txt </ code>
+    圧縮ファイル<code> .zip .xzip </ code>
+    <i> * Kindle形式へのファイル変換は、Amazonが行った実験的なサービスです。</ i>
+
+    <b>ファイルサイズの制限はありますか？</ b>
+    リンクで送信されるドキュメントは、50 MB（圧縮前）に制限されています。
+    ボットに直接送信されるドキュメントは20MBに制限されています。
+
+    <b>その他の質問については、次のURLにアクセスしてください：</ b>
+    http://www.amazon.com/kindlepersonaldocuments/
+
+    <b>利用規約：</ b>
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
+
+    <b>ソースコード：</ b>
+    https://github.com/GabrielRF/Send2KindleBot
+  fsize: |
+    <b>ファイルサイズの制限はありますか？</ b>
+    リンクで送信されるドキュメントは、50 MBに制限されています（圧縮前）。
+    ボットに直接送信されるドキュメントは20MBに制限されています。
+  info: |
+    このボットは絶えず開発中です！
+    ご質問やご提案がございましたら、お気軽にお問い合わせください。
+
+    Twitter：@GabRF（http://twitter.com/GabRF）
+    電報：@GabrielRF
+    ウェブサイト：http：//grf.xyz/
+
+    ボットを評価します。
+    https://telegram.me/storebot?start=Send2Kindlebot
+
+    プロジェクトをサポートする：
+    http://patreon.com/gabrielrf
+  tos: |
+    <b>利用規約</ b>を読むには、以下のリンクをクリックしてください。
+    https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
