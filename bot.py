@@ -222,7 +222,11 @@ def set_buttons(lang='en-us'):
     btn2 = types.InlineKeyboardButton(
         i18n.t("bot.btn2", locale=lang), callback_data="/email"
     )
+    btn_donate = types.InlineKeyboardButton(
+        i18n.t("bot.btn_donate", locale=lang), callback_data="/donate"
+    )
     button.row(btn1, btn2)
+    button.row(btn_donate)
     button2 = types.InlineKeyboardMarkup()
     btn3 = types.InlineKeyboardButton(
         i18n.t("bot.btn3", locale=lang), callback_data="/as_is"
@@ -562,6 +566,20 @@ def ask_conv(call):
         )
         bot.register_next_step_handler(msg, add_email)
         return 0
+
+@bot.callback_query_handler(lambda q: q.data == "/donate")
+def callback_donate(call):
+    user_lang = (call.from_user.language_code or "en-us").lower()
+    bot.send_photo(
+        call.from_user.id,
+        i18n.t("bot.donate_image", locale=user_lang),
+        caption=i18n.t("bot.donate", locale=user_lang),
+        parse_mode="HTML",
+    )
+    try:
+        bot.answer_callback_query(call.id)
+    except:
+        pass
 
 @bot.callback_query_handler(lambda q: q.data == "/as_is")
 def ask_not_conv(call):
