@@ -18,7 +18,6 @@ jobs:
         command: |
           cd /usr/local/bin/Send2KindleBot/
           git pull origin master
-          docker-compose up -d
           systemctl restart tg_send2kindlebot
           systemctl restart tg_send2kindleFast
           systemctl restart tg_send2kindleSlow
