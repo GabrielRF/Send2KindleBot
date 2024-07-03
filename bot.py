@@ -246,7 +246,7 @@ def help(message):
         disable_web_page_preview=True,
     )
 
-@bot.message_handler(commands=["tos"])
+@bot.message_handler(commands=["tos", "privacy"])
 def tos(message):
     user_lang = (message.from_user.language_code or "en-us").lower()
     send_message(
