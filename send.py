@@ -29,6 +29,12 @@ config.read(BOT_CONFIG_FILE)
 TOKEN = config["DEFAULT"]["TOKEN"]
 rabbitmqcon = config["RABBITMQ"]["CONNECTION_STRING"]
 
+effects = [
+    5107584321108051014,
+    5104841245755180586,
+    5046509860389126442
+]
+
 def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True, reply_markup=None, message_effect_id=None):
     try:
         msg = bot.send_message(chatid, text, parse_mode=parse_mode,
@@ -168,7 +174,7 @@ def send_file(rbt, method, properties, data):
     msg.attach(part)
     smtp = smtplib.SMTP("127.0.0.1")
     try:
-        smtp.sendmail(data['from'], data['to'], msg.as_string())
+        smtp.sendmail(msg['From'], msg['To'], msg.as_string())
     except smtplib.SMTPSenderRefused:
         msg = send_message(
             data['user_id'],
@@ -200,7 +206,7 @@ def send_file(rbt, method, properties, data):
     )
     if 'pt-br' in data['lang']:
         try:
-            anuncieaqui.send_message(TOKEN, data['user_id'], msg, data['message_effect_id'])
+            anuncieaqui.send_message(TOKEN, data['user_id'], msg, random.choice(effects))
         except:
             send_message(
                 data['user_id'],
@@ -208,7 +214,7 @@ def send_file(rbt, method, properties, data):
                 parse_mode="HTML",
                 reply_markup=button,
                 disable_web_page_preview=True,
-                message_effect_id=5046509860389126442
+                message_effect_id=random.choice(effects)
             )
     else:
         if not random.randint(0,7):
@@ -219,7 +225,7 @@ def send_file(rbt, method, properties, data):
             parse_mode="HTML",
             reply_markup=button,
             disable_web_page_preview=True,
-            message_effect_id=5046509860389126442
+            message_effect_id=random.choice(effects)
         )
 
 if __name__ == "__main__":
