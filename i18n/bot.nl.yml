@@ -103,3 +103,39 @@ nl:
   btn_help: Help and FAQ
   btn_info: More info
   btn_donate: Doneer
+  balance: 🌟 Overige directe verzendingen
+  terms_agree: ✅ Akkoord
+  terms_disagree: ❌ Niet akkoord
+  terms_cancel: ↪️ Overslaan
+  premium_intro: |
+    <b>@Send2KindleBot</b>
+
+    🤯 <b>Betaal met Telegram-sterren ⭐️ en verstuur zonder e-mailverificatie!</b>
+
+    Voeg het onderstaande adres toe als <i>goedgekeurd e-mailadres voor het verzenden van persoonlijke documenten</i> in je Amazon-account.
+    <code>{}@send.grf.xyz</code>
+
+    ❗️ <b>Zolang je saldo hebt, zullen de zendingen verplicht het bovenstaande e-mailadres gebruiken</b>.
+
+    🆓 Door hieronder te bevestigen, wordt een saldo van <b>{} testverzendingen</b> beschikbaar gesteld.
+
+    Koop meer zendingen zonder bevestiging door het commando /stars te versturen.
+
+    ⚠️ <b>De bot zal normaal functioneren en gratis blijven wanneer het saldo op 0 staat. Het zal echter opnieuw verificatie vereisen voor elke verzending</b>.
+  premium: |
+    Toevoegen
+  premium_agreed: |
+    ❗️ <b>Vergeet niet om het onderstaande e-mailadres goedgekeurd te houden</b>:
+    <code>{}@send.grf.xyz</code>
+
+    <b>Elke ster stelt je in staat om {} verzendingen te doen</b>.
+    Kies hieronder de hoeveelheid die je wilt kopen.
+
+    Als je nu niet wilt kopen, klik dan op <code>Overslaan</code>.
+  premium_quantity: "⭐️{}"
+  payment_description: |
+    {} verzendingen.
+  btn_stars: Verzenden zonder verificatie
+  payment_title: "{} stuurt"
+  payment_description: "Betaling ter waarde van {} sterren, wat overeenkomt met {} verzendingen van het adres {}@send.grf.xyz."
+

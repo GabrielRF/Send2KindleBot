@@ -14,6 +14,7 @@ import sqlite3
 import sys
 import telebot
 import urllib.request
+import premiumfunctions as premium
 from ebooklib import epub
 from email import encoders
 from email.mime.base import MIMEBase
@@ -132,14 +133,25 @@ def check_domain(email):
 def send_file(rbt, method, properties, data):
     rbt.basic_ack(delivery_tag=method.delivery_tag)
     data = json.loads(data)
+    msg = MIMEMultipart()
 
     try:
         bot.send_chat_action(data['user_id'], 'upload_document')
     except:
         pass
 
-    msg = MIMEMultipart()
-    msg["From"] = f"{data['from']}"
+    is_premium = premium.check_premium_user(data['user_id'])
+
+    if is_premium:
+        saldo = int(is_premium[0])
+    else:
+        saldo = 0
+
+    if saldo > 0:
+        msg["From"] = f'{data["user_id"]}@send.grf.xyz'
+    else:
+        msg["From"] = f"{data['from']}"
+
     msg["To"] = f"{data['to']}"
     msg["Date"] = formatdate(localtime=True)
     msg["Subject"] = f"{data['subject']}"
@@ -204,6 +216,8 @@ def send_file(rbt, method, properties, data):
         icon_x=u"\U0001F4EE",
         msg_a=i18n.t("bot.filesent", locale=data['lang']),
     )
+    if saldo:
+        msg = f'{msg}\n<b>{i18n.t("bot.balance", locale=data["lang"])}</b>: {saldo - 1}'
     if 'pt-br' in data['lang']:
         try:
             anuncieaqui.send_message(TOKEN, data['user_id'], msg, random.choice(effects))
@@ -227,6 +241,8 @@ def send_file(rbt, method, properties, data):
             disable_web_page_preview=True,
             message_effect_id=random.choice(effects)
         )
+    if saldo:
+        premium.update_saldo_premium(data['user_id'], saldo-1)
 
 if __name__ == "__main__":
     i18n.load_path.append("i18n")

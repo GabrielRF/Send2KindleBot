@@ -103,3 +103,36 @@ sv-se:
   btn_help: Help and FAQ
   btn_info: More info
   btn_donate: Donera
+  balance: 🌟 Återstående direkta skickningar
+  terms_agree: ✅ Godkänn
+  terms_disagree: ❌ Avvisa
+  terms_cancel: ↪️ Hoppa över
+  premium_intro: |
+    <b>@Send2KindleBot</b>
+
+    🤯 <b>Betala med Telegram-stjärnor ⭐️ och skicka utan e-postverifiering!</b>
+
+    Lägg till adressen nedan som <i>godkänd e-post för att skicka personliga dokument</i> i ditt Amazon-konto.
+    <code>{}@send.grf.xyz</code>
+
+    ❗️ <b>Så länge du har saldo kommer sändningar obligatoriskt använda ovanstående e-post</b>.
+
+    🆓 Genom att bekräfta nedan kommer ett saldo på <b>{} testskickningar</b> att göras tillgängligt.
+
+    Köp fler skickningar utan bekräftelse genom att skicka kommandot /stars.
+
+    ⚠️ <b>Botten kommer att fungera normalt och förbli gratis när saldot är 0. Dock kommer den att kräva verifiering för varje sändning igen</b>.
+  premium: |
+    För att lägga till
+  premium_agreed: |
+    ❗️ <b>Kom ihåg att hålla e-posten nedan godkänd</b>:
+    <code>{}@send.grf.xyz</code>
+
+    <b>Varje stjärna gör att du kan göra {} skickningar</b>.
+    Välj nedan den mängd du vill köpa.
+
+    Om du inte vill köpa nu, klicka på <code>Hoppa över</code>.
+  btn_stars: Skicka utan verifiering
+  payment_title: "{} skickar"
+  payment_description: "Betalning motsvarande {} stjärnor, vilket motsvarar {} skick från adressen {}@send.grf.xyz."
+

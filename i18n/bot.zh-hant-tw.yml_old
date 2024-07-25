@@ -87,3 +87,36 @@ zh-hant-tw:
   btn_help: Help and FAQ
   btn_info: More info
   btn_donate: Donate
+  balance: 🌟 剩餘直接發送
+  terms_agree: ✅ 同意
+  terms_disagree: ❌ 不同意
+  terms_cancel: ↪️ 跳過
+  premium_intro: |
+    <b>@Send2KindleBot</b>
+
+    🤯 <b>使用 Telegram 星星 ⭐️ 付款，並且無需電子郵件驗證即可發送！</b>
+
+    在您的 Amazon 帳戶中將以下地址添加為 <i>用於發送個人文件的批准電子郵件</i>。
+    <code>{}@send.grf.xyz</code>
+
+    ❗️ <b>只要您有餘額，發送將強制使用上述電子郵件</b>。
+
+    🆓 確認以下信息後，將提供 <b>{} 測試發送</b> 的餘額。
+
+    通過發送 /stars 命令購買更多無需確認的發送。
+
+    ⚠️ <b>當餘額為 0 時，機器人將正常運作並保持免費。但它會再次要求對每次發送進行驗證</b>。
+  premium: |
+    添加
+  premium_agreed: |
+    ❗️ <b>請記住保持以下電子郵件為批准狀態</b>：
+    <code>{}@send.grf.xyz</code>
+
+    <b>每顆星星允許您進行 {} 次發送</b>。
+    選擇下方您希望購買的數量。
+
+    如果您現在不想購買，請點擊 <code>跳過</code>。
+  btn_stars: 無需驗證直接發送
+  payment_title: "{} 發送"
+  payment_description: "價值 {} 顆星的支付，相當於來自地址 {}@send.grf.xyz 的 {} 次發送。"
+

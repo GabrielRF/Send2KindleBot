@@ -1,17 +1,20 @@
 [DEFAULT]
-# Bot token. Get it talking to @BotFather.
-TOKEN = 
-# Log path.
+TOKEN =
+CERT =
+PRIVKEY 
 logfile = /var/log/Send2KindleBot/bot.log
-# Users blocked.
-BLOCKED = 
+MULTIPLIER=2
+DEMO=3
+ADMIN=9083329
+BLOCKED =
 
 [SQLITE3]
-# Database path.
-data_base = /usr/local/bin/Send2KindleBot/kindle.db
-# Table name.
+data_base =
 table = usuarios
 
-[SENTRY]
-# Sentry url.
-url = 
+[RABBITMQ]
+CONNECTION_STRING =
+
+[TELEGRAM]
+DESTINATION =
+TOPIC =

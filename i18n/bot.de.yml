@@ -105,3 +105,36 @@ de:
   btn_help: Help and FAQ
   btn_info: More info
   btn_donate: Donate
+  balance: 🌟 Verbleibende Direktversendungen
+  terms_agree: ✅ Zustimmen
+  terms_disagree: ❌ Ablehnen
+  terms_cancel: ↪️ Überspringen
+  premium_intro: |
+    <b>@Send2KindleBot</b>
+
+    🤯 <b>Zahlen Sie mit Telegram-Sternen ⭐️ und senden Sie ohne E-Mail-Verifizierung!</b>
+
+    Fügen Sie die untenstehende Adresse als <i>genehmigte E-Mail für das Senden persönlicher Dokumente</i> in Ihrem Amazon-Konto hinzu.
+    <code>{}@send.grf.xyz</code>
+
+    ❗️ <b>Solange Sie Guthaben haben, werden die Sendungen zwingend die oben genannte E-Mail-Adresse verwenden</b>.
+
+    🆓 Durch die Bestätigung unten wird ein Guthaben von <b>{} Testsenden</b> verfügbar gemacht.
+
+    Kaufen Sie weitere Sendungen ohne Bestätigung durch Eingabe des Befehls /stars.
+
+    ⚠️ <b>Der Bot wird normal funktionieren und kostenlos bleiben, wenn das Guthaben auf 0 ist. Es wird jedoch wieder eine Verifizierung für jede Sendung erforderlich sein</b>.
+  premium: |
+    Hinzufügen
+  premium_agreed: |
+    ❗️ <b>Denken Sie daran, die untenstehende E-Mail genehmigt zu lassen</b>:
+    <code>{}@send.grf.xyz</code>
+
+    <b>Jeder Stern ermöglicht es Ihnen, {} Sendungen durchzuführen</b>.
+    Wählen Sie unten die Menge aus, die Sie kaufen möchten.
+
+    Wenn Sie jetzt nicht kaufen möchten, klicken Sie auf <code>Überspringen</code>.
+  btn_stars: Ohne Überprüfung senden
+  payment_title: "{} sendet"
+  payment_description: "Zahlung im Wert von {} Sternen, entsprechend {} Sendungen von der Adresse {}@send.grf.xyz."
+

@@ -95,3 +95,36 @@ bm-ms:
   btn_help: Help and FAQ
   btn_info: More info
   btn_donate: Donate
+  balance: 🌟 Penghantaran langsung yang tinggal
+  terms_agree: ✅ Setuju
+  terms_disagree: ❌ Tidak Setuju
+  terms_cancel: ↪️ Langkau
+  premium_intro: |
+    <b>@Send2KindleBot</b>
+
+    🤯 <b>Bayar dengan Bintang Telegram ⭐️ dan hantar tanpa pengesahan e-mel!</b>
+
+    Tambahkan alamat di bawah sebagai <i>e-mel yang diluluskan untuk menghantar dokumen peribadi</i> dalam akaun Amazon anda.
+    <code>{}@send.grf.xyz</code>
+
+    ❗️ <b>Semasa anda mempunyai baki, penghantaran akan menggunakan e-mel di atas secara mandatori</b>.
+
+    🆓 Dengan mengesahkan di bawah, baki <b>{} penghantaran ujian</b> akan tersedia.
+
+    Beli lebih banyak penghantaran tanpa pengesahan dengan menghantar perintah /stars.
+
+    ⚠️ <b>Bot akan berfungsi seperti biasa dan kekal percuma apabila baki adalah 0. Walau bagaimanapun, ia akan kembali memerlukan pengesahan untuk setiap penghantaran</b>.
+  premium: |
+    Untuk menambah
+  premium_agreed: |
+    ❗️ <b>Ingat untuk mengekalkan e-mel di bawah sebagai diluluskan</b>:
+    <code>{}@send.grf.xyz</code>
+
+    <b>Setiap bintang akan membolehkan anda membuat {} penghantaran</b>.
+    Pilih di bawah jumlah yang ingin anda beli.
+
+    Jika anda tidak mahu membeli sekarang, klik <code>Langkau</code>.
+  btn_stars: Hantar tanpa pengesahan
+  payment_title: "{} menghantar"
+  payment_description: "Pembayaran bernilai {} bintang, bersamaan dengan {} penghantaran dar
+

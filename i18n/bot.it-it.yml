@@ -95,3 +95,36 @@ it-it:
   btn_help: Help and FAQ
   btn_info: More info
   btn_donate: Dona
+  balance: 🌟 Invii diretti rimanenti
+  terms_agree: ✅ Accetto
+  terms_disagree: ❌ Non accetto
+  terms_cancel: ↪️ Salta
+  premium_intro: |
+    <b>@Send2KindleBot</b>
+
+    🤯 <b>Paga con Stelle di Telegram ⭐️ e invia senza verifica dell'email!</b>
+
+    Aggiungi l'indirizzo sottostante come <i>email approvata per l'invio di documenti personali</i> nel tuo account Amazon.
+    <code>{}@send.grf.xyz</code>
+
+    ❗️ <b>Finché hai un saldo, gli invii utilizzeranno obbligatoriamente l'email sopra</b>.
+
+    🆓 Confermando qui sotto, sarà disponibile un saldo di <b>{} invii di prova</b>.
+
+    Acquista altri invii senza conferma inviando il comando /stars.
+
+    ⚠️ <b>Il bot funzionerà normalmente e rimarrà gratuito quando il saldo sarà a 0. Tuttavia, richiederà nuovamente la verifica per ogni invio</b>.
+  premium: |
+    Per aggiungere
+  premium_agreed: |
+    ❗️ <b>Ricorda di mantenere l'email sottostante approvata</b>:
+    <code>{}@send.grf.xyz</code>
+
+    <b>Ogni stella ti permetterà di fare {} invii</b>.
+    Scegli qui sotto la quantità che desideri acquistare.
+
+    Se non desideri acquistare ora, fai clic su <code>Salta</code>.
+  btn_stars: Invia senza verifica
+  payment_title: "{} invia"
+  payment_description: "Pagamento del valore di {} stelle, corrispondente a {} invii dall'indirizzo {}@send.grf.xyz."
+

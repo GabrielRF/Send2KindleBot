@@ -14,6 +14,7 @@ import sqlite3
 import subprocess
 import time
 import urllib.request
+import premiumfunctions as premium
 
 import i18n
 import telebot
@@ -34,10 +35,12 @@ BOT_CONFIG_FILE = "kindle.conf"
 config.read(BOT_CONFIG_FILE)
 log_file = config["DEFAULT"]["logfile"]
 TOKEN = config["DEFAULT"]["TOKEN"]
-WEBHOOK_URL = config["DEFAULT"]["WEBHOOK_URL"]
 CERT = config["DEFAULT"]["CERT"]
 PRIVKEY = config["DEFAULT"]["PRIVKEY"]
 BLOCKED = config["DEFAULT"]["BLOCKED"]
+MULTIPLIER = int(config["DEFAULT"]["MULTIPLIER"])
+DEMO = int(config["DEFAULT"]["DEMO"])
+ADMIN = int(config["DEFAULT"]["ADMIN"])
 db = config["SQLITE3"]["data_base"]
 table = config["SQLITE3"]["table"]
 rabbitmqcon = config["RABBITMQ"]["CONNECTION_STRING"]
@@ -51,7 +54,7 @@ rabbit = rabbitmq_con.channel()
 rabbit.queue_declare(queue='Send2KindleBotFast', durable=True)
 rabbit.queue_declare(queue='Send2KindleBotSlow', durable=True)
 
-cmds = ["/start", "/send", "/info", "/help", "/email", "/donate"]
+cmds = ["/start", "/send", "/info", "/help", "/email", "/donate", "/stars"]
 LOG_INFO_FILE = log_file
 logger_info = logging.getLogger("InfoLogger")
 logger_info.setLevel(logging.INFO)
@@ -97,6 +100,8 @@ def send_mail(data, subject, lang, file_name):
     upd_user_last(db, table, data[1])
 
 def check_domain(email):
+    if 'send.grf.xyz' in email:
+        return False
     domain = email.split('@')[-1]
     try:
         dns.resolver.resolve(domain, 'NS')
@@ -203,6 +208,7 @@ def set_menus(user_id, lang='en-us'):
     try:
         bot.set_my_commands([
             telebot.types.BotCommand("/start", i18n.t("bot.btn_start", locale=lang)),
+            telebot.types.BotCommand("/stars", i18n.t("bot.btn_stars", locale=lang)),
             telebot.types.BotCommand("/send", i18n.t("bot.btn_send", locale=lang)),
             telebot.types.BotCommand("/tos", i18n.t("bot.btn_tos", locale=lang)),
             telebot.types.BotCommand("/donate", i18n.t("bot.btn_donate", locale=lang)),
@@ -213,8 +219,6 @@ def set_menus(user_id, lang='en-us'):
         pass
 
 def set_buttons(lang='en-us'):
-    global button
-    global button2
     button = types.InlineKeyboardMarkup()
     btn1 = types.InlineKeyboardButton(
         i18n.t("bot.btn1", locale=lang), callback_data="/send"
@@ -235,6 +239,7 @@ def set_buttons(lang='en-us'):
         i18n.t("bot.btn4", locale=lang), callback_data="/converted"
     )
     button2.row(btn3, btn4)
+    return button, button2
 
 @bot.message_handler(commands=["help"])
 def help(message):
@@ -245,6 +250,125 @@ def help(message):
         parse_mode="HTML",
         disable_web_page_preview=True,
     )
+
+@bot.message_handler(commands=["saldo"])
+def cmd_saldo(message):
+    if message.from_user.id != ADMIN:
+        return
+    try:
+        if len(message.text.split(' ')) == 2:
+            result = premium.check_premium_user(
+                message.text.split(' ')[1]
+            )
+            saldo = result[0]
+        else:
+            premium.update_saldo_premium(
+                message.text.split(' ')[1],
+                message.text.split(' ')[2]
+            )
+            saldo = message.text.split(' ')[2]
+        bot.reply_to(
+            message,
+            f'🪪 <code>{message.text.split(" ")[1]}</code>\n<b>Saldo</b>: {saldo} envios',
+            parse_mode='HTML'
+        )
+    except:
+        bot.delete_message(message.chat.id, message.message_id)
+
+@bot.message_handler(commands=["refund"])
+def cmd_refund(message):
+    if message.from_user.id != ADMIN:
+        return
+    if ' ' not in message.text:
+        bot.send_message(ADMIN, 'Envie <code>/refund <ID_USUARIO> <ID_TRANSACAO></code>', parse_mode='HTML')
+        return
+    user_id = message.text.split(' ')[1]
+    transaction = message.text.split(' ')[2]
+    try:
+        refund = bot.refund_star_payment(user_id, transaction)
+        bot.send_message(
+            ADMIN,
+            f'💸 <b>Transação cancelada</b>\n' +
+            f'<blockquote expandable>\n' +
+            f'<b>Usuário</b>: <code>{user_id}</code>\n' +
+            f'<b>ID</b>: {transaction}\n' +
+            f'</blockquote>',
+            parse_mode='HTML'
+        )
+    except Exception as e:
+        bot.send_message(
+            ADMIN,
+            f'❌ <b>Transação não encontrada</b>\n<blockquote expandable>{e}</blockquote>',
+            parse_mode='HTML'
+        )
+    bot.delete_message(message.chat.id, message.message_id)
+
+@bot.message_handler(commands=["emails", "dados"])
+def cmd_emails(message):
+    if message.from_user.id != ADMIN:
+        return
+    if ' ' not in message.text:
+        bot.delete_message(message.from_user.id, message.message_id)
+    data = select_user(db, table, message.text.split(' ')[1], "*")
+    bot.send_message(
+        ADMIN,
+        f'🪪 <code>{data[1]}</code>\n<blockquote expandable>' +
+        f'<code>📤 {data[2]}\n📥 {data[3]}</code>\n\n🕐 {data[4]}\n🕹 {data[5]}' +
+        '</blockquote>',
+        parse_mode='HTML'
+    )
+
+@bot.message_handler(commands=["relatorio"])
+def cmd_relatorio(message):
+    if message.from_user.id != ADMIN:
+        return
+    transactions = bot.get_star_transactions().transactions
+    valores_recebidos = 0
+    quantidade_recebidos = 0
+    valores_devolvidos = 0
+    quantidade_devolvidos = 0
+    for transaction in transactions:
+        if transaction.source:
+            valores_recebidos = valores_recebidos + transaction.amount
+            quantidade_recebidos = quantidade_recebidos + 1
+        elif transaction.receiver:
+            valores_devolvidos = valores_devolvidos + transaction.amount
+            quantidade_devolvidos = quantidade_devolvidos + 1
+    bot.send_message(
+        ADMIN,
+        f'🗃 <b>Relatório</b>\n' +
+        f'<i>{time.strftime("%d/%m/%Y", time.localtime(transactions[0].date))} - ' +
+        f'{time.strftime("%d/%m/%Y", time.localtime(transactions[-1].date))}</i>\n\n' +
+        '🧮 <b>Quantidades</b>\n' +
+        '<blockquote expandable>' +
+        f'Recebidos: {quantidade_recebidos}\n' +
+        f'Devolvidos: {quantidade_devolvidos}\n' +
+        '</blockquote>' +
+        f'<b>Saldo</b>: {quantidade_recebidos - quantidade_devolvidos}\n\n' +
+        '🌟 <b>Valores</b>\n' +
+        '<blockquote expandable>' +
+        f'Recebidos:  {valores_recebidos}\n' +
+        f'Devolvidos: {valores_devolvidos}\n' +
+        '</blockquote>' +
+        f'<b>Saldo</b>: {valores_recebidos - valores_devolvidos}',
+        parse_mode='HTML'
+    )
+
+@bot.message_handler(commands=["lista"])
+def cmd_lista(message):
+    if message.from_user.id != ADMIN:
+        return
+    if ' ' not in message.text:
+        value = 3
+    else:
+        value = message.text.split(' ')[1]
+    users_list = premium.get_premium_users(value)
+    size = len(users_list)
+    users = ''
+    for user in users_list:
+        users = f'{users}<code>{user[1]:<12} {user[2]}</code>\n'
+    text = f'<b>Usuários com {value} ou mais estrelas</b>: <blockquote expandable>{users}</blockquote><i>Quantidade: {size}</i>'
+    bot.reply_to(message, text, parse_mode='HTML')
 
 @bot.message_handler(commands=["tos", "privacy"])
 def tos(message):
@@ -266,7 +390,7 @@ def tos(message):
         parse_mode="HTML",
     )
 
-@bot.message_handler(commands=["info"])
+@bot.message_handler(commands=["info", "paysupport"])
 def info(message):
     user_lang = (message.from_user.language_code or "en-us").lower()
     send_message(
@@ -276,20 +400,140 @@ def info(message):
         disable_web_page_preview=True,
     )
 
+@bot.message_handler(commands=["stars"])
+def cmd_premium(message):
+    user_lang = (message.from_user.language_code or "en-us").lower()
+    terms_btn = types.InlineKeyboardMarkup()
+    btn1 = types.InlineKeyboardButton(
+        i18n.t("bot.terms_agree", locale=user_lang), callback_data="/agree"
+    )
+    btn2 = types.InlineKeyboardButton(
+        i18n.t("bot.terms_disagree", locale=user_lang), callback_data="/disagree"
+    )
+    terms_btn.row(btn1, btn2)
+    is_premium = premium.check_premium_user(message.from_user.id)
+    if not is_premium:
+        send_message(
+            message.from_user.id,
+            i18n.t("bot.premium_intro", locale=user_lang).format(message.from_user.id, DEMO),
+            parse_mode="HTML",
+            reply_markup=terms_btn
+        )
+    else:
+        agreed(message)
+
+@bot.callback_query_handler(lambda q: q.data == "/disagree")
+def disagreed(call):
+    try:
+        bot.answer_callback_query(call.id)
+    except:
+        pass
+    try:
+        bot.delete_message(call.from_user.id, call.message.id)
+    except:
+        pass
+    start(call)
+
+@bot.callback_query_handler(lambda q: q.data == "/agree")
+def agreed(call):
+    user_lang = (call.from_user.language_code or "en-us").lower()
+    is_premium = premium.check_premium_user(call.from_user.id)
+    if not is_premium:
+        bot.edit_message_text(
+            text=f'{call.message.html_text}',
+            chat_id=call.from_user.id,
+            message_id=call.message.id,
+            parse_mode='HTML'
+        )
+        premium.add_premium_user(call.from_user.id, DEMO)
+        try:
+            bot.answer_callback_query(call.id)
+        except:
+            pass
+
+    values_btn = types.InlineKeyboardMarkup()
+    btn5 = types.InlineKeyboardButton(
+        '⭐️ 5', callback_data="5"
+    )
+    btn10 = types.InlineKeyboardButton(
+        '⭐️ 10', callback_data="10"
+    )
+    btn25 = types.InlineKeyboardButton(
+        '⭐️ 25', callback_data="25"
+    )
+    btn50 = types.InlineKeyboardButton(
+        '⭐️ 50', callback_data="50"
+    )
+    btn75 = types.InlineKeyboardButton(
+        '⭐️ 75', callback_data="75"
+    )
+    btn100 = types.InlineKeyboardButton(
+        '⭐️ 100', callback_data="100"
+    )
+    btn_cancel = types.InlineKeyboardButton(
+        i18n.t("bot.terms_cancel", locale=user_lang), callback_data="/disagree"
+    )
+    values_btn.row(btn5, btn10)
+    values_btn.row(btn25, btn50)
+    values_btn.row(btn75, btn100)
+    values_btn.row(btn_cancel)
+
+    bot.send_message(
+        call.from_user.id,
+        i18n.t("bot.premium_agreed", locale=user_lang).format(call.from_user.id, MULTIPLIER) +
+        '\n<blockquote>⭐️ 50 ≈ US$ 0.99</blockquote>',
+        reply_markup=values_btn,
+        parse_mode='HTML'
+    )
+
+@bot.pre_checkout_query_handler(func=lambda query: True)
+def checkout(pre_checkout_query):
+    bot.answer_pre_checkout_query(
+        pre_checkout_query.id,
+        ok=True,
+        error_message='Error. Try again later'
+    )
+
+@bot.message_handler(content_types=['successful_payment'])
+def got_payment(message):
+    payload = int(message.successful_payment.invoice_payload)
+    add_value = payload*MULTIPLIER
+
+    is_premium = premium.check_premium_user(message.from_user.id)
+
+    if is_premium:
+        saldo = int(is_premium[0])
+    else:
+        saldo = DEMO
+
+    premium.update_saldo_premium(message.from_user.id, saldo + add_value)
+    msg = (
+        f'#Stars <code>{message.from_user.id}</code>\n' +
+        f'<b>Valor</b>: 🌟{payload}\n' +
+        '<blockquote expandable>' +
+        f'<b>Envios</b>: {add_value}\n<b>Saldo</b>: {saldo+add_value}\n\n' +
+        f'<b>Telegram Payment ChargeID</b>:\n' +
+        f'<code>{message.successful_payment.telegram_payment_charge_id}</code>' +
+        '</blockquote>'
+    )
+    bot.send_message(
+        ADMIN,
+        msg,
+        parse_mode='HTML'
+    )
+    start(message)
+
 @bot.message_handler(commands=["start"])
 def start(message):
     user_lang = (message.from_user.language_code or "en-us").lower()
-    set_buttons(user_lang)
+    button, button2 = set_buttons(user_lang)
     set_menus(message.from_user.id, user_lang)
     data = select_user(db, table, message.from_user.id, "*")
-
-    logger_info.info(
-        str(datetime.datetime.now())
-        + " START: "
-        + str(message.from_user.id)
-        + " "
-        + str(message.message_id)
-    )
+    is_premium = premium.check_premium_user(message.from_user.id)
+    if is_premium:
+        saldo = int(is_premium[0])
+    else:
+        saldo = 0
 
     try:
         aux1 = data[2]
@@ -307,14 +551,31 @@ def start(message):
         )
         bot.register_next_step_handler(msg, add_email)
     else:
+        msg = (
+            i18n.t(
+                "bot.startolduser",
+                locale=user_lang
+            ).format(
+                str(u"\U0001F4E4"),
+                data[2],
+                str(u"\U0001F4E5"),
+                data[3]
+            )
+        )
+        if saldo:
+            msg = f'{msg}\n<b>{i18n.t("bot.balance", locale=user_lang)}</b>: {saldo}'
+
         send_message(
             message.from_user.id,
-            i18n.t("bot.startolduser", locale=user_lang).format(
-                str(u"\U0001F4E4"), data[2], str(u"\U0001F4E5"), data[3]
-            ),
+            msg,
             parse_mode="HTML",
             reply_markup=button,
         )
+        try:
+            if 'stars' in message.text:
+                cmd_premium(message)
+        except:
+            pass
 
 @bot.message_handler(commands=["email"])
 def ask_email(message):
@@ -326,7 +587,7 @@ def ask_email(message):
 
 def add_email(message):
     user_lang = (message.from_user.language_code or "en-us").lower()
-    set_buttons(user_lang)
+    button, button2 = set_buttons(user_lang)
 
     if message.content_type != "text":
         msg = send_message(
@@ -502,7 +763,7 @@ def get_file(message):
     )
 
     upd_user_file(db, table, message.from_user.id, file_url)
-    set_buttons(user_lang)
+    button, button2 = set_buttons(user_lang)
     if '.' not in file_name:
         send_message(
             message.chat.id,
@@ -659,6 +920,35 @@ def generic_file(message):
             message.chat.id, i18n.t("bot.filenotfound", locale=user_lang)
         )
 
+@bot.callback_query_handler(func=lambda q:True)
+def value_picked(call):
+    try:
+        bot.delete_message(call.from_user.id, call.message.id)
+    except:
+        pass
+    try:
+        bot.answer_callback_query(call.id)
+    except:
+        pass
+    user_lang = (call.from_user.language_code or "en-us").lower()
+    is_premium = premium.check_premium_user(call.from_user.id)
+    value = int(call.data)
+    bot.send_invoice(
+        call.from_user.id,
+        provider_token=None,
+        title=i18n.t("bot.payment_title", locale=user_lang).format(value*MULTIPLIER),
+        description=i18n.t("bot.payment_description", locale=user_lang).format(value, value*MULTIPLIER, call.from_user.id),
+        currency='XTR',
+        prices=[
+            telebot.types.LabeledPrice(
+                label=f'{value}',
+                amount=value
+            )
+        ],
+        start_parameter=f'star{value}',
+        invoice_payload=f'{value}'
+    )
+
 @server.route(f'/{TOKEN}', methods=['POST'])
 def getMessage():
     json_string = request.get_data().decode('utf-8')
@@ -667,4 +957,5 @@ def getMessage():
     return "!", 200
 
 if __name__ == "__main__":
-    server.run(host="0.0.0.0", port=443, ssl_context=(f'{CERT}', f'{PRIVKEY}'))
+    bot.infinity_polling()
+    #server.run(host="0.0.0.0", port=443, ssl_context=(f'{CERT}', f'{PRIVKEY}'))

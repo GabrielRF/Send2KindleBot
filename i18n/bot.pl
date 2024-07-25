@@ -91,3 +91,36 @@ pl-PL:
   btn_help: Help and FAQ
   btn_info: More info
   btn_donate: Donate
+  balance: 🌟 Pozostałe bezpośrednie wysyłki
+  terms_agree: ✅ Zgadzam się
+  terms_disagree: ❌ Nie zgadzam się
+  terms_cancel: ↪️ Pomiń
+  premium_intro: |
+    <b>@Send2KindleBot</b>
+
+    🤯 <b>Zapłać za pomocą Gwiazdek Telegramu ⭐️ i wysyłaj bez weryfikacji e-maila!</b>
+
+    Dodaj poniższy adres jako <i>zatwierdzony e-mail do wysyłania dokumentów osobistych</i> w swoim koncie Amazon.
+    <code>{}@send.grf.xyz</code>
+
+    ❗️ <b>Dopóki masz saldo, wysyłki będą obowiązkowo używać powyższego e-maila</b>.
+
+    🆓 Potwierdzając poniżej, zostanie udostępnione saldo <b>{} testowych wysyłek</b>.
+
+    Kup więcej wysyłek bez potwierdzenia, wysyłając polecenie /stars.
+
+    ⚠️ <b>Bot będzie działać normalnie i pozostanie darmowy, gdy saldo wynosi 0. Jednak ponownie będzie wymagał weryfikacji dla każdej wysyłki</b>.
+  premium: |
+    Aby dodać
+  premium_agreed: |
+    ❗️ <b>Pamiętaj, aby utrzymać poniższy e-mail jako zatwierdzony</b>:
+    <code>{}@send.grf.xyz</code>
+
+    <b>Każda gwiazdka pozwoli ci na {} wysyłek</b>.
+    Wybierz poniżej ilość, którą chcesz kupić.
+
+    Jeśli nie chcesz kupować teraz, kliknij <code>Pomiń</code>.
+  premium_quantity: "⭐️{}"
+  payment_description: |
+    {} wysyłek.
+

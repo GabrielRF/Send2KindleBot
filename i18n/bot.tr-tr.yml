@@ -95,3 +95,36 @@ tr-tr:
   btn_help: Help and FAQ
   btn_info: More info
   btn_donate: Donate
+  balance: 🌟 Kalan doğrudan gönderimler
+  terms_agree: ✅ Kabul ediyorum
+  terms_disagree: ❌ Kabul etmiyorum
+  terms_cancel: ↪️ Atla
+  premium_intro: |
+    <b>@Send2KindleBot</b>
+
+    🤯 <b>Telegram Yıldızları ⭐️ ile ödeme yapın ve e-posta doğrulaması olmadan gönderin!</b>
+
+    Amazon hesabınızda aşağıdaki adresi <i>kişisel belgeleri göndermek için onaylı e-posta</i> olarak ekleyin.
+    <code>{}@send.grf.xyz</code>
+
+    ❗️ <b>Bakiye olduğu sürece, gönderimler yukarıdaki e-posta adresini zorunlu olarak kullanacaktır</b>.
+
+    🆓 Aşağıda onaylayarak <b>{} test gönderimi</b> bakiyesi kullanılabilir hale gelecektir.
+
+    Onay olmadan daha fazla gönderim satın almak için /stars komutunu gönderin.
+
+    ⚠️ <b>Bakiye 0 olduğunda bot normal çalışacak ve ücretsiz olarak kalacaktır. Ancak, her gönderim için yeniden doğrulama gerekecektir</b>.
+  premium: |
+    Eklemek için
+  premium_agreed: |
+    ❗️ <b>Aşağıdaki e-postayı onaylı olarak tutmayı unutmayın</b>:
+    <code>{}@send.grf.xyz</code>
+
+    <b>Her yıldız {} gönderim yapmanıza izin verecektir</b>.
+    Aşağıdan satın almak istediğiniz miktarı seçin.
+
+    Şu anda satın almak istemiyorsanız, <code>Atla</code> düğmesine tıklayın.
+  btn_stars: Doğrulama olmadan gönder
+  payment_title: "{} gönderir"
+  payment_description: "{} yıldız değerinde ödeme, {} gönderimi karşılar, adres {}@send.grf.xyz'den."
+

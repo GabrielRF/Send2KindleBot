@@ -105,3 +105,33 @@ en-us:
   btn_help: Help and FAQ
   btn_info: More info
   btn_donate: Donate
+  balance: 🌟 Remaining direct sends
+  terms_agree: ✅ Agree
+  terms_disagree: ❌ Disagree
+  terms_cancel: ↪️ Skip
+  premium_intro: |
+    <b>@Send2KindleBot</b>
+
+    🤯 <b>Pay with Telegram Stars ⭐️ and send without email verification!</b>
+
+    Add the address below as an <i>approved email address for sending personal documents</i> in your Amazon account.
+    <code>{}@send.grf.xyz</code>
+
+    ❗️ <b>As long as you have a balance, sends will necessarily use the email above</b>.
+
+    🆓 By confirming below, you will be granted a balance of <b>{} test sends</b>.
+
+    Purchase more sends that don't require confirmation by sending the command /stars.
+
+    ⚠️ <b>The bot will continue to work normally and remain free when the balance is 0. However, it will revert to requiring verification for each send</b>.
+  premium_agreed: |
+    ❗️ <b>Remember to keep the email below approved</b>:
+    <code>{}@send.grf.xyz</code>
+
+    <b>Each star will allow you to make {} sends</b>.
+    Choose below the amount you want to purchase.
+
+    If you do not want to purchase now, click <code>Skip</code>.
+  btn_stars: Send without verification
+  payment_title: "{} sends"
+  payment_description: "Payment worth {} stars, corresponding to {} sends from the address {}@send.grf.xyz."

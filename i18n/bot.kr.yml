@@ -104,3 +104,35 @@ kr:
   btn_help: Help and FAQ
   btn_info: More info
   btn_donate: Donate
+  balance: 🌟 남은 직접 전송
+  terms_agree: ✅ 동의
+  terms_disagree: ❌ 동의하지 않음
+  terms_cancel: ↪️ 건너뛰기
+  premium_intro: |
+    <b>@Send2KindleBot</b>
+
+    🤯 <b>텔레그램 스타 ⭐️로 결제하고 이메일 확인 없이 전송하세요!</b>
+
+    아래 주소를 Amazon 계정에서 <i>개인 문서 전송을 위한 승인된 이메일</i>로 추가하세요.
+    <code>{}@send.grf.xyz</code>
+
+    ❗️ <b>잔액이 있는 동안에는 전송 시 위 이메일을 반드시 사용해야 합니다</b>.
+
+    🆓 아래에서 확인하면 <b>{} 테스트 전송</b> 잔액이 제공됩니다.
+
+    /stars 명령어를 보내어 확인 없이 더 많은 전송을 구매하세요.
+
+    ⚠️ <b>잔액이 0일 때 봇은 정상적으로 작동하고 무료로 유지됩니다. 그러나 각 전송 시 다시 확인이 필요합니다</b>.
+  premium: |
+    추가하기
+  premium_agreed: |
+    ❗️ <b>아래 이메일을 승인된 상태로 유지하세요</b>:
+    <code>{}@send.grf.xyz</code>
+
+    <b>각 스타는 {} 전송을 할 수 있게 해줍니다</b>.
+    구매할 수량을 아래에서 선택하세요.
+
+    지금 구매하고 싶지 않다면 <code>건너뛰기</code>를 클릭하세요.
+  btn_stars: 검증 없이 보내기
+  payment_title: "{} 보내기"
+  payment_description: "{} 별의 가치가 있는 결제, 주소 {}@send.grf.xyz에서 {} 건의 전송에 해당합니다."

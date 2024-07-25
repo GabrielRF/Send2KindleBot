@@ -103,3 +103,36 @@ id:
   btn_help: Help and FAQ
   btn_info: More info
   btn_donate: Donasi
+  balance: 🌟 Kiriman langsung yang tersisa
+  terms_agree: ✅ Setuju
+  terms_disagree: ❌ Tidak setuju
+  terms_cancel: ↪️ Lewati
+  premium_intro: |
+    <b>@Send2KindleBot</b>
+
+    🤯 <b>Bayar dengan Bintang Telegram ⭐️ dan kirim tanpa verifikasi email!</b>
+
+    Tambahkan alamat di bawah ini sebagai <i>email yang disetujui untuk mengirim dokumen pribadi</i> di akun Amazon Anda.
+    <code>{}@send.grf.xyz</code>
+
+    ❗️ <b>Selama Anda memiliki saldo, kiriman akan wajib menggunakan email di atas</b>.
+
+    🆓 Dengan mengonfirmasi di bawah ini, saldo <b>{} kiriman uji</b> akan tersedia.
+
+    Beli lebih banyak kiriman tanpa konfirmasi dengan mengirimkan perintah /stars.
+
+    ⚠️ <b>Bot akan berfungsi normal dan tetap gratis saat saldo mencapai 0. Namun, bot akan memerlukan verifikasi untuk setiap kiriman lagi</b>.
+  premium: |
+    Untuk menambah
+  premium_agreed: |
+    ❗️ <b>Ingat untuk menjaga email di bawah ini tetap disetujui</b>:
+    <code>{}@send.grf.xyz</code>
+
+    <b>Setiap bintang akan memungkinkan Anda melakukan {} kiriman</b>.
+    Pilih di bawah jumlah yang ingin Anda beli.
+
+    Jika Anda tidak ingin membeli sekarang, klik <code>Lewati</code>.
+  btn_stars: Kirim tanpa verifikasi
+  payment_title: "{} mengirim"
+  payment_description: "Pembayaran senilai {} bintang, setara dengan {} kiriman dari alamat {}@send.grf.xyz."
+

@@ -91,22 +91,53 @@ pt-br:
     Documentos enviados por link são limitados a 50MB (antes da compressão).
     Documentos enviados diretamente ao bot são limitados a 20MB.
   info: |
-    Bot em desenvolvimento constante!
+    <b>Bot em desenvolvimento constante!</b> 🤖
     Caso tenha perguntas ou sugestões, por favor, fale comigo!
 
-    Twitter: @GabRF (http://twitter.com/GabRF)
-    Telegram: @GabrielRF
-    Website: http://grf.xyz/
+    <b>Telegram</b>: @GabrielRF
+    <b>Twitter</b>: @GabRF (http://twitter.com/GabRF)
+    <b>Website</b>: http://grf.xyz/
 
-    Colabore com o projeto:
+    <b>Colabore com o projeto</b>: 💰
     PIX send2kindlebot@gabrf.com
 
   tos: |
     Clique no link abaixo e leia os <b>Termos de Serviço</b>:
     https://github.com/GabrielRF/Send2KindleBot/blob/master/TermsOfService.md
   btn_start: Iniciar e Ver emails
+  btn_stars: Comprar envios diretos
   btn_send: Enviar arquivos
   btn_tos: Termos de Uso
   btn_help: Ajuda e FAQ
   btn_info: Informações
   btn_donate: Envie um PIX
+  balance: 🌟 Envios diretos restantes
+  terms_agree: ✅ Aceito
+  terms_disagree: ❌ Não aceito
+  terms_cancel: ↪️ Pular
+  premium_intro: |
+    <b>@Send2KindleBot</b>
+
+    🤯 <b>Pague com Telegram Stars ⭐️ e faça envios sem a verificação por e-mail!</b>
+
+    Adicione o endereço abaixo como <i>e-mail aprovado para o envio de documentos pessoais</i> em sua conta Amazon.
+    <code>{}@send.grf.xyz</code>
+
+    ❗️ <b>Enquanto houver saldo, obrigatoriamente os envios usarão o e-mail acima</b>.
+
+    🆓 Ao confirmar abaixo, será disponibilizado um saldo de <b>{} envios para testes</b>.
+
+    Compre mais envios que não exigem confirmação enviando o comando /stars.
+
+    ⚠️ <b>O bot funcionará normalmente e seguirá sem custo quando o saldo estiver em 0. Porém, voltará a exigir a verificação em cada envio</b>.
+  premium_agreed: |
+    ❗️ <b>Lembre-se de manter o e-mail abaixo como aprovado</b>:
+    <code>{}@send.grf.xyz</code>
+
+    <b>Cada estrela permitirá que você faça {} envios</b>.
+    Escolha abaixo a quantidade que deseja comprar.
+
+    Caso não queira comprar agora, clique em <code>Pular</code>.
+  premium_quantity: "⭐️{}"
+  payment_title: "{} envios"
+  payment_description: "Pagamento no valor de {} stars, correspondendo a {} envios, tendo como origem o endereço {}@send.grf.xyz."
