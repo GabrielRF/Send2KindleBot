@@ -951,5 +951,5 @@ def getMessage():
     return "!", 200
 
 if __name__ == "__main__":
-    bot.infinity_polling()
-    #server.run(host="0.0.0.0", port=443, ssl_context=(f'{CERT}', f'{PRIVKEY}'))
+    # bot.infinity_polling()
+    server.run(host="0.0.0.0", port=443, ssl_context=(f'{CERT}', f'{PRIVKEY}'))
