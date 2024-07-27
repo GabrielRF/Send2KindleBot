@@ -604,10 +604,7 @@ def add_email(message):
         text = None
 
     if text in cmds:
-        msg = send_message(
-            message.from_user.id, i18n.t("bot.askemail", locale=user_lang)
-        )
-        bot.register_next_step_handler(msg, add_email)
+        start(message)
         return 0
     elif "/" not in message.text:
         if validate_email(message.text.lower()) and check_domain(message.text.lower()):
@@ -700,10 +697,7 @@ def get_file(message):
         )
     elif message.content_type == "text":
         if message.text.lower() in cmds:
-            send_message(
-                message.from_user.id,
-                i18n.t("bot.askfile", locale=user_lang),
-            )
+            start(message)
             return 0
         elif '.onion' in message.text.lower():
             bot.delete_message(message.from_user.id, message.message_id)
@@ -957,5 +951,5 @@ def getMessage():
     return "!", 200
 
 if __name__ == "__main__":
-    bot.infinity_polling()
-    #server.run(host="0.0.0.0", port=443, ssl_context=(f'{CERT}', f'{PRIVKEY}'))
+    # bot.infinity_polling()
+    server.run(host="0.0.0.0", port=443, ssl_context=(f'{CERT}', f'{PRIVKEY}'))
