@@ -211,7 +211,7 @@ def set_menus(user_id, lang='en-us'):
             telebot.types.BotCommand("/stars", i18n.t("bot.btn_stars", locale=lang)),
             telebot.types.BotCommand("/send", i18n.t("bot.btn_send", locale=lang)),
             telebot.types.BotCommand("/tos", i18n.t("bot.btn_tos", locale=lang)),
-            telebot.types.BotCommand("/donate", i18n.t("bot.btn_donate", locale=lang)),
+            #telebot.types.BotCommand("/donate", i18n.t("bot.btn_donate", locale=lang)),
             telebot.types.BotCommand("/help", i18n.t("bot.btn_help", locale=lang)),
             telebot.types.BotCommand("/info", i18n.t("bot.btn_info", locale=lang)),
         ], scope=types.BotCommandScopeChat(user_id))
@@ -227,7 +227,7 @@ def set_buttons(lang='en-us'):
         i18n.t("bot.btn2", locale=lang), callback_data="/email"
     )
     btn_donate = types.InlineKeyboardButton(
-        i18n.t("bot.btn_donate", locale=lang), callback_data="/donate"
+        i18n.t("bot.btn_stars", locale=lang), callback_data="/stars"
     )
     button.row(btn1, btn2)
     button.row(btn_donate)
@@ -289,7 +289,7 @@ def cmd_refund(message):
         bot.send_message(
             ADMIN,
             f'💸 <b>Transação cancelada</b>\n' +
-            f'<blockquote expandable>\n' +
+            f'<blockquote expandable>' +
             f'<b>Usuário</b>: <code>{user_id}</code>\n' +
             f'<b>ID</b>: {transaction}\n' +
             f'</blockquote>',
@@ -309,14 +309,32 @@ def cmd_emails(message):
         return
     if ' ' not in message.text:
         bot.delete_message(message.from_user.id, message.message_id)
-    data = select_user(db, table, message.text.split(' ')[1], "*")
-    bot.send_message(
-        ADMIN,
-        f'🪪 <code>{data[1]}</code>\n<blockquote expandable>' +
-        f'<code>📤 {data[2]}\n📥 {data[3]}</code>\n\n🕐 {data[4]}\n🕹 {data[5]}' +
-        '</blockquote>',
-        parse_mode='HTML'
+        return
+
+    conn = sqlite3.connect(db)
+    cursor = conn.cursor()
+    select_user(db, table, message.from_user.id, "*")
+    aux = (
+        f'SELECT * FROM "{table}" WHERE chatid="{message.text.split()[1]}"'
     )
+    cursor.execute(aux)
+    data = cursor.fetchone()
+    conn.close()
+
+    if data:
+        bot.send_message(
+            ADMIN,
+            f'🪪 <code>{data[1]}</code>\n<blockquote expandable>' +
+            f'<code>📤 {data[2]}\n📥 {data[3]}</code>\n\n🕐 {data[4]}\n🕹 {data[5]}' +
+            '</blockquote>',
+            parse_mode='HTML'
+        )
+    else:
+        bot.send_message(
+            ADMIN,
+            '<b>Não encontrado</b>',
+            parse_mode='HTML'
+        )
 
 @bot.message_handler(commands=["relatorio"])
 def cmd_relatorio(message):
@@ -380,7 +398,7 @@ def tos(message):
         disable_web_page_preview=True,
     )
 
-@bot.message_handler(commands=["donate", "pix"])
+#@bot.message_handler(commands=["donate", "pix"])
 def tos(message):
     user_lang = (message.from_user.language_code or "en-us").lower()
     bot.send_photo(
@@ -400,8 +418,13 @@ def info(message):
         disable_web_page_preview=True,
     )
 
+@bot.callback_query_handler(lambda q: q.data == "/stars")
 @bot.message_handler(commands=["stars"])
 def cmd_premium(message):
+    try:
+        bot.answer_callback_query(message.id)
+    except:
+        pass
     user_lang = (message.from_user.language_code or "en-us").lower()
     terms_btn = types.InlineKeyboardMarkup()
     btn1 = types.InlineKeyboardButton(
@@ -453,22 +476,22 @@ def agreed(call):
 
     values_btn = types.InlineKeyboardMarkup()
     btn5 = types.InlineKeyboardButton(
-        '⭐️ 5', callback_data="5"
+        '⭐️ 5', callback_data="5", pay=True
     )
     btn10 = types.InlineKeyboardButton(
-        '⭐️ 10', callback_data="10"
+        '⭐️ 10', callback_data="10", pay=True
     )
     btn25 = types.InlineKeyboardButton(
-        '⭐️ 25', callback_data="25"
+        '⭐️ 25', callback_data="25", pay=True
     )
     btn50 = types.InlineKeyboardButton(
-        '⭐️ 50', callback_data="50"
+        '⭐️ 50', callback_data="50", pay=True
     )
     btn75 = types.InlineKeyboardButton(
-        '⭐️ 75', callback_data="75"
+        '⭐️ 75', callback_data="75", pay=True
     )
     btn100 = types.InlineKeyboardButton(
-        '⭐️ 100', callback_data="100"
+        '⭐️ 100', callback_data="100", pay=True
     )
     btn_cancel = types.InlineKeyboardButton(
         i18n.t("bot.terms_cancel", locale=user_lang), callback_data="/disagree"
@@ -526,6 +549,7 @@ def got_payment(message):
 @bot.message_handler(commands=["start"])
 def start(message):
     user_lang = (message.from_user.language_code or "en-us").lower()
+    print(user_lang)
     button, button2 = set_buttons(user_lang)
     set_menus(message.from_user.id, user_lang)
     data = select_user(db, table, message.from_user.id, "*")
@@ -822,7 +846,7 @@ def ask_conv(call):
         bot.register_next_step_handler(msg, add_email)
         return 0
 
-@bot.callback_query_handler(lambda q: q.data == "/donate")
+#@bot.callback_query_handler(lambda q: q.data == "/donate")
 def callback_donate(call):
     user_lang = (call.from_user.language_code or "en-us").lower()
     bot.send_photo(
