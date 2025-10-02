@@ -125,7 +125,7 @@ def set_buttons(lang="en-us"):
 def check_domain(email):
     domain = email.split('@')[-1]
     try:
-        dns.resolver.resolve(domain, 'NS')
+        dns.resolver.resolve(domain)
     except:
         return False
     return True
