@@ -104,7 +104,7 @@ def check_domain(email):
         return False
     domain = email.split('@')[-1]
     try:
-        dns.resolver.resolve(domain, 'NS')
+        dns.resolver.resolve(domain)
     except:
         return False
     return True
