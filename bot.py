@@ -103,11 +103,14 @@ def check_domain(email):
     if 'send.grf.xyz' in email:
         return False
     domain = email.split('@')[-1]
-    try:
-        dns.resolver.resolve(domain)
-    except:
-        return False
-    return True
+    record_types = ['A', 'AAAA', 'SOA', 'NS', 'MX']
+    for rtype in record_types:
+        try:
+            dns.resolver.resolve(domain, rtype)
+            return True
+        except:
+            continue
+    return False
 
 def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True, reply_markup=None):
     try:

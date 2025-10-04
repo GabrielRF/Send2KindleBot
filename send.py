@@ -124,11 +124,14 @@ def set_buttons(lang="en-us"):
 
 def check_domain(email):
     domain = email.split('@')[-1]
-    try:
-        dns.resolver.resolve(domain)
-    except:
-        return False
-    return True
+    record_types = ['A', 'AAAA', 'SOA', 'NS', 'MX']
+    for rtype in record_types:
+        try:
+            dns.resolver.resolve(domain, rtype)
+            return True
+        except:
+            continue
+    return False
 
 def send_file(rbt, method, properties, data):
     rbt.basic_ack(delivery_tag=method.delivery_tag)
