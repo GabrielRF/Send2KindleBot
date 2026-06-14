@@ -67,11 +67,21 @@ handler_info = logging.handlers.TimedRotatingFileHandler(
 )
 logger_info.addHandler(handler_info)
 
+def get_queue_size(rabbit, queue):
+    queue_info = rabbit.queue_declare(queue, passive=True)
+    return queue_info.method.message_count
+
+def get_queue_emoji(queue_sum):
+    emoji = "📚"
+    if 20 <= queue_sum < 40:
+        emoji = "📒"
+    elif 40 <= queue_sum < 60:
+        emoji = "📙"
+    elif queue_sum >= 60:
+        emoji = "📕"
+    return emoji
+
 def send_mail(data, subject, lang, file_name):
-    msg_sent = send_message(
-        data[1], str(u"\U0001F5DE") + i18n.t("bot.sendingfile",
-        locale=lang), parse_mode="HTML",
-    )
     rabbitmq_con = pika.BlockingConnection(pika.URLParameters(rabbitmqcon))
     #rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     rabbit = rabbitmq_con.channel()
@@ -84,8 +94,17 @@ def send_mail(data, subject, lang, file_name):
         queue = 'Send2KindleBotSlow'
     else:
         queue = 'Send2KindleBotFast'
+
+    fast = get_queue_size(rabbit, "Send2KindleBotFast")
+    slow = get_queue_size(rabbit, "Send2KindleBotSlow")
+    queue_sum = int(fast) + int(slow)
+    emoji = get_queue_emoji(queue_sum)
+
+    msg_sent = send_message(
+        data[1], f'{emoji} {i18n.t("bot.sendingfile", locale=lang)}', parse_mode="HTML",
+    )
     file_name = file_name.replace('\n', '')
-    msg = (f'{{"from":"{data[2]}", "to":"{data[3]}", "subject":"{subject}", ' 
+    msg = (f'{{"from":"{data[2]}", "to":"{data[3]}", "subject":"{subject}", '
         f'"user_id":"{data[1]}", "file_url":"{data[7]}", "lang":"{lang}", '
         f'"message_id":"{msg_sent.message_id}", "file_name":"{file_name}"}}')
     rabbit.basic_publish(
