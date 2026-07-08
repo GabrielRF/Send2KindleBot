@@ -1,10 +1,13 @@
 import anuncieaqui
 import configparser
+import datetime
 import dns.resolver
 import ebooklib
 import i18n
 import pika
 import json
+import logging
+import logging.handlers
 import os
 import random
 import signal
@@ -29,12 +32,24 @@ config.sections()
 config.read(BOT_CONFIG_FILE)
 TOKEN = config["DEFAULT"]["TOKEN"]
 rabbitmqcon = config["RABBITMQ"]["CONNECTION_STRING"]
+LOG_INFO_FILE = config["DEFAULT"]["logfile"]
 
 effects = [
     5107584321108051014,
     5104841245755180586,
     5046509860389126442
 ]
+
+logger_info = logging.getLogger("InfoLogger")
+logger_info.setLevel(logging.INFO)
+handler_info = logging.handlers.TimedRotatingFileHandler(
+    LOG_INFO_FILE,
+    when="midnight",
+    interval=1,
+    backupCount=7,
+    encoding="utf-8",
+)
+logger_info.addHandler(handler_info)
 
 def send_message(chatid, text, parse_mode="HTML", disable_web_page_preview=True, reply_markup=None, message_effect_id=None):
     try:
@@ -155,6 +170,8 @@ def send_file(rbt, method, properties, data):
     else:
         msg["From"] = f"{data['from']}"
 
+    # logger_info.info(str(datetime.datetime.now()) + " SEND:\t" + data['user_id'])
+
     msg["To"] = f"{data['to']}"
     msg["Date"] = formatdate(localtime=True)
     msg["Subject"] = f"{data['subject']}"
@@ -247,6 +264,8 @@ def send_file(rbt, method, properties, data):
         )
     if saldo:
         premium.update_saldo_premium(data['user_id'], saldo-1)
+    logger_info.info(str(datetime.datetime.now()) + " SENT: " + data['user_id'] + " " + data['message_id'] + " " + os.path.basename(files))
+    rabbit.stop_consuming()
 
 if __name__ == "__main__":
     i18n.load_path.append("i18n")

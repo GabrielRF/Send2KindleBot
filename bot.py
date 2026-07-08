@@ -73,11 +73,12 @@ def get_queue_size(rabbit, queue):
 
 def get_queue_emoji(queue_sum):
     emoji = "📚"
-    if 20 <= queue_sum < 40:
+    BASE = 20
+    if BASE*2 <= queue_sum < BASE*4:
         emoji = "📒"
-    elif 40 <= queue_sum < 60:
+    elif BASE*4 <= queue_sum < BASE*6:
         emoji = "📙"
-    elif queue_sum >= 60:
+    elif queue_sum >= BASE*6:
         emoji = "📕"
     return emoji
 
