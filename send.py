@@ -271,7 +271,9 @@ if __name__ == "__main__":
     i18n.load_path.append("i18n")
     i18n.set("fallback", "en-us")
     bot = telebot.TeleBot(TOKEN)
-    rabbitmq_con = pika.BlockingConnection(pika.URLParameters(rabbitmqcon))
+    params = pika.URLParameters(rabbitmqcon)
+    params.blocked_connection_timeout = 3
+    rabbitmq_con = pika.BlockingConnection(params)
     #rabbitmq_con = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     rabbit = rabbitmq_con.channel()
     rabbit.basic_qos(prefetch_count=1)
