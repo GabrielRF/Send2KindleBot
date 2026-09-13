@@ -1,4 +1,3 @@
-import anuncieaqui
 import configparser
 import datetime
 import dns.resolver
@@ -240,20 +239,15 @@ def send_file(rbt, method, properties, data):
         msg = f'{msg}\n<b>{i18n.t("bot.balance", locale=data["lang"])}</b>: {saldo - 1}'
     #if 'pt-br' in data['lang'] and not saldo:
     if not saldo:
-        try:
-            anuncieaqui.send_message(TOKEN, data['user_id'], msg, random.choice(effects))
-        except:
-            send_message(
-                data['user_id'],
-                msg,
-                parse_mode="HTML",
-                reply_markup=button,
-                disable_web_page_preview=True,
-                message_effect_id=random.choice(effects)
-            )
+        send_message(
+            data['user_id'],
+            msg,
+            parse_mode="HTML",
+            reply_markup=button,
+            disable_web_page_preview=True,
+            message_effect_id=random.choice(effects)
+        )
     else:
-        if not random.randint(0,7):
-            msg = f'{msg}\n\n/donate'
         send_message(
             data['user_id'],
             msg,
