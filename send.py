@@ -93,7 +93,7 @@ def convert_format(file_name_original, user_id):
                 "kindle",
                 "--dont-grayscale",
                 "--comic-image-size",
-                "1200x1600",
+                "1264x1680",
                 "--output-format",
                 "jpg"
             ]
