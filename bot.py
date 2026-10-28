@@ -26,7 +26,7 @@ from weasyprint import HTML
 from telebot import types
 from validate_email import validate_email
 
-i18n.load_path.append("i18n")
+i18n.load_path.append("/root/Git/Send2KindleBot/i18n")
 i18n.set("fallback", "en-us")
 
 config = configparser.ConfigParser()
