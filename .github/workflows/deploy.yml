@@ -16,7 +16,7 @@ jobs:
         username: ${{ secrets.USER }}
         privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
         command: |
-          cd /usr/local/bin/Send2KindleBot/
+          cd /root/Git/Send2KindleBot
           git pull origin master
           systemctl restart tg_send2kindlebot
           systemctl restart tg_send2kindleFast*
