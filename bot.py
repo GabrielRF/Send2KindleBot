@@ -150,18 +150,10 @@ def epubauthors(file_path):
 def add_user(db, table, chatid):
     conn = sqlite3.connect(db)
     cursor = conn.cursor()
-    aux = (
-        """INSERT INTO {} (chatid, remetente, destinatario, criacao, usado)
-        VALUES ('{}', '', '',
-        '{}', '{}')"""
-    ).format(
-        table,
-        chatid,
-        str(datetime.datetime.now()),
-        str(datetime.datetime.now()),
-    )
-    logger_info.info(str(datetime.datetime.now()) + "\tUSER:\t" + str(chatid))
-    cursor.execute(aux)
+    now_str = str(datetime.datetime.now())
+    query = f"INSERT INTO {table} (chatid, remetente, destinatario, criacao, usado) VALUES (?, '', '', ?, ?)"
+    logger_info.info(now_str + "\tUSER:\t" + str(chatid))
+    cursor.execute(query, (str(chatid), now_str, now_str))
     conn.commit()
     conn.close()
 
